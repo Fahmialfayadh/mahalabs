@@ -39,3 +39,29 @@ if (heroTitle) {
         span.style.animationDelay = `${index * 0.1}s`;
     });
 }
+
+// For project titles wave effect
+const titleTexts = document.querySelectorAll('.title-text');
+let globalIndex = 0;
+titleTexts.forEach(titleText => {
+    const children = Array.from(titleText.childNodes);
+    titleText.innerHTML = '';
+    children.forEach(child => {
+        if (child.nodeType === Node.TEXT_NODE) {
+            const text = child.textContent;
+            text.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                if (char !== ' ') {
+                    span.classList.add('letter-wave');
+                    span.style.animationDelay = `${globalIndex * 0.1}s`;
+                    globalIndex++;
+                }
+                span.style.display = 'inline-block';
+                titleText.appendChild(span);
+            });
+        } else {
+            titleText.appendChild(child);
+        }
+    });
+});
