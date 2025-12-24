@@ -340,16 +340,6 @@ body {
 .title-text {
   display: inline-block;
 }
-.letter-wave {
-  animation: wave 2s ease-in-out infinite;
-}
-@keyframes wave {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-3px) rotate(-1deg); }
-  50% { transform: translateY(0) rotate(0deg); }
-  75% { transform: translateY(3px) rotate(1deg); }
-}
-
 .font-outfit {
   font-family: 'DM Serif  ', sans-serif !important;
 }
