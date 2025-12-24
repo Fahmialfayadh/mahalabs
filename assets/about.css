@@ -1,0 +1,253 @@
+/* About Page Specific Styles */
+
+.about-hero {
+    margin-top: 10vh;
+    padding-bottom: 40px;
+}
+
+.about-desc {
+    max-width: 700px;
+}
+
+.float-top {
+    top: 0;
+}
+
+.float-offset {
+    top: 20px;
+}
+
+.btn-contact {
+    font-size: 14px;
+    padding: 10px 24px;
+}
+
+/* Mobile adjustments if needed */
+@media (max-width: 768px) {
+    .about-hero {
+        margin-top: 4vh;
+    }
+}
+
+/* Contact Section Styles */
+.contact {
+    padding: 100px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-left {
+    padding-right: 20px;
+}
+
+.contact-left h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    font-family: 'Outfit', sans-serif;
+    color: #1e293b;
+}
+
+.contact-left h2 .accent {
+    background: linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #a855f7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.contact-lead {
+    font-size: 1.1rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 1.05rem;
+    color: #334155;
+    font-weight: 500;
+}
+
+.detail-item i {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50%;
+    color: #6366f1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+}
+
+.social-links a {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50%;
+    color: #64748b;
+    font-size: 18px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    transform: translateY(-4px);
+    color: #6366f1;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
+}
+
+/* Form Styles */
+.glass-form {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.input-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.contact-right .row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.contact-right .row .input-group {
+    margin-bottom: 0;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    font-family: inherit;
+    font-size: 1rem;
+    color: #334155;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #6366f1;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.btn.primary {
+    background: #0f172a;
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 99px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn.primary.full-width {
+    width: 100%;
+}
+
+.btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
+    background: #1e293b;
+}
+
+/* Mobile Responsiveness for Contact */
+@media (max-width: 900px) {
+    .contact {
+        padding: 60px 0;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .contact-left {
+        text-align: center;
+        padding-right: 0;
+    }
+
+    .contact-left h2 {
+        font-size: 2.4rem;
+    }
+
+    .contact-details {
+        align-items: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .glass-form {
+        padding: 24px;
+    }
+
+    .contact-right .row {
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 0;
+    }
+
+    .contact-right .row .input-group {
+        margin-bottom: 20px;
+    }
+}
+
+/* Disable animations for headings in About page */
+.lab-card h5 {
+    animation: none;
+    transition: none;
+}
+
+.lab-card:hover h5 {
+    transform: none;
+    color: inherit;
+}

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MahaLabs</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@400;500;700&family=Roboto+Slab:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg px-5">
+    <a class="navbar-brand fw-semibold d-flex align-items-center" href="index.html">
+      <img src="assets/logo2.png" alt="Logo" width="30" height="30" class="me-2 rounded-circle">
+      MahaLabs
+    </a>
+    <div class="ms-auto">
+      <a class="me-3 text-decoration-none text-dark" href="index.html">Experiments</a>
+      <a class="text-decoration-none text-muted" href="about.html">About</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container text-center">
+      <h1 class="fw-medium">Explore experimental ideas</h1>
+
+      <!-- Floating decorative elements -->
+      <div class="hero-float float-1"></div>
+      <div class="hero-float float-2"></div>
+
+      <p class="text-muted">
+        AI, Health, Society, LifeStyle, Economics, and more.
+      </p>
+
+      <div class="search-wrapper">
+        <input class="form-control search-input" placeholder="Search experiments...">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="container mb-5" id="featured-section">
+    <h5 class="mb-4 text-muted text-center">Featured experiments</h5>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6 col-xl-3">
+        <div class="lab-card h-100 d-flex flex-column" data-title="MahaStroke"
+          data-desc="Stroke risk prediction, behavioral analysis, and long-term tracking."
+          data-image="assets/mahastroke.png" data-link="https://strokecalc.up.railway.app/">
+          <div class="accent"></div>
+          <span class="badge badge-lab mb-2">AI · Health</span>
+          <h5>MahaStroke</h5>
+          <p class="text-muted">
+            Stroke risk prediction base on your health data.
+          </p>
+          <small class="text-muted mt-auto">Status: Active</small>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-3">
+        <div class="lab-card h-100 d-flex flex-column" data-title="MahaInsight"
+          data-desc="Controversial, data-driven analysis against mainstream narratives."
+          data-image="assets/project_preview.png" data-link="#" data-status="coming-soon">
+          <div class="accent"></div>
+          <span class="badge badge-lab mb-2">Data · Society</span>
+          <h5>MahaInsight</h5>
+          <p class="text-muted">
+            Controversial, data-driven analysis against mainstream narratives.
+          </p>
+          <small class="text-muted mt-auto">Coming soon</small>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-3">
+        <div class="lab-card h-100 d-flex flex-column" data-title="MahaBudget"
+          data-desc="A smart budget tracker where you can chat with AI to record, manage, and review your expenses."
+          data-image="assets/project_preview.png" data-link="#" data-status="beta">
+          <div class="accent"></div>
+          <span class="badge badge-lab mb-2">AI · Life</span>
+          <h5>MahaBudget</h5>
+          <p class="text-muted">
+            A smart budget tracker where you can chat with AI to record, manage, and review your expenses,
+            with the AI acting as a friendly bridge between you and the database
+          </p>
+          <small class="text-muted mt-auto">Status: Beta</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACKGROUND ORBS -->
+  <div class="bg-orbs">
+    <span class="orb blue"></span>
+    <span class="orb purple"></span>
+    <span class="orb cyan"></span>
+  </div>
+
+
+  <!-- ALL EXPERIMENTS -->
+  <section class="container mb-5" id="all-experiments">
+    <h5 class="mb-4 text-muted text-center">All experiments</h5>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6 col-xl-3">
+        <div class="lab-card h-100 d-flex flex-column" data-title="MahaStroke"
+          data-desc="Stroke risk prediction, behavioral analysis, and long-term tracking."
+          data-image="assets/mahastroke.png" data-link="https://strokecalc.up.railway.app/" data-status="active">
+          <div class="accent"></div>
+          <span class="badge badge-lab mb-2">AI · Health</span>
+          <h5>MahaStroke</h5>
+          <p class="text-muted">
+            Stroke risk prediction base on your health data.
+          </p>
+          <small class="text-muted mt-auto">Status: Active</small>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-3">
+        <div class="lab-card h-100 d-flex flex-column" data-title="MahaInsight"
+          data-desc="Controversial, data-driven analysis against mainstream narratives."
+          data-image="assets/project_preview.png" data-link="#" data-status="beta">
+          <div class="accent"></div>
+          <span class="badge badge-lab mb-2">Data · Society</span>
+          <h5>MahaInsight</h5>
+          <p class="text-muted">
+            Controversial, data-driven analysis against mainstream narratives.
+          </p>
+          <small class="text-muted mt-auto">Status: Beta</small>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-3">
+        <div class="lab-card h-100 d-flex flex-column" data-title="MahaBudget"
+          data-desc="A budget tracker with AI integration, allowing users to manage expenses through conversational input."
+          data-image="assets/project_preview.png" data-link="#" data-status="coming-soon">
+          <div class="accent"></div>
+          <span class="badge badge-lab mb-2">AI · Life</span> <!-- Added badge for consistency -->
+          <h5>MahaBudget</h5>
+          <p class="text-muted">
+            A budget tracker with AI integration, allowing users to manage expenses through conversational input.
+          </p>
+          <small class="text-muted mt-auto">Coming soon</small>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-3">
+        <div class="lab-card h-100 d-flex flex-column" data-title="MahaDiscipline"
+          data-desc="Meet your sadistic AI accountability partner that tracks your reliability score."
+          data-image="assets/project_preview.png" data-link="#" data-status="beta">
+          <div class="accent"></div>
+          <span class="badge badge-lab mb-2">AI · Life</span>
+          <h5>MahaDiscipline</h5>
+          <p class="text-muted">
+            Meet your sadistic AI accountability partner
+            that tracks your reliability score and ruthlessly roasts you
+            whenever you break a promise.
+          </p>
+          <small class="text-muted mt-auto">Status: Beta</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+
+<!-- Project Preview Modal -->
+<div class="modal-overlay" id="projectModal">
+  <div class="modal-content">
+    <button class="close-btn" id="closeModal">&times;</button>
+
+    <div class="modal-image-wrapper">
+      <img src="" alt="Project Preview" class="modal-image" id="modalImage">
+      <div id="modalOverlay" class="modal-status-overlay"></div>
+    </div>
+
+    <h3 class="fw-bold mb-2" id="modalTitle">Project Title</h3>
+    <p class="text-muted mb-4" id="modalDesc">Project description goes here.</p>
+
+    <a href="#" class="btn-view" id="modalLink">View Website</a>
+  </div>
+</div>
+
+<script src="assets/lab.js"></script>
+
+</body>
+
+</html>

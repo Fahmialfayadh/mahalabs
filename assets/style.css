@@ -1,0 +1,543 @@
+:root {
+  --bg-main: radial-gradient(1200px circle at 20% 10%,
+      #eef2ff,
+      #fafafa 40%,
+      #fdfdfd);
+
+  --accent-blue: #6366f1;
+  --accent-purple: #a855f7;
+  --accent-cyan: #79edff;
+  /* Cyan color */
+
+  --card-bg: rgba(255, 255, 255, 0.75);
+  --card-border: rgba(0, 0, 0, 0.06);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 48px;
+}
+
+.logo {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.bg-orbs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+nav a {
+  margin-left: 24px;
+  text-decoration: none;
+  color: #444;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero {
+  text-align: center;
+  margin-top: 15vh;
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: 56px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #a855f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero p {
+  font-size: 18px;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+}
+
+.search-wrapper {
+  margin-top: 40px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.4s forwards;
+  position: relative;
+  display: inline-block;
+}
+
+.search-input {
+  width: 480px;
+  padding: 18px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  color: #334155;
+}
+
+.search-input:hover {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.1);
+  transform: translateY(-1px);
+}
+
+.search-input:focus {
+  background: white;
+  border-color: #6366f1;
+  box-shadow:
+    0 0 0 4px rgba(99, 102, 241, 0.1),
+    0 12px 40px rgba(99, 102, 241, 0.15);
+  transform: translateY(-2px);
+  width: 500px;
+  /* Slight expansion on focus */
+}
+
+.search-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #818cf8;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus+.search-icon {
+  color: #4f46e5;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.hero-float {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(8px);
+  opacity: 0.6;
+  z-index: -1;
+  animation: float 6s ease-in-out infinite alternate;
+}
+
+.float-1 {
+  width: 60px;
+  height: 60px;
+  background: #a855f7;
+  top: 10px;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.float-2 {
+  width: 40px;
+  height: 40px;
+  background: #6366f1;
+  top: 40px;
+  right: 25%;
+  animation-delay: 1.5s;
+}
+
+/* Ensure container has relative positioning for these absolute elements */
+.hero .container {
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 48px;
+}
+
+.card {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: transform .2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.tag {
+  font-size: 12px;
+  color: #777;
+}
+
+.ghost {
+  border: 2px dashed #ddd;
+  background: transparent;
+}
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-main);
+  overflow-x: hidden;
+}
+
+.hero {
+  padding: 120px 0 60px;
+  text-align: center;
+}
+
+.search-input input {
+  background: rgba(255, 255, 255, .85);
+  border: 1px solid rgba(0, 0, 0, .08);
+  backdrop-filter: blur(12px);
+  transition: all .25s ease;
+}
+
+.search-input input:focus {
+  box-shadow:
+    0 0 0 6px rgba(99, 102, 241, .15),
+    0 25px 50px rgba(0, 0, 0, .15);
+}
+
+
+.lab-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 24px;
+  padding: 28px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.lab-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.lab-card .accent {
+  width: 48px;
+  height: 4px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.lab-card h5 {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+  color: #1e293b;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
+  transform-origin: left center;
+  /* Standby Animation */
+  animation: titleFloat 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleFloat {
+  0% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.font-outfit {
+  font-family: 'Outfit', sans-serif !important;
+}
+
+.lab-card:hover h5 {
+  color: var(--accent-blue);
+  transform: scale(1.05) translateX(4px);
+}
+
+.lab-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+
+.badge-lab {
+  background: #636363;
+  opacity: 0.5;
+  color: rgb(255, 247, 247);
+  font-weight: 500;
+}
+
+.bg-orbs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+.orb {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: .35;
+  animation: float 18s infinite alternate ease-in-out;
+}
+
+.orb.blue {
+  background: var(--accent-blue);
+  top: -80px;
+  left: -120px;
+}
+
+.orb.purple {
+  background: var(--accent-purple);
+  top: 30%;
+  right: -140px;
+  animation-delay: 4s;
+}
+
+.orb.cyan {
+  background: var(--accent-cyan);
+  bottom: -120px;
+  left: 30%;
+  animation-delay: 8s;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(0)
+  }
+
+  to {
+    transform: translateY(60px)
+  }
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: white;
+  padding: 32px;
+  border-radius: 24px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
+  transform: scale(0.9) translateY(20px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+}
+
+.modal-overlay.active .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+.modal-image {
+  width: 100%;
+  height: 300px;
+  background-color: #f0f0f0;
+  border-radius: 16px;
+  object-fit: cover;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.btn-view {
+  display: inline-block;
+  background: black;
+  color: white;
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 99px;
+  font-weight: 500;
+  margin-top: 16px;
+  transition: transform 0.2s;
+}
+
+.btn-view:hover {
+  transform: scale(1.05);
+  color: white;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #555;
+  transition: background 0.2s;
+}
+
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .hero {
+    margin-top: 4vh;
+    /* Significantly reduced from 10vh */
+    padding: 40px 0 20px;
+    /* Reduced padding */
+  }
+
+  .hero h1 {
+    font-size: 38px;
+    /* Bigger than 32px */
+    letter-spacing: -0.5px;
+    padding: 0 16px;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 16px;
+    padding: 0 20px;
+    margin-bottom: 24px;
+  }
+
+  .search-wrapper {
+    margin-top: 16px;
+    /* Closer to text */
+    width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 16px 20px;
+    /* Larger touch target */
+    font-size: 16px;
+  }
+
+  .search-input:focus {
+    width: 100%;
+  }
+
+  .search-icon {
+    right: 36px;
+  }
+
+  .hero-float {
+    display: none;
+  }
+
+  .topbar {
+    padding: 16px;
+  }
+
+  .navbar {
+    padding: 16px !important;
+    /* Ensure navbar isn't too tall/thick */
+    flex-wrap: nowrap;
+    /* Prevent wrapping */
+    align-items: center;
+  }
+
+  .navbar-brand {
+    font-size: 18px;
+    margin-right: auto;
+    /* Push links to right if needed, but structure uses ms-auto on links div */
+  }
+
+  .navbar-brand img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px !important;
+    /* Override bootstrap class if needed, checking index.html uses me-2 */
+  }
+
+  /* Target the link container */
+  .navbar .ms-auto {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    /* Better than margins */
+  }
+
+  .navbar .ms-auto a {
+    font-size: 14px;
+    margin: 0 !important;
+    /* Remove individual margins in favor of gap */
+  }
+
+  /* Loosen card density */
+  .lab-card {
+    padding: 24px;
+    margin-bottom: 16px;
+    /* Space between stacked cards if grid gap isn't enough */
+  }
+
+  .lab-card h5 {
+    font-size: 22px;
+    /* Slightly larger title */
+  }
+
+  .lab-card p {
+    font-size: 16px;
+    /* Readable body text */
+  }
+
+  .modal-content {
+    width: 92%;
+    padding: 24px;
+    margin: 0 auto;
+  }
+}
