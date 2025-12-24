@@ -1,3 +1,25 @@
+// Initialize AOS with staggered animation for cards
+document.addEventListener('DOMContentLoaded', () => {
+    // Add AOS attributes to cards programmatically
+    const cards = document.querySelectorAll('.col-md-6');
+    cards.forEach((col, index) => {
+        if (col.querySelector('.lab-card')) {
+            col.setAttribute('data-aos', 'fade-up');
+            // Stagger delay: 100, 200, 300, 400, then repeat
+            let delay = ((index % 4) + 1) * 100;
+            col.setAttribute('data-aos-delay', delay);
+        }
+    });
+
+    // Initialize AOS after adding attributes
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 50
+    });
+});
+
+// Original DOMContentLoaded listener (we can merge or keep separate, keeping separate for safer replacement)
 document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.lab-card');
     const modal = document.getElementById('projectModal');
