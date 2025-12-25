@@ -99,17 +99,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const searchTerm = e.target.value.toLowerCase();
 
             if (searchTerm.length > 0) {
-                // Hide Featured section for cleaner look
-                featuredSection.style.display = 'none';
+                // 1. Check Featured Section
+                const featuredTitle = featuredSection.querySelector('.title-project')?.textContent.toLowerCase() || '';
+                const featuredDesc = featuredSection.querySelector('p')?.textContent.toLowerCase() || '';
 
-                // Filter All Experiments
+                // Show featured section if it matches
+                if (featuredTitle.includes(searchTerm) || featuredDesc.includes(searchTerm)) {
+                    featuredSection.style.display = 'block';
+                } else {
+                    featuredSection.style.display = 'none';
+                }
+
+                // 2. Filter All Experiments
                 allCards.forEach(card => {
                     const title = card.querySelector('.title-project')?.textContent.toLowerCase() || '';
                     const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
 
                     // The element to hide/show is the card itself (or its anchor wrapper if it exists)
-                    // In the grid, the .lab-card is the grid item unless wrapped.
-                    // If wrapped in <a href...><div class="lab-card"></div></a>, we should hide the <a>.
                     const container = card.closest('a') || card;
 
                     if (title.includes(searchTerm) || desc.includes(searchTerm)) {
@@ -119,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             } else {
-                // Reset view
+                // Reset view: Show everything
                 featuredSection.style.display = 'block';
                 allCards.forEach(card => {
                     const container = card.closest('a') || card;
