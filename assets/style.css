@@ -261,7 +261,7 @@ nav a {
   box-shadow: 0 4px 20px rgba(99, 102, 241, 0.05);
   transition: all 0.3s ease;
   outline: none;
-  color: #334155;
+  color: #334155; 
 }
 
 .search-input:focus {
@@ -966,8 +966,21 @@ body {
     padding: 24px;
   }
 
+  .featured-content {
+    padding: 32px;
+    min-height: 300px;
+  }
+
   .featured-visual {
     height: 250px;
+  }
+
+  #featured-card h5.title-project {
+    font-size: 32px;
+  }
+
+  #featured-card p {
+    font-size: 16px;
   }
 
   .modal-content {
