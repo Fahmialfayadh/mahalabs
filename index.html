@@ -34,82 +34,59 @@
   </nav>
 
   <section class="hero">
-    <div class="container text-center">
-      <h1 class="fw-medium font-archivo-black" id="hero-title">Explore experimental ideas</h1>
+    <div class="container">
+      <div class="hero-split">
+        <div class="hero-content">
+          <h1 class="fw-medium font-archivo-black" id="hero-title">Explore experimental ideas.</h1>
+          <p class="text-muted">
+            AI, Health, Society, LifeStyle, Economics, and more.
+          </p>
 
-      <!-- Floating decorative elements -->
-      <div class="hero-float float-1"></div>
-      <div class="hero-float float-2"></div>
+          <div class="search-wrapper">
+            <input class="form-control search-input" placeholder="Search experiments...">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+        </div>
 
-      <p class="text-muted">
-        AI, Health, Society, LifeStyle, Economics, and more.
-      </p>
-
-      <div class="search-wrapper">
-        <input class="form-control search-input" placeholder="Search experiments...">
-        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
+        <div class="hero-visual">
+          <div class="tech-circle c1"></div>
+          <div class="tech-circle c2"></div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- FEATURED -->
-  <section class="container mb-5" id="featured-section">
-    <h5 class="mb-4 text-muted text-center" data-aos="fade-up" data-aos-delay="100">Featured experiments</h5>
+  <!-- FEATURED -->
+  <section id="featured-section" class="mb-5" data-aos="fade-up">
+    <span class="featured-label text-center d-block mx-auto mb-3">Featured Experiment</span>
 
-    <div class="row g-4 justify-content-center">
-      <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="100">
-        <div class="lab-card h-100 d-flex flex-column" data-title="MahaStroke"
-          data-desc="Stroke risk prediction, behavioral analysis, and long-term tracking."
-          data-image="assets/mahastroke.png" data-link="https://strokecalc.up.railway.app/">
-          <div class="accent"></div>
-          <span class="badge badge-lab mb-2" style="background-color: #4ecdc4;">AI · Health</span>
+    <a href="https://strokecalc.up.railway.app/" class="text-decoration-none text-dark" target="_blank">
+      <div id="featured-card">
+        <div class="featured-content">
+          <span class="badge badge-lab">AI · Health</span>
           <h5 class="title-project">
-            <span class="title-text">
-              <i class="fa-solid fa-heart-pulse me-2" style="color:#ff6b6b"></i>
-              MahaStroke
-            </span>
+            MahaStroke
           </h5>
-
           <p class="text-muted">
-            Stroke risk prediction base on your health data.
+            Advanced stroke risk prediction engine based on personalized health data modeling.
           </p>
-          <small class="text-muted mt-auto">Status: Active</small>
+          <div class="d-flex align-items-center mt-auto">
+            <span class="fw-bold small text-primary">Try Experiment</span>
+            <i class="fa-solid fa-arrow-right ms-2 small text-primary"></i>
+          </div>
+        </div>
+        <div class="featured-visual">
+          <img src="assets/mahastroke.png" alt="MahaStroke App" class="project-mockup">
         </div>
       </div>
-
-      <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="200">
-        <div class="lab-card h-100 d-flex flex-column" data-title="MahaInsight"
-          data-desc="Controversial, data-driven analysis against mainstream narratives."
-          data-image="assets/project_preview.png" data-link="#" data-status="coming-soon">
-          <div class="accent"></div>
-          <span class="badge badge-lab mb-2" style="background-color: #4ecdc4;">Data · Society</span>
-          <h5 class="title-project"><span class="title-text"><i class="fa-solid fa-chart-line" style ="color:rgb(228, 150, 150)"></i> </i>MahaInsight</span></h5>
-          <p class="text-muted">
-            Controversial, data-driven analysis against mainstream narratives.
-          </p>
-          <small class="text-muted mt-auto">Coming soon</small>        
-        </div>
-      </div>
-
-      <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="300">
-        <div class="lab-card h-100 d-flex flex-column" data-title="MahaBudget"
-          data-desc="A smart budget tracker where you can chat with AI to record, manage, and review your expenses."
-          data-image="assets/project_preview.png" data-link="#" data-status="beta">
-          <div class="accent"></div>
-          <span class="badge badge-lab mb-2" style="background-color: #4ecdc4;">AI · Life</span>
-          <h5 class="title-project"><span class="title-text"><i class="fa-solid fa-wallet me-2"></i>MahaBudget</span></h5>
-          <p class="text-muted">
-            A smart budget tracker where you can chat with AI to record, manage, and review your expenses,
-            with the AI acting as a friendly bridge between you and the database
-          </p>
-          <small class="text-muted mt-auto">Status: Beta</small>
-        </div>
-      </div>
-    </div>
+    </a>
+  </section>
+  </div>-->
   </section>
 
   <!-- BACKGROUND ORBS -->
@@ -121,72 +98,52 @@
 
 
   <!-- ALL EXPERIMENTS -->
-  <section class="container mb-5" id="all-experiments">
-    <h5 class="mb-4 text-muted text-center">All experiments</h5>
+  <section class="mb-5" id="all-experiments">
+    <div class="container mb-4">
+      <span class="featured-label text-center d-block mx-auto mb-3">Latest Experiments</span>
+    </div>
 
-    <div class="row g-4 justify-content-center">
-      <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="100">
-        <div class="lab-card h-100 d-flex flex-column" data-title="MahaStroke"
-          data-desc="Stroke risk prediction, behavioral analysis, and long-term tracking."
-          data-image="assets/mahastroke.png" data-link="https://strokecalc.up.railway.app/" data-status="active">
-          <div class="accent"></div>
-          <span class="badge badge-lab mb-2" style="background-color: #4ecdc4;">AI · Health</span>
-          <h5 class="title-project">
-            <span class="title-text">
-              <i class="fa-solid fa-heart-pulse me-2" style="color:#ff6b6b"></i>
-              MahaStroke
-            </span>
-          </h5>
-
-          <p class="text-muted">
-            Stroke risk prediction base on your health data.
-          </p>
-          <small class="text-muted mt-auto">Status: Active</small>
+    <div class="experiments-grid">
+      <!-- Item 2 -->
+      <div class="lab-card span-2" data-aos="fade-up" data-aos-delay="200" data-title="MahaInsight"
+        data-desc="Controversial, data-driven analysis against mainstream narratives."
+        data-image="assets/mahainsight.png" data-link="#" data-status="beta">
+        <div class="d-flex justify-content-between align-items-start mb-4">
+          <span class="badge badge-lab" style="background-color: #a855f7;">Data · Society</span>
+          <small class="text-muted">Beta</small>
         </div>
+        <h5 class="title-project">MahaInsight</h5>
+        <p class="text-muted">
+          Controversial, data-driven analysis against mainstream narratives.
+        </p>
       </div>
 
-      <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="200">
-        <div class="lab-card h-100 d-flex flex-column" data-title="MahaInsight"
-          data-desc="Controversial, data-driven analysis against mainstream narratives."
-          data-image="assets/project_preview.png" data-link="#" data-status="beta">
-          <div class="accent"></div>
-          <span class="badge badge-lab mb-2" style="background-color: #4ecdc4;">Data · Society</span>
-          <h5 class="title-project"><span class="title-text"><i class="fa-solid fa-chart-line me-2" style="color:rgb(228, 150, 150)"></i>MahaInsight</span></h5>
-          <p class="text-muted">
-            Controversial, data-driven analysis against mainstream narratives.
-          </p>
-          <small class="text-muted mt-auto">Status: Beta</small>          
+      <!-- Item 3 -->
+      <div class="lab-card" data-aos="fade-up" data-aos-delay="300" data-title="MahaBudget"
+        data-desc="A budget tracker with AI integration, allowing users to manage expenses through conversational input."
+        data-image="assets/project_preview.png" data-link="#" data-status="coming-soon">
+        <div class="d-flex justify-content-between align-items-start mb-4">
+          <span class="badge badge-lab" style="background-color: #6366f1;">AI · Life</span>
+          <small class="text-muted">Coming Soon</small>
         </div>
+        <h5 class="title-project">MahaBudget</h5>
+        <p class="text-muted">
+          A budget tracker with AI integration, allowing users to manage expenses through conversational input.
+        </p>
       </div>
 
-      <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="300">
-        <div class="lab-card h-100 d-flex flex-column" data-title="MahaBudget"
-          data-desc="A budget tracker with AI integration, allowing users to manage expenses through conversational input."
-          data-image="assets/project_preview.png" data-link="#" data-status="coming-soon">
-          <div class="accent"></div>
-          <span class="badge badge-lab mb-2" style="background-color: #4ecdc4;">AI · Life</span> <!-- Added badge for consistency -->
-          <h5 class="title-project"><span class="title-text"><i class="fa-solid fa-wallet me-2"></i>MahaBudget</span></h5>
-          <p class="text-muted">
-            A budget tracker with AI integration, allowing users to manage expenses through conversational input.
-          </p>
-          <small class="text-muted mt-auto">Coming soon</small>
+      <!-- Item 4 (Wide) -->
+      <div class="lab-card" data-aos="fade-up" data-aos-delay="400" data-title="MahaDiscipline"
+        data-desc="Meet your sadistic AI accountability partner that tracks your reliability score."
+        data-image="assets/project_preview.png" data-link="#" data-status="beta">
+        <div class="d-flex justify-content-between align-items-start mb-4">
+          <span class="badge badge-lab" style="background-color: #f43f5e;">AI · Discipline</span>
+          <small class="text-muted">Beta</small>
         </div>
-      </div>
-
-      <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="400">
-        <div class="lab-card h-100 d-flex flex-column" data-title="MahaDiscipline"
-          data-desc="Meet your sadistic AI accountability partner that tracks your reliability score."
-          data-image="assets/project_preview.png" data-link="#" data-status="beta">
-          <div class="accent"></div>
-          <span class="badge badge-lab mb-2" style="background-color: #4ecdc4;">AI · Life</span>
-          <h5 class="title-project"><span class="title-text"><i class="fa-solid fa-bullseye me-2"style="color:rgb(228, 150, 150)"></i>MahaDiscipline</span></h5>
-          <p class="text-muted">
-            Meet your sadistic AI accountability partner
-            that tracks your reliability score and ruthlessly roasts you
-            whenever you break a promise.
-          </p>
-          <small class="text-muted mt-auto">Status: Beta</small>          
-        </div>
+        <h5 class="title-project">MahaDiscipline</h5>
+        <p class="text-muted">
+          Meet your sadistic AI accountability partner that tracks your reliability score.
+        </p>
       </div>
     </div>
   </section>
@@ -196,28 +153,28 @@
     </div>
   </section>
 
-</body>
+</body> -->
 
-<!-- Project Preview Modal -->
-<div class="modal-overlay" id="projectModal">
-  <div class="modal-content">
-    <button class="close-btn" id="closeModal">&times;</button>
+  <!-- Project Preview Modal -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeModal">&times;</button>
 
-    <div class="modal-image-wrapper">
-      <img src="" alt="Project Preview" class="modal-image" id="modalImage">
-      <div id="modalOverlay" class="modal-status-overlay"></div>
+      <div class="modal-image-wrapper">
+        <img src="" alt="Project Preview" class="modal-image" id="modalImage">
+        <div id="modalOverlay" class="modal-status-overlay"></div>
+      </div>
+
+      <h3 class="fw-bold mb-2" id="modalTitle">Project Title</h3>
+      <p class="text-muted mb-4" id="modalDesc">Project description goes here.</p>
+
+      <a href="#" class="btn-view" id="modalLink">View Website</a>
     </div>
-
-    <h3 class="fw-bold mb-2" id="modalTitle">Project Title</h3>
-    <p class="text-muted mb-4" id="modalDesc">Project description goes here.</p>
-
-    <a href="#" class="btn-view" id="modalLink">View Website</a>
   </div>
-</div>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="assets/letter_split.js"></script>
-<script src="assets/lab.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="assets/letter_split.js"></script>
+  <script src="assets/lab.js"></script>
 
 </body>
 

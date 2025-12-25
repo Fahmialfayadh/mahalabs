@@ -91,34 +91,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const allSection = document.getElementById('all-experiments');
 
     if (searchInput && featuredSection && allSection) {
-        // Select cards only within the "All experiments" section for filtering
+        // Select cards within "All experiments"
+        // Note: Some might be wrapped in <a> tags, so we target the card itself
         const allCards = allSection.querySelectorAll('.lab-card');
 
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
 
-            if (searchTerm.length > 2) {
+            if (searchTerm.length > 0) {
                 // Hide Featured section for cleaner look
                 featuredSection.style.display = 'none';
 
                 // Filter All Experiments
                 allCards.forEach(card => {
-                    const title = card.getAttribute('data-title').toLowerCase();
-                    const desc = card.getAttribute('data-desc').toLowerCase();
-                    const col = card.closest('.col-md-6'); // Adjust selector as needed
+                    const title = card.querySelector('.title-project')?.textContent.toLowerCase() || '';
+                    const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+
+                    // The element to hide/show is the card itself (or its anchor wrapper if it exists)
+                    // In the grid, the .lab-card is the grid item unless wrapped.
+                    // If wrapped in <a href...><div class="lab-card"></div></a>, we should hide the <a>.
+                    const container = card.closest('a') || card;
 
                     if (title.includes(searchTerm) || desc.includes(searchTerm)) {
-                        col.style.display = '';
+                        container.style.display = '';
                     } else {
-                        col.style.display = 'none';
+                        container.style.display = 'none';
                     }
                 });
             } else {
-                // Reset view when search is cleared or too short
+                // Reset view
                 featuredSection.style.display = 'block';
                 allCards.forEach(card => {
-                    const col = card.closest('.col-md-6');
-                    col.style.display = '';
+                    const container = card.closest('a') || card;
+                    container.style.display = '';
                 });
             }
         });
