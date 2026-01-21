@@ -29,6 +29,10 @@ def admin():
 def send_assets(path):
     return send_from_directory('assets', path)
 
+@app.route('/projects.json')
+def send_projects_json():
+    return send_from_directory('.', 'projects.json')
+
 @app.route('/api/projects', methods=['GET'])
 def get_projects():
     projects = load_projects()

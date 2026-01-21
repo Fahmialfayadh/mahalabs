@@ -59,7 +59,7 @@
     "title": "PetaSight",
     "category": "Data  \u00b7 File Processing",
     "description": "An intuitive geospatial visualization platform built to analyze multi-dimensional data with a clean, modern user interface.",
-    "link": "#petasight",
+    "link": "petasight.mahalabs.space",
     "image": "petasight.png",
     "status": "Active",
     "is_featured": true,
