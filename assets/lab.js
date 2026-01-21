@@ -5,8 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchAndRenderProjects() {
     try {
         // Fetch from static JSON file for serverless compatibility
-        // Using relative path 'projects.json' instead of absolute '/projects.json' to be safer
-        const response = await fetch('projects.json');
+        // Add timestamp to prevent caching of the data file
+        const response = await fetch('projects.json?t=' + new Date().getTime());
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const projects = await response.json();
 
         const featuredContainer = document.getElementById('featured-container');
@@ -96,6 +101,11 @@ async function fetchAndRenderProjects() {
 
     } catch (error) {
         console.error('Error fetching projects:', error);
+        // Show error to user to help debugging
+        const featuredContainer = document.getElementById('featured-container');
+        if (featuredContainer) {
+            featuredContainer.innerHTML = `<div class="alert alert-danger text-center">Failed to load projects.<br>Error: ${error.message}<br>Try clearing your cache.</div>`;
+        }
     }
 }
 
