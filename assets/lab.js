@@ -5,9 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchAndRenderProjects() {
     try {
         // Fetch from static JSON file for serverless compatibility
-        // When running locally with app.py, this is served by the route we just added.
-        // When hosted on static hosting, this fetches the file directly.
-        const response = await fetch('/projects.json');
+        // Using relative path 'projects.json' instead of absolute '/projects.json' to be safer
+        const response = await fetch('projects.json');
         const projects = await response.json();
 
         const featuredContainer = document.getElementById('featured-container');
