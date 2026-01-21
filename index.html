@@ -15,7 +15,9 @@
   <link rel="stylesheet" href="assets/style.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600&family=Outfit:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Roboto+Slab:wght@400;500;600;700&family=DM+Serif+Display:wght@400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600&family=Outfit:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Roboto+Slab:wght@400;500;600;700&family=DM+Serif+Display:wght@400&display=swap"
+    rel="stylesheet">
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -32,7 +34,8 @@
     <div class="ms-auto">
       <a class="me-3 text-decoration-none text-dark" href="index.html">Experiments</a>
       <a class="text-decoration-none text-muted" href="about.html">About</a>
-      <a class="text-decoration-none fw-semibold" style='color:blueviolet' href=https://fahmialfayadh.site>Fahmialfayadh</a>
+      <a class="text-decoration-none fw-semibold" style='color:blueviolet'
+        href=https://fahmialfayadh.site>Fahmialfayadh</a>
 
     </div>
   </nav>
@@ -57,11 +60,11 @@
         </div>
         <br>
         <a href="#featured-section" class="circle-link">
-        <div class="hero-visual">
-          <div class="tech-circle c1"></div>
-          <div class="tech-circle c2"></div>
-          <div class="tech-circle c3"></div>
-        </div>
+          <div class="hero-visual">
+            <div class="tech-circle c1"></div>
+            <div class="tech-circle c2"></div>
+            <div class="tech-circle c3"></div>
+          </div>
         </a>
       </div>
     </div>
@@ -71,52 +74,9 @@
   <section id="featured-section" class="mb-5" data-aos="fade-up">
     <span class="featured-label text-center d-block mx-auto mb-3">↓ Featured experiment</span>
 
-    <a href="https://stroke.mahalabs.space/" class="text-decoration-none text-dark" target="_blank">
-      <div id="featured-card">
-        <div class="featured-content">
-          <span class="badge badge-lab">AI · Health</span>
-          <h5 class="title-project">
-            MahaStroke
-          </h5>
-          <p class="text-muted">
-            An experimental stroke risk estimation tool built with an emphasis on transparency and interpretability.
-                Instead of presenting a single opaque result, the system exposes how different factors contribute to the final risk score,
-                including which inputs reduce risk and which increase it.
-          </p>
-          <div class="d-flex align-items-center mt-auto">
-            <span class="fw-bold small text-primary">Try Experiment</span>
-            <i class="fa-solid fa-arrow-right ms-2 small text-primary"></i>
-          </div>
-        </div>
-        <div class="featured-visual">
-          <img src="assets/mahastroke.png" alt="MahaStroke App" class="project-mockup">
-        </div>
-      </div>
-    </a>
-    <br>
-    <br>
-    <a href="https://convert.mahalabs.space/" class="text-decoration-none text-dark" target="_blank">
-      <div id="featured-card">
-        <div class="featured-content">
-          <span class="badge badge-lab">Data · File Processing</span>
-          <h5 class="title-project">
-            MahaConvert
-          </h5>
-          <p class="text-muted">
-            A versatile file conversion tool that supports a wide range of formats, enabling users to easily convert documents,
-                images, audio, and video files. Designed for simplicity and speed, MahaConvert aims to streamline the file conversion process
-                for both personal and professional use.
-          </p>
-          <div class="d-flex align-items-center mt-auto">
-            <span class="fw-bold small text-primary">Try Experiment (Beta)</span>
-            <i class="fa-solid fa-arrow-right ms-2 small text-primary"></i>
-          </div>
-        </div>
-        <div class="featured-visual">
-          <img src="assets/mahaconvert.png" alt="MahaConvert App" class="project-mockup">
-        </div>
-      </div>
-    </a>  
+    <div id="featured-container">
+      <!-- Dynamic Featured Projects -->
+    </div>
   </section>
   </div>
   </section>
@@ -135,52 +95,9 @@
       <span class="featured-label text-center d-block mx-auto mb-3">Latest Experiments</span>
     </div>
 
-  
+
     <div class="experiments-grid">
-      <!-- Item 2 -->
-      <div class="lab-card span-2" data-aos="fade-up" data-aos-delay="200" data-title="MahaInsight"
-        data-desc="Open source data visualization platform"
-        data-image="assets/mahainsightnew.png" data-link=https://insight.mahalabs.space data-status="Active">
-        <div class="d-flex justify-content-between align-items-start mb-4">
-          <span class="badge badge-lab" style="background-color: #a855f7;">Data · Society</span>
-          <small class="text-muted">Beta (Active)</small>
-        </div>
-        <h5 class="title-project">MahaInsight</h5>
-        <p class="text-muted">
-         MahaInsight is a data visualization platform that presents verified, open datasets through clear and transparent analysis.
-It focuses on interpretability, source traceability, and reproducible insights rather than opaque conclusions.
-        </p>
-      </div>
-
-      <!-- Item 3 -->
-      <div class="lab-card" data-aos="fade-up" data-aos-delay="300" data-title="MahaBudget"
-        data-desc="A budget tracker with AI integration, allowing users to manage expenses through conversational input."
-        data-image="assets/project_preview.png" data-link="#" data-status="coming-soon">
-        <div class="d-flex justify-content-between align-items-start mb-4">
-          <span class="badge badge-lab" style="background-color: #6366f1;">AI · Life</span>
-          <small class="text-muted">Beta (status: missing)</small>
-        </div>
-        <h5 class="title-project">MahaBudget</h5>
-        <p class="text-muted">
-         A conversational budget tracking experiment that blends financial logging with AI interaction. 
-         Designed to explore whether talking to a system can make personal finance feel less mechanical and more reflective.
-        </p>
-      </div>
-
-      <!-- Item 4 -->
-      <div class="lab-card" data-aos="fade-up" data-aos-delay="400" data-title="MahaDiscipline"
-        data-desc="Meet your sadistic AI accountability partner that tracks your reliability score."
-        data-image="assets/project_preview.png" data-link="#" data-status="beta">
-        <div class="d-flex justify-content-between align-items-start mb-4">
-          <span class="badge badge-lab" style="background-color: #f43f5e;">AI · Discipline</span>
-          <small class="text-muted">Beta</small>
-        </div>
-        <h5 class="title-project">MahaDiscipline</h5>
-        <p class="text-muted">
-          An accountability experiment built around consistency, friction, and self-honesty. Instead of motivation,
-             it focuses on tracking reliability over time and exposing patterns users usually avoid confronting.
-        </p>
-      </div>
+      <!-- Dynamic Projects will be injected here -->
     </div>
   </section>
 

@@ -1,26 +1,103 @@
-// Initialize AOS with staggered animation for cards
 document.addEventListener('DOMContentLoaded', () => {
-    // Add AOS attributes to cards programmatically
-    const cards = document.querySelectorAll('.col-md-6');
-    cards.forEach((col, index) => {
-        if (col.querySelector('.lab-card')) {
-            col.setAttribute('data-aos', 'fade-up');
-            // Stagger delay: 100, 200, 300, 400, then repeat
-            let delay = ((index % 4) + 1) * 100;
-            col.setAttribute('data-aos-delay', delay);
-        }
-    });
-
-    // Initialize AOS after adding attributes
-    AOS.init({
-        duration: 800,
-        once: true,
-        offset: 50
-    });
+    fetchAndRenderProjects();
 });
 
-// Original DOMContentLoaded listener (we can merge or keep separate, keeping separate for safer replacement)
-document.addEventListener('DOMContentLoaded', () => {
+async function fetchAndRenderProjects() {
+    try {
+        const response = await fetch('/api/projects');
+        const projects = await response.json();
+
+        const featuredContainer = document.getElementById('featured-container');
+        const experimentsGrid = document.querySelector('.experiments-grid');
+
+        // Clear existing content (if any)
+        featuredContainer.innerHTML = '';
+        experimentsGrid.innerHTML = '';
+
+        // Filter projects
+        const featuredProjects = projects.filter(p => p.is_featured);
+        const otherProjects = projects.filter(p => !p.is_featured);
+
+        // Render Featured
+        featuredProjects.forEach(p => {
+            const cardHtml = `
+                <a href="${p.link}" class="text-decoration-none text-dark" target="_blank">
+                  <div id="featured-card" class="mb-4"> <!-- Added mb-4 for spacing -->
+                    <div class="featured-content">
+                      <span class="badge badge-lab">${p.category}</span>
+                      <h5 class="title-project">${p.title}</h5>
+                      <p class="text-muted">${p.description}</p>
+                      <div class="d-flex align-items-center mt-auto">
+                        <span class="fw-bold small text-primary">
+                            ${p.status === 'beta' || p.status === 'coming-soon' ? 'View Details' : 'Try Experiment'}
+                        </span>
+                        <i class="fa-solid fa-arrow-right ms-2 small text-primary"></i>
+                      </div>
+                    </div>
+                    <div class="featured-visual">
+                      <img src="assets/${p.image}" alt="${p.title}" class="project-mockup">
+                    </div>
+                  </div>
+                </a>
+            `;
+            featuredContainer.innerHTML += cardHtml;
+        });
+
+        // Render Other Experiments
+        otherProjects.forEach((p, index) => {
+            // Apply AOS delay
+            const delay = ((index % 4) + 1) * 100;
+            const isSpan2 = index === 0 ? 'span-2' : ''; // Example logic: make first one span-2 or based on some property
+            // Note: Original hardcoded Item 2 (MahaInsight) was span-2. 
+            // We can match this by checking if it's "MahaInsight" or just standardizing.
+            // Let's make "MahaInsight" span-2 if present, or just the first one.
+            const spanClass = p.title === 'MahaInsight' ? 'span-2' : '';
+
+            // Handle badge color
+            const badgeStyle = p.tag_color ? `style="background-color: ${p.tag_color};"` : '';
+
+            const cardHtml = `
+              <div class="lab-card ${spanClass}" 
+                   data-aos="fade-up" 
+                   data-aos-delay="${delay}" 
+                   data-title="${p.title}"
+                   data-desc="${p.description}"
+                   data-image="assets/${p.image}" 
+                   data-link="${p.link}" 
+                   data-status="${p.status}">
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                  <span class="badge badge-lab" ${badgeStyle}>${p.category}</span>
+                  <small class="text-muted">${p.status === 'Active' ? 'Beta (Active)' : p.status}</small>
+                </div>
+                <h5 class="title-project">${p.title}</h5>
+                <p class="text-muted">${p.description}</p>
+              </div>
+            `;
+            experimentsGrid.innerHTML += cardHtml;
+        });
+
+        // Initialize AOS
+        // Note: AOS was locally imported via script tag in index.html, so it should be available globally.
+        if (window.AOS) {
+            window.AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50
+            });
+        }
+
+        // Initialize Modal Logic
+        initModal();
+
+        // Initialize Search Logic
+        initSearch();
+
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+    }
+}
+
+function initModal() {
     const cards = document.querySelectorAll('.lab-card');
     const modal = document.getElementById('projectModal');
     const closeBtn = document.getElementById('closeModal');
@@ -28,10 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalDesc = document.getElementById('modalDesc');
     const modalImage = document.getElementById('modalImage');
     const modalLink = document.getElementById('modalLink');
-
     const modalOverlay = document.getElementById('modalOverlay');
 
-    // Open Modal
+    if (!modal) return;
+
     cards.forEach(card => {
         card.addEventListener('click', () => {
             const title = card.getAttribute('data-title');
@@ -49,9 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (status === 'coming-soon' || status === 'beta') {
                 modalDesc.textContent = "Something exciting is in the works! Stay tuned for the reveal.";
-                modalLink.style.display = 'none'; // Hide the button
-
-                // Show overlay with specific text
+                modalLink.style.display = 'none';
                 modalOverlay.textContent = status === 'beta' ? 'Beta Access' : 'Coming Soon';
                 modalOverlay.classList.add('active');
             } else {
@@ -66,45 +141,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Close Modal
     closeBtn.addEventListener('click', () => {
         modal.classList.remove('active');
     });
 
-    // Close when clicking outsid2e
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.remove('active');
         }
     });
 
-    // Close on Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             modal.classList.remove('active');
         }
     });
+}
 
-    // Search Functionality
+function initSearch() {
     const searchInput = document.querySelector('.search-input');
     const featuredSection = document.getElementById('featured-section');
     const allSection = document.getElementById('all-experiments');
 
     if (searchInput && featuredSection && allSection) {
-        // Select cards within "All experiments"
-        // Note: Some might be wrapped in <a> tags, so we target the card itself
-        const allCards = allSection.querySelectorAll('.lab-card');
-
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
+            const allCards = allSection.querySelectorAll('.lab-card');
 
             if (searchTerm.length > 0) {
-                // 1. Check Featured Section
-                const featuredTitle = featuredSection.querySelector('.title-project')?.textContent.toLowerCase() || '';
-                const featuredDesc = featuredSection.querySelector('p')?.textContent.toLowerCase() || '';
+                // 1. Check Featured Section (Check all text content)
+                const featuredText = featuredSection.textContent.toLowerCase();
 
-                // Show featured section if it matches
-                if (featuredTitle.includes(searchTerm) || featuredDesc.includes(searchTerm)) {
+                if (featuredText.includes(searchTerm)) {
                     featuredSection.style.display = 'block';
                 } else {
                     featuredSection.style.display = 'none';
@@ -114,8 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 allCards.forEach(card => {
                     const title = card.querySelector('.title-project')?.textContent.toLowerCase() || '';
                     const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
-
-                    // The element to hide/show is the card itself (or its anchor wrapper if it exists)
                     const container = card.closest('a') || card;
 
                     if (title.includes(searchTerm) || desc.includes(searchTerm)) {
@@ -125,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             } else {
-                // Reset view: Show everything
+                // Reset view
                 featuredSection.style.display = 'block';
                 allCards.forEach(card => {
                     const container = card.closest('a') || card;
@@ -134,4 +200,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-});
+}
