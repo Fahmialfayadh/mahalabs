@@ -13,23 +13,23 @@
   {
     "id": "mahaconvert",
     "title": "MahaConvert",
-    "description": "A versatile file conversion tool that supports a wide range of formats, enabling users to easily convert documents, images, audio, and video files. Designed for simplicity and speed, MahaConvert aims to streamline the file conversion process for both personal and professional use.",
     "category": "Data \u00b7 File Processing",
-    "is_featured": true,
+    "description": "A versatile file conversion tool that supports a wide range of formats, enabling users to easily convert documents, images, audio, and video files. Designed for simplicity and speed, MahaConvert aims to streamline the file conversion process for both personal and professional use.",
     "link": "https://convert.mahalabs.space/",
     "image": "mahaconvert.png",
     "status": "Active",
-    "tag_color": ""
+    "is_featured": false,
+    "tag_color": "#000000"
   },
   {
     "id": "mahainsight",
     "title": "MahaInsight",
-    "description": "MahaInsight is a data visualization platform that presents verified, open datasets through clear and transparent analysis. It focuses on interpretability, source traceability, and reproducible insights rather than opaque conclusions.",
     "category": "Data \u00b7 Society",
-    "is_featured": false,
+    "description": "MahaInsight is a data visualization platform that presents verified, open datasets through clear and transparent analysis. It focuses on interpretability, source traceability, and reproducible insights rather than opaque conclusions.",
     "link": "https://insight.mahalabs.space",
     "image": "mahainsightnew.png",
     "status": "Active",
+    "is_featured": true,
     "tag_color": "#a855f7"
   },
   {
