@@ -8,11 +8,13 @@ async function fetchAndRenderProjects() {
         // Add timestamp to prevent caching of the data file
         const response = await fetch('projects.json?t=' + new Date().getTime());
 
+        // Check for fetch errors or empty data
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const projects = await response.json();
+        console.log(`Loaded ${projects.length} projects from projects.json`);
 
         const featuredContainer = document.getElementById('featured-container');
         const experimentsGrid = document.querySelector('.experiments-grid');
@@ -153,6 +155,13 @@ function initModal() {
         });
     });
 
+    // Add close logic for overlay click if not already covered
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.classList.remove('active');
+        }
+    }
+
     closeBtn.addEventListener('click', () => {
         modal.classList.remove('active');
     });
@@ -173,18 +182,42 @@ function initModal() {
 function initSearch() {
     const searchInput = document.querySelector('.search-input');
     const featuredSection = document.getElementById('featured-section');
+    const featuredContainer = document.getElementById('featured-container'); // Need container, not section
     const allSection = document.getElementById('all-experiments');
 
-    if (searchInput && featuredSection && allSection) {
+    if (searchInput && featuredSection && allSection && featuredContainer) {
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             const allCards = allSection.querySelectorAll('.lab-card');
 
-            if (searchTerm.length > 0) {
-                // 1. Check Featured Section (Check all text content)
-                const featuredText = featuredSection.textContent.toLowerCase();
+            // Get all individual featured cards (the <a> wrappers likely)
+            // Based on previous code: featuredContainer.innerHTML += cardHtml (which is an <a> tag wrapping #featured-card)
+            // Or direct children if cardHtml was just divs. Let's select children.
+            // Looking at previous rendering: it inserts <a href...> <div id="featured-card">... </a>
+            // So we target the direct children of featuredContainer
+            const featuredCards = Array.from(featuredContainer.children);
 
-                if (featuredText.includes(searchTerm)) {
+            let firstMatch = null;
+            let hasFeaturedMatch = false;
+
+            if (searchTerm.length > 0) {
+                // 1. Filter Display of Featured Cards Individually
+                featuredCards.forEach(card => {
+                    // Try to find title/desc inside
+                    const title = card.querySelector('.title-project')?.textContent.toLowerCase() || '';
+                    const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+
+                    if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+                        card.style.display = 'block'; // Or '' if flex/grid issues, but block is safe for A tag
+                        hasFeaturedMatch = true;
+                        if (!firstMatch) firstMatch = card;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Show/Hide Featured Section based on if ANY featured card matches
+                if (hasFeaturedMatch) {
                     featuredSection.style.display = 'block';
                 } else {
                     featuredSection.style.display = 'none';
@@ -198,17 +231,54 @@ function initSearch() {
 
                     if (title.includes(searchTerm) || desc.includes(searchTerm)) {
                         container.style.display = '';
+                        if (!firstMatch) firstMatch = container;
                     } else {
                         container.style.display = 'none';
                     }
                 });
+
+                // 3. Auto-scroll removed from here (moved to keydown)
             } else {
                 // Reset view
                 featuredSection.style.display = 'block';
+                featuredCards.forEach(c => c.style.display = ''); // Reset display
                 allCards.forEach(card => {
                     const container = card.closest('a') || card;
                     container.style.display = '';
                 });
+            }
+        });
+
+        // Add Enter key listener for scrolling
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent form submission if inside a form
+
+                const searchTerm = searchInput.value.toLowerCase();
+                if (searchTerm.length === 0) return;
+
+                // Find first visible match again (since state might have changed or just to be sure)
+                // We re-query visible elements or reuse logic. 
+                // Simplest is to find the first visible card in the DOM order.
+
+                // Check Featured First
+                const featuredCards = Array.from(featuredContainer.children);
+                let firstMatch = featuredCards.find(c => c.style.display !== 'none' && c.offsetParent !== null);
+
+                // If not in featured, check all experiments
+                if (!firstMatch) {
+                    const allCards = Array.from(allSection.querySelectorAll('.lab-card'));
+                    firstMatch = allCards.find(c => {
+                        const container = c.closest('a') || c;
+                        return container.style.display !== 'none' && container.offsetParent !== null;
+                    });
+                    // If found in allCards, make sure we target the container if it exists
+                    if (firstMatch && firstMatch.closest('a')) firstMatch = firstMatch.closest('a');
+                }
+
+                if (firstMatch) {
+                    firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
             }
         });
     }
