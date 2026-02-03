@@ -35,7 +35,7 @@ async function fetchAndRenderProjects() {
                     <div class="featured-content">
                       <span class="badge badge-lab">${p.category}</span>
                       <h5 class="title-project">${p.title}</h5>
-                      <p class="text-muted">${p.description}</p>
+                      <p class="project-description">${p.description}</p>
                       <div class="d-flex align-items-center mt-auto">
                         <span class="fw-bold small text-primary">
                             ${p.status === 'beta' || p.status === 'coming-soon' ? 'View Details' : 'Try Experiment'}
@@ -76,10 +76,10 @@ async function fetchAndRenderProjects() {
                    data-status="${p.status}">
                 <div class="d-flex justify-content-between align-items-start mb-4">
                   <span class="badge badge-lab" ${badgeStyle}>${p.category}</span>
-                  <small class="text-muted">${p.status === 'Active' ? 'Beta (Active)' : p.status}</small>
+                  <small class="data-desc-small">${p.status === 'Active' ? 'Beta (Active)' : p.status}</small>
                 </div>
                 <h5 class="title-project">${p.title}</h5>
-                <p class="text-muted">${p.description}</p>
+                <p class="data-desc">${p.description}</p>
               </div>
             `;
             experimentsGrid.innerHTML += cardHtml;
@@ -101,6 +101,12 @@ async function fetchAndRenderProjects() {
         // Initialize Search Logic
         initSearch();
 
+        // Initialize Filter Logic
+        initFilters(projects);
+
+        // Initialize Dark Mode
+        initDarkMode();
+
     } catch (error) {
         console.error('Error fetching projects:', error);
         // Show error to user to help debugging
@@ -109,6 +115,204 @@ async function fetchAndRenderProjects() {
             featuredContainer.innerHTML = `<div class="alert alert-danger text-center">Failed to load projects.<br>Error: ${error.message}<br>Try clearing your cache.</div>`;
         }
     }
+}
+
+function initDarkMode() {
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Check saved
+    const savedTheme = localStorage.getItem('theme');
+
+    // Apply immediate if saved or system pref
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        updateIcon(true);
+    } else if (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // System preference
+        body.classList.add('dark-mode');
+        updateIcon(true);
+    } else {
+        updateIcon(false);
+    }
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            const isDark = body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+            // Add slight animation to button
+            toggleBtn.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                toggleBtn.style.transform = '';
+            }, 300);
+
+            updateIcon(isDark);
+        });
+    }
+
+    function updateIcon(isDark) {
+        if (!toggleBtn) return;
+        toggleBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        toggleBtn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+    }
+}
+
+function initFilters(projects) {
+    const filterContainer = document.getElementById('filter-container');
+    if (!filterContainer) return;
+
+    // 1. Extract unique categories (simplify complex categories like "AI · Health" to specific tags or just use full string)
+    // Decision: Let's use the full category string for now as it's simple, or split by ' · ' if we want granular tags.
+    // The user asked for "filter kategori", and in projects.json we have "AI · Health".
+    // Let's try to parse individual tags for better filtering if they are separated by ' · '.
+    const allTags = new Set();
+    projects.forEach(p => {
+        if (p.category) {
+            // Split by " · " or just take the whole string if no separator
+            // Use a regex to handle potential variations
+            const tags = p.category.split(/\s+·\s+/);
+            tags.forEach(tag => allTags.add(tag.trim()));
+        }
+    });
+
+    const sortedTags = Array.from(allTags).sort();
+
+    // 2. Create "All" button
+    let filterHtml = `<button class="filter-btn active" data-filter="all">All</button>`;
+
+    // 3. Create other buttons
+    sortedTags.forEach(tag => {
+        filterHtml += `<button class="filter-btn" data-filter="${tag}">${tag}</button>`;
+    });
+
+    filterContainer.innerHTML = filterHtml;
+
+    // 4. Add Event Listeners
+    const buttons = filterContainer.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all
+            buttons.forEach(b => b.classList.remove('active'));
+            // Add active to clicked
+            btn.classList.add('active');
+
+            const filterValue = btn.getAttribute('data-filter');
+            filterProjects(filterValue);
+        });
+    });
+}
+
+function filterProjects(category) {
+    const allCards = document.querySelectorAll('.lab-card, #featured-card');
+    const filterContainer = document.getElementById('filter-container');
+
+    // 0. Auto Scroll to top of experiments
+    if (filterContainer) {
+        // Scroll slightly above the filter container for better context
+        const rect = filterContainer.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetY = rect.top + scrollTop - 100; // 100px buffer
+
+        window.scrollTo({
+            top: targetY,
+            behavior: 'smooth'
+        });
+    }
+
+    // 1. Fade OUT non-matching visible 
+    allCards.forEach(card => {
+        let container = card;
+        if (card.id === 'featured-card') {
+            container = card.closest('a') || card;
+        } else if (card.classList.contains('lab-card')) {
+            container = card.closest('a') || card;
+        }
+
+        const badge = card.querySelector('.badge-lab');
+        const cardCategory = badge ? badge.textContent : '';
+
+        // Determine MATCH
+        let isMatch = false;
+        if (category === 'all') {
+            isMatch = true;
+        } else {
+            isMatch = cardCategory.includes(category);
+        }
+
+        // HIDE LOGIC: If currently visible (display != 'none') AND Match is False -> Fade Out
+        if (container.style.display !== 'none' && !isMatch) {
+            card.classList.add('animating-out');
+            card.classList.remove('animating-in'); // Ensure no conflict
+        }
+    });
+
+    // 2. Wait for fade out, then Toggle Display and Trigger Enter Animation
+    setTimeout(() => {
+        let matchIndex = 0; // For staggering
+
+        allCards.forEach(card => {
+            let container = card;
+            if (card.id === 'featured-card') {
+                container = card.closest('a') || card;
+            } else if (card.classList.contains('lab-card')) {
+                container = card.closest('a') || card;
+            }
+
+            const badge = card.querySelector('.badge-lab');
+            const cardCategory = badge ? badge.textContent : '';
+
+            // Check match again
+            let isMatch = false;
+            if (category === 'all') {
+                isMatch = true;
+            } else {
+                isMatch = cardCategory.includes(category);
+            }
+
+            if (isMatch) {
+                // SHOW logic
+                // If it was hidden OR it was visible (no change), make sure it's correct
+                // If it was animating out (e.g. rapid switch), stop that.
+                card.classList.remove('animating-out');
+
+                if (container.style.display === 'none') {
+                    // Was hidden, needs to show
+                    container.style.display = '';
+
+                    // Add Staggered Entrance
+                    // Use css animation with delay
+                    card.style.animationDelay = `${matchIndex * 0.05}s`; // 50ms stagger
+                    card.classList.add('animating-in');
+
+                    // Clean up animation class after it runs? 
+                    // Not strictly necessary if we reset matchIndex logic on next run
+                    // But good practice:
+                    card.addEventListener('animationend', () => {
+                        card.classList.remove('animating-in');
+                        card.style.animationDelay = '';
+                    }, { once: true });
+
+                } else {
+                    // Was already visible and matches? 
+                    // Just ensure it's fully opaque/visible
+                    // No need to re-animate if it didn't leave?
+                    // Depends on "stiffness". If we want *everything* to reflow nicely...
+                    // Let's just keep it stable if it didn't move.
+                }
+
+                matchIndex++;
+
+            } else {
+                // HIDE logic
+                // It should have faded out by now due to Step 1.
+                // Just set display none.
+                container.style.display = 'none';
+                card.classList.remove('animating-out'); // Reset state
+                card.classList.remove('animating-in');
+            }
+        });
+    }, 300); // Wait for the exit animation (300ms)
 }
 
 function initModal() {
@@ -190,11 +394,6 @@ function initSearch() {
             const searchTerm = e.target.value.toLowerCase();
             const allCards = allSection.querySelectorAll('.lab-card');
 
-            // Get all individual featured cards (the <a> wrappers likely)
-            // Based on previous code: featuredContainer.innerHTML += cardHtml (which is an <a> tag wrapping #featured-card)
-            // Or direct children if cardHtml was just divs. Let's select children.
-            // Looking at previous rendering: it inserts <a href...> <div id="featured-card">... </a>
-            // So we target the direct children of featuredContainer
             const featuredCards = Array.from(featuredContainer.children);
 
             let firstMatch = null;

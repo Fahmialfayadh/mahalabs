@@ -2,13 +2,13 @@
   {
     "id": "mahastroke",
     "title": "MahaStroke",
+    "category": "AI",
     "description": "An experimental stroke risk estimation tool built with an emphasis on transparency and interpretability. Instead of presenting a single opaque result, the system exposes how different factors contribute to the final risk score, including which inputs reduce risk and which increase it.",
-    "category": "AI \u00b7 Health",
-    "is_featured": true,
     "link": "https://stroke.mahalabs.space/",
     "image": "mahastroke.png",
     "status": "Active",
-    "tag_color": ""
+    "is_featured": true,
+    "tag_color": "#000000"
   },
   {
     "id": "mahaconvert",
@@ -24,7 +24,7 @@
   {
     "id": "mahainsight",
     "title": "MahaInsight",
-    "category": "Data \u00b7 Society",
+    "category": "Data \u00b7 File Processing",
     "description": "MahaInsight is a data visualization platform that presents verified, open datasets through clear and transparent analysis. It focuses on interpretability, source traceability, and reproducible insights rather than opaque conclusions.",
     "link": "https://insight.mahalabs.space",
     "image": "mahainsightnew.png",
@@ -35,23 +35,23 @@
   {
     "id": "mahabudget",
     "title": "MahaBudget",
+    "category": "AI \u00b7 Data",
     "description": "A conversational budget tracking experiment that blends financial logging with AI interaction. Designed to explore whether talking to a system can make personal finance feel less mechanical and more reflective.",
-    "category": "AI \u00b7 Life",
-    "is_featured": false,
     "link": "#",
     "image": "project_preview.png",
     "status": "coming-soon",
+    "is_featured": false,
     "tag_color": "#6366f1"
   },
   {
     "id": "mahadiscipline",
     "title": "MahaDiscipline",
+    "category": "AI \u00b7 Data",
     "description": "An accountability experiment built around consistency, friction, and self-honesty. Instead of motivation, it focuses on tracking reliability over time and exposing patterns users usually avoid confronting.",
-    "category": "AI \u00b7 Discipline",
-    "is_featured": false,
     "link": "#",
     "image": "project_preview.png",
     "status": "beta",
+    "is_featured": false,
     "tag_color": "#f43f5e"
   },
   {

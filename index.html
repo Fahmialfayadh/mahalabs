@@ -27,15 +27,19 @@
 <body>
 
   <nav class="navbar navbar-expand-lg px-5">
-    <a class="navbar-brand fw-semibold d-flex align-items-center" href="./index.html">
+    <a class="navbar-brand logo-text d-flex align-items-center" href="./index.html">
       <img src="assets/logo3.png" alt="Logo" width="30" height="30" class="me-2 rounded-circle">
       MahaLabs
     </a>
     <div class="ms-auto">
-      <a class="me-3 text-decoration-none text-dark" href="./index.html">Experiments</a>
-      <a class="text-decoration-none text-muted" href="about.html">About</a>
+      <a class="me-3 text-decoration-none text-nav-text" href="#featured-section">Experiments</a>
+      <a class="text-decoration-none text-nav-text" href="about.html">About</a>
       <a class="text-decoration-none fw-semibold" style='color:blueviolet'
         href=https://fahmialfayadh.site>Fahmialfayadh</a>
+      <button id="theme-toggle" class="btn btn-link text-decoration-none ms-3 p-0 border-0"
+        aria-label="Toggle Dark Mode" style="color: var(--nav-text); font-size: 1.2rem;">
+        <i class="fa-solid fa-moon"></i>
+      </button>
 
     </div>
   </nav>
@@ -45,7 +49,7 @@
       <div class="hero-split">
         <div class="hero-content">
           <h1 class="fw-medium font-archivo-black" id="hero-title">Explore experimental ideas.</h1>
-          <p class="text-muted">
+          <p class="text-description">
             Implementations of experimental ideas shaped by intrusive and unresolved thoughts.
           </p>
 
@@ -93,6 +97,11 @@
   <section class="mb-5" id="all-experiments">
     <div class="container mb-4">
       <span class="featured-label text-center d-block mx-auto mb-3">Latest Experiments</span>
+
+      <!-- Filter Container -->
+      <div id="filter-container" class="d-flex justify-content-center flex-wrap gap-2 mb-4">
+        <!-- Filter buttons will be injected here -->
+      </div>
     </div>
 
 
@@ -100,13 +109,6 @@
       <!-- Dynamic Projects will be injected here -->
     </div>
   </section>
-
-  <!--        </div>
-      </div>
-    </div>
-  </section>
-
-</body> -->
 
   <!-- Project Preview Modal -->
   <div class="modal-overlay" id="projectModal">
@@ -127,7 +129,7 @@
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="assets/letter_split.js"></script>
-  <script src="assets/lab.js?v=serverless-fix"></script>S
+  <script src="assets/lab.js?v=serverless-fix"></script>
 
 </body>
 
