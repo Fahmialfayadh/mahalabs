@@ -53,13 +53,16 @@
             Implementations of experimental ideas shaped by intrusive and unresolved thoughts.
           </p>
 
-          <div class="search-wrapper">
+          <div class="search-wrapper z-1000">
             <input class="form-control search-input" placeholder="Search experiments...">
             <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
+            <div class="search-suggestions" id="search-suggestions">
+              <!-- Dynamic tags will be injected here -->
+            </div>
           </div>
         </div>
         <br>
@@ -126,6 +129,9 @@
       <a href="#" class="btn-view" id="modalLink">View Website</a>
     </div>
   </div>
+
+  <!-- Search Overlay -->
+  <div id="search-overlay"></div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="assets/letter_split.js"></script>

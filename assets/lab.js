@@ -99,7 +99,7 @@ async function fetchAndRenderProjects() {
         initModal();
 
         // Initialize Search Logic
-        initSearch();
+        initSearch(projects);
 
         // Initialize Filter Logic
         initFilters(projects);
@@ -114,6 +114,103 @@ async function fetchAndRenderProjects() {
         if (featuredContainer) {
             featuredContainer.innerHTML = `<div class="alert alert-danger text-center">Failed to load projects.<br>Error: ${error.message}<br>Try clearing your cache.</div>`;
         }
+    }
+}
+
+// SHARED STATE & LOGIC
+const appState = {
+    activeTags: new Set(),
+    searchTerm: ''
+};
+
+function updateAppFilters() {
+    // 1. Sync UI
+    // Search Tags
+    document.querySelectorAll('.search-tag').forEach(el => {
+        if (appState.activeTags.has(el.textContent)) {
+            el.classList.add('active');
+        } else {
+            el.classList.remove('active');
+        }
+    });
+
+    // Bottom Filter Buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        const filter = btn.getAttribute('data-filter');
+        if (filter === 'all') {
+            if (appState.activeTags.size === 0) btn.classList.add('active');
+            else btn.classList.remove('active');
+        } else {
+            if (appState.activeTags.has(filter)) btn.classList.add('active');
+            else btn.classList.remove('active');
+        }
+    });
+
+    // 2. Execute Filtering
+    const term = appState.searchTerm.toLowerCase();
+    const allCards = document.querySelectorAll('.lab-card'); // All bottom cards
+    const featuredContainer = document.getElementById('featured-container');
+    const featuredCards = featuredContainer ? document.querySelectorAll('#featured-container > a, #featured-container > div') : []; // Featured cards
+
+    let hasFeaturedMatch = false;
+
+    // Helper: Check if card matches
+    const checkMatch = (card) => {
+        const title = card.querySelector('.title-project')?.textContent.toLowerCase() || '';
+        const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+        const badge = card.querySelector('.badge-lab');
+        const categoryText = badge ? badge.textContent : '';
+
+        // Text Match
+        const isTextMatch = title.includes(term) || desc.includes(term);
+
+        // Tag Match
+        let isTagMatch = true;
+        if (appState.activeTags.size > 0) {
+            // OR Logic: Match ANY active tag
+            isTagMatch = [...appState.activeTags].some(tag => categoryText.includes(tag));
+        }
+
+        return isTextMatch && isTagMatch;
+    };
+
+    // Filter Featured
+    featuredCards.forEach(card => {
+        // Direct child might be <a> wrapper or <div> depending on structure
+        // The checkMatch expects the element with content. 
+        // Let's ensure we target the content wrapper if needed.
+        // Current structure: <a ...><div id="featured-card">...</div></a>
+        // But checkMatch uses querySelector which searches deep. So <a> wrapper is fine.
+
+        if (checkMatch(card)) {
+            card.style.display = 'block';
+            hasFeaturedMatch = true;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    // Toggle Featured Section
+    const featuredSection = document.getElementById('featured-section');
+    if (featuredSection) {
+        // Exception: If fully empty search (no text, no tags), show all. 
+        // But checkMatch covers that (isTextMatch=true, isTagMatch=true).
+        featuredSection.style.display = hasFeaturedMatch ? 'block' : 'none';
+    }
+
+    // Filter All Experiments
+    allCards.forEach(card => {
+        const container = card.closest('a') || card;
+        if (checkMatch(card)) {
+            container.style.display = '';
+        } else {
+            container.style.display = 'none';
+        }
+    });
+
+    // Refresh AOS to ensure new layout is recognized
+    if (window.AOS) {
+        window.AOS.refresh();
     }
 }
 
@@ -162,15 +259,9 @@ function initFilters(projects) {
     const filterContainer = document.getElementById('filter-container');
     if (!filterContainer) return;
 
-    // 1. Extract unique categories (simplify complex categories like "AI · Health" to specific tags or just use full string)
-    // Decision: Let's use the full category string for now as it's simple, or split by ' · ' if we want granular tags.
-    // The user asked for "filter kategori", and in projects.json we have "AI · Health".
-    // Let's try to parse individual tags for better filtering if they are separated by ' · '.
     const allTags = new Set();
     projects.forEach(p => {
         if (p.category) {
-            // Split by " · " or just take the whole string if no separator
-            // Use a regex to handle potential variations
             const tags = p.category.split(/\s+·\s+/);
             tags.forEach(tag => allTags.add(tag.trim()));
         }
@@ -178,141 +269,39 @@ function initFilters(projects) {
 
     const sortedTags = Array.from(allTags).sort();
 
-    // 2. Create "All" button
+    // Create Buttons
     let filterHtml = `<button class="filter-btn active" data-filter="all">All</button>`;
-
-    // 3. Create other buttons
     sortedTags.forEach(tag => {
         filterHtml += `<button class="filter-btn" data-filter="${tag}">${tag}</button>`;
     });
 
     filterContainer.innerHTML = filterHtml;
 
-    // 4. Add Event Listeners
+    // Add Event Listeners with SHARED STATE
     const buttons = filterContainer.querySelectorAll('.filter-btn');
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Remove active class from all
-            buttons.forEach(b => b.classList.remove('active'));
-            // Add active to clicked
-            btn.classList.add('active');
-
             const filterValue = btn.getAttribute('data-filter');
-            filterProjects(filterValue);
+
+            if (filterValue === 'all') {
+                appState.activeTags.clear();
+            } else {
+                // Toggle logic identical to top search
+                if (appState.activeTags.has(filterValue)) {
+                    appState.activeTags.delete(filterValue);
+                } else {
+                    appState.activeTags.add(filterValue);
+                }
+            }
+
+            updateAppFilters();
         });
     });
 }
 
 function filterProjects(category) {
-    const allCards = document.querySelectorAll('.lab-card, #featured-card');
-    const filterContainer = document.getElementById('filter-container');
-
-    // 0. Auto Scroll to top of experiments
-    if (filterContainer) {
-        // Scroll slightly above the filter container for better context
-        const rect = filterContainer.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const targetY = rect.top + scrollTop - 100; // 100px buffer
-
-        window.scrollTo({
-            top: targetY,
-            behavior: 'smooth'
-        });
-    }
-
-    // 1. Fade OUT non-matching visible 
-    allCards.forEach(card => {
-        let container = card;
-        if (card.id === 'featured-card') {
-            container = card.closest('a') || card;
-        } else if (card.classList.contains('lab-card')) {
-            container = card.closest('a') || card;
-        }
-
-        const badge = card.querySelector('.badge-lab');
-        const cardCategory = badge ? badge.textContent : '';
-
-        // Determine MATCH
-        let isMatch = false;
-        if (category === 'all') {
-            isMatch = true;
-        } else {
-            isMatch = cardCategory.includes(category);
-        }
-
-        // HIDE LOGIC: If currently visible (display != 'none') AND Match is False -> Fade Out
-        if (container.style.display !== 'none' && !isMatch) {
-            card.classList.add('animating-out');
-            card.classList.remove('animating-in'); // Ensure no conflict
-        }
-    });
-
-    // 2. Wait for fade out, then Toggle Display and Trigger Enter Animation
-    setTimeout(() => {
-        let matchIndex = 0; // For staggering
-
-        allCards.forEach(card => {
-            let container = card;
-            if (card.id === 'featured-card') {
-                container = card.closest('a') || card;
-            } else if (card.classList.contains('lab-card')) {
-                container = card.closest('a') || card;
-            }
-
-            const badge = card.querySelector('.badge-lab');
-            const cardCategory = badge ? badge.textContent : '';
-
-            // Check match again
-            let isMatch = false;
-            if (category === 'all') {
-                isMatch = true;
-            } else {
-                isMatch = cardCategory.includes(category);
-            }
-
-            if (isMatch) {
-                // SHOW logic
-                // If it was hidden OR it was visible (no change), make sure it's correct
-                // If it was animating out (e.g. rapid switch), stop that.
-                card.classList.remove('animating-out');
-
-                if (container.style.display === 'none') {
-                    // Was hidden, needs to show
-                    container.style.display = '';
-
-                    // Add Staggered Entrance
-                    // Use css animation with delay
-                    card.style.animationDelay = `${matchIndex * 0.05}s`; // 50ms stagger
-                    card.classList.add('animating-in');
-
-                    // Clean up animation class after it runs? 
-                    // Not strictly necessary if we reset matchIndex logic on next run
-                    // But good practice:
-                    card.addEventListener('animationend', () => {
-                        card.classList.remove('animating-in');
-                        card.style.animationDelay = '';
-                    }, { once: true });
-
-                } else {
-                    // Was already visible and matches? 
-                    // Just ensure it's fully opaque/visible
-                    // No need to re-animate if it didn't leave?
-                    // Depends on "stiffness". If we want *everything* to reflow nicely...
-                    // Let's just keep it stable if it didn't move.
-                }
-
-                matchIndex++;
-
-            } else {
-                // HIDE logic
-                // It should have faded out by now due to Step 1.
-                // Just set display none.
-                container.style.display = 'none';
-                card.classList.remove('animating-out'); // Reset state
-                card.classList.remove('animating-in');
-            }
-        });
-    }, 300); // Wait for the exit animation (300ms)
+    // Legacy function replaced by updateAppFilters, keeping empty or redirecting just in case
+    // Not needed if initFilters uses updateAppFilters directly.
 }
 
 function initModal() {
@@ -383,100 +372,109 @@ function initModal() {
     });
 }
 
-function initSearch() {
+function initSearch(projects) {
     const searchInput = document.querySelector('.search-input');
     const featuredSection = document.getElementById('featured-section');
-    const featuredContainer = document.getElementById('featured-container'); // Need container, not section
+    const featuredContainer = document.getElementById('featured-container');
     const allSection = document.getElementById('all-experiments');
+    const overlay = document.getElementById('search-overlay');
+    const body = document.body;
+    const suggestionsContainer = document.getElementById('search-suggestions');
 
     if (searchInput && featuredSection && allSection && featuredContainer) {
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const allCards = allSection.querySelectorAll('.lab-card');
-
-            const featuredCards = Array.from(featuredContainer.children);
-
-            let firstMatch = null;
-            let hasFeaturedMatch = false;
-
-            if (searchTerm.length > 0) {
-                // 1. Filter Display of Featured Cards Individually
-                featuredCards.forEach(card => {
-                    // Try to find title/desc inside
-                    const title = card.querySelector('.title-project')?.textContent.toLowerCase() || '';
-                    const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
-
-                    if (title.includes(searchTerm) || desc.includes(searchTerm)) {
-                        card.style.display = 'block'; // Or '' if flex/grid issues, but block is safe for A tag
-                        hasFeaturedMatch = true;
-                        if (!firstMatch) firstMatch = card;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                // Show/Hide Featured Section based on if ANY featured card matches
-                if (hasFeaturedMatch) {
-                    featuredSection.style.display = 'block';
-                } else {
-                    featuredSection.style.display = 'none';
+        // Populate Suggestions
+        if (suggestionsContainer && projects) {
+            const allTags = new Set();
+            projects.forEach(p => {
+                if (p.category) {
+                    const tags = p.category.split(/\s+·\s+/);
+                    tags.forEach(tag => allTags.add(tag.trim()));
                 }
+            });
 
-                // 2. Filter All Experiments
-                allCards.forEach(card => {
-                    const title = card.querySelector('.title-project')?.textContent.toLowerCase() || '';
-                    const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
-                    const container = card.closest('a') || card;
+            const tags = Array.from(allTags).slice(0, 6);
 
-                    if (title.includes(searchTerm) || desc.includes(searchTerm)) {
-                        container.style.display = '';
-                        if (!firstMatch) firstMatch = container;
+            suggestionsContainer.innerHTML = ''; // Clear
+            tags.forEach(tag => {
+                const tagEl = document.createElement('div');
+                tagEl.classList.add('search-tag');
+                tagEl.textContent = tag;
+
+                // Prevent focus loss on mousedown
+                tagEl.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                });
+
+                tagEl.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Update Shared State
+                    if (appState.activeTags.has(tag)) {
+                        appState.activeTags.delete(tag);
                     } else {
-                        container.style.display = 'none';
+                        appState.activeTags.add(tag);
                     }
-                });
 
-                // 3. Auto-scroll removed from here (moved to keydown)
-            } else {
-                // Reset view
-                featuredSection.style.display = 'block';
-                featuredCards.forEach(c => c.style.display = ''); // Reset display
-                allCards.forEach(card => {
-                    const container = card.closest('a') || card;
-                    container.style.display = '';
+                    updateAppFilters();
+                    searchInput.focus();
                 });
-            }
+                suggestionsContainer.appendChild(tagEl);
+            });
+        }
+
+        // Overlay Logic
+        searchInput.addEventListener('focus', () => {
+            body.classList.add('search-active');
         });
 
-        // Add Enter key listener for scrolling
+        // Robust blur handler
+        searchInput.addEventListener('blur', () => {
+            setTimeout(() => {
+                body.classList.remove('search-active');
+            }, 100);
+        });
+
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                body.classList.remove('search-active');
+                searchInput.blur();
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            appState.searchTerm = searchInput.value;
+            updateAppFilters();
+        });
+
+        // Add Enter and Escape key listener
         searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                body.classList.remove('search-active');
+                searchInput.blur();
+                return;
+            }
+
             if (e.key === 'Enter') {
-                e.preventDefault(); // Prevent form submission if inside a form
+                e.preventDefault();
 
-                const searchTerm = searchInput.value.toLowerCase();
-                if (searchTerm.length === 0) return;
-
-                // Find first visible match again (since state might have changed or just to be sure)
-                // We re-query visible elements or reuse logic. 
-                // Simplest is to find the first visible card in the DOM order.
-
-                // Check Featured First
-                const featuredCards = Array.from(featuredContainer.children);
-                let firstMatch = featuredCards.find(c => c.style.display !== 'none' && c.offsetParent !== null);
-
-                // If not in featured, check all experiments
-                if (!firstMatch) {
-                    const allCards = Array.from(allSection.querySelectorAll('.lab-card'));
-                    firstMatch = allCards.find(c => {
-                        const container = c.closest('a') || c;
-                        return container.style.display !== 'none' && container.offsetParent !== null;
-                    });
-                    // If found in allCards, make sure we target the container if it exists
-                    if (firstMatch && firstMatch.closest('a')) firstMatch = firstMatch.closest('a');
+                // If empty search and enter pressed, go to featured
+                if (appState.searchTerm.length === 0 && appState.activeTags.size === 0) {
+                    const featured = document.getElementById('featured-section');
+                    if (featured) {
+                        featured.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        body.classList.remove('search-active');
+                        searchInput.blur();
+                    }
+                    return;
                 }
 
+                // If matches found, scroll to first
+                const firstMatch = document.querySelector('.lab-card:not([style*="display: none"]), #featured-card:not([style*="display: none"])');
                 if (firstMatch) {
                     firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    body.classList.remove('search-active');
+                    searchInput.blur();
                 }
             }
         });

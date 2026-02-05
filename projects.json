@@ -34,9 +34,9 @@
   },
   {
     "id": "mahabudget",
-    "title": "MahaBudget",
+    "title": "SiBoros",
     "category": "AI \u00b7 Data",
-    "description": "A conversational budget tracking experiment that blends financial logging with AI interaction. Designed to explore whether talking to a system can make personal finance feel less mechanical and more reflective.",
+    "description": "Stop manual logging and start chatting. Use conversational AI to link your emotions with your spending and curb impulsive habits.",
     "link": "#",
     "image": "project_preview.png",
     "status": "coming-soon",
