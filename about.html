@@ -8,86 +8,210 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/about.css">
-    <link rel="icon" href="assets/logo2.png">
+    <link rel="icon" href="assets/logo3.png?v=1.0" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600&family=Outfit:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Roboto+Slab:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* Specific Refinements for New About Page */
+        .about-section-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .principle-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 2rem;
+            border-radius: 16px;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .principle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            background: var(--glass-bg);
+        }
+
+        .principle-icon {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding: 12px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+        }
+
+        .lead-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .stat-number {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 3rem;
+            color: var(--text-main);
+            line-height: 1;
+        }
+
+        .bg-orbs-about {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg px-5">
+    <nav class="navbar navbar-expand-lg px-5 fixed-top"
+        style="background: var(--bg-main); backdrop-filter: blur(10px);">
         <a class="navbar-brand logo-text d-flex align-items-center" href="./index.html">
             <img src="assets/logo3.png" alt="Logo" width="30" height="30" class="me-2 rounded-circle">
             MahaLabs
         </a>
-        <div class="ms-auto">
-            <a class="me-3 text-decoration-none text-nav-text" href="./index.html">Experiments</a>
-            <a class="text-decoration-none text-nav-text" href="about.html">About</a>
-            <a class="text-decoration-none fw-semibold" style='color:blueviolet'
-                href=https://fahmialfayadh.site>Fahmialfayadh</a>
+        <div class="ms-auto d-flex align-items-center">
+            <a class="me-3 text-navbar text-decoration-none" href="./index.html">Experiments</a>
+            <a class="me-3 text-navbar text-decoration-none" href="docs.html">Docs</a>
+            <a class="text-navbar text-decoration-none fw-semibold" href="about.html">About</a>
+            <button id="theme-toggle" class="btn btn-link text-decoration-none ms-2 p-0 border-0"
+                aria-label="Toggle Dark Mode" style="color: var(--nav-text); font-size: 1.2rem;">
+                <i class="fa-solid fa-moon"></i>
+            </button>
         </div>
     </nav>
-    <section class="hero about-hero">
-        <div class="container text-center">
-            <h1 class="fw-medium font-archivo-black" id="hero-title">Mahalabs</h1>
 
-            <!-- Reusing floats for consistency -->
-            <div class="hero-float float-1 float-top"></div>
-            <div class="hero-float float-2 float-offset"></div>
-
-
-            <p class="text-muted mx-auto" style="max-width: 700px;">
-                MahaLabs is a personal workspace for experimenting with ideas through code, data, and system
-                design—often involving AI, structure, and human behavior.
-            </p>
-        </div>
-    </section>
-
-    <section class="container mb-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="lab-card about-card p-4 p-md-5" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="fw-bold mb-4 font-outfit">What happens here?</h3>
-
-                    <p class="text-secondary mb-4">
-                        This space exists as a place to think out loud, but through implementation.
-                        Ideas are explored by building small systems, running experiments, and testing
-                        assumptions with data—not by making
-                        claims or polished presentations.
+    <!-- Header Section -->
+    <header class="section pb-0" style="padding-top: 140px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8" data-aos="fade-right">
+                    <h1 class="display-3 fw-bold font-archivo-black mb-4 hero-gradient-text">
+                        Constructing logic from chaos.
+                    </h1>
+                    <p class="lead-text mb-5">
+                        MahaLabs is an experimental workspace dedicated to testing ideas, building systems, and
+                        analyzing data.
+                        It serves as a proving ground where intuition is validated by implementation.
                     </p>
-
-                    <p class="text-secondary mb-4">
-                        Some experiments may grow into usable tools. Many will remain as notes, partial prototypes,
-                        or directions that are eventually abandoned. That outcome is expected, not avoided.
-                    </p>
-
-
-
-                    <h5 class="fw-bold mb-3 font-outfit">Our Philosophy</h5>
-                    <ul class="list-unstyled text-secondary mb-4">
-                        <li class="mb-2"><strong>Systems over motivation.</strong> We design structures, not hype.
-                        </li>
-                        <li class="mb-2"><strong>Data before intuition.</strong> Intuition is tested, not trusted.
-                        </li>
-                        <li class="mb-2"><strong>AI as a mediator.</strong> Not a toy, but a reasoning layer.</li>
-                        <li class="mb-2"><strong>Clarity matters.</strong> Complex ideas should feel simple to use.
-                        </li>
-                    </ul>
-
-
-
-
                 </div>
             </div>
-            <p class="text-muted small text-center mt-5">
-                This page is a living document. It may change without notice.
-            </p>
+        </div>
+    </header>
+
+    <!-- Mission / Stats Section -->
+    <section class="section py-5">
+        <div class="container">
+            <div class="row g-4 mb-5">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="principle-card">
+                        <div class="stat-number mb-2">4</div>
+                        <h5 class="fw-bold">Active Experiments</h5>
+                        <p class="text-muted small">Ongoing research projects running in real-time.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="principle-card">
+                        <div class="stat-number mb-2">Why</div>
+                        <h5 class="fw-bold">The Purpose</h5>
+                        <p class="text-muted small">To bridge the gap between abstract thought and concrete software.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="principle-card">
+                        <div class="stat-number mb-2">How</div>
+                        <h5 class="fw-bold">The Method</h5>
+                        <p class="text-muted small">Rapid prototyping, data-driven validation, and iterative design.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Core Values Section -->
+    <section class="section py-5 mb-5">
+        <div class="container">
+            <h2 class="about-section-title text-center mb-5" data-aos="fade-up">Core Principles</h2>
+
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-up">
+                    <div class="d-flex gap-4">
+                        <div class="principle-icon">
+                            <i class="fa-solid fa-shapes"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold">Systems over Motivation</h4>
+                            <p class="text-muted">
+                                Motivation is fleeting. Systems are reliable. We build structures that ensure progress
+                                regardless of how we feel.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="d-flex gap-4">
+                        <div class="principle-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold">Data before Intuition</h4>
+                            <p class="text-muted">
+                                Gut feelings are good starting points, but terrible conclusions. We verify every
+                                assumption with data.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="d-flex gap-4">
+                        <div class="principle-icon">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold">AI as a Mediator</h4>
+                            <p class="text-muted">
+                                We don't fear AI; we collaborate with it. It serves as a reasoning layer between raw
+                                data and human insight.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="d-flex gap-4">
+                        <div class="principle-icon">
+                            <i class="fa-regular fa-eye"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold">Clarity Matters</h4>
+                            <p class="text-muted">
+                                Complexity is easy. Simplicity is hard. We strive to make complex ideas accessible and
+                                simple to use.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (PRESERVED) -->
     <section id="contact" class="section contact" data-aos="fade-up" data-aos-delay="200">
         <div class="contact-grid">
             <!-- Left Column: Hook & Info -->
@@ -152,6 +276,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/theme.js"></script>
     <script>
         AOS.init({
             duration: 800,

@@ -15,9 +15,28 @@
     max-width: 100%;
 }
 
+.hero-gradient-text {
+    background: var(--hero-color);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    /* Fallback */
+}
+
 @media(max-width: 768px) {
     .hero h1 {
-        font-size: 48px;
+        font-size: 3rem !important;
+        /* Force smaller size on mobile */
+        letter-spacing: -1px;
+    }
+
+    .lead-text {
+        font-size: 1rem;
+    }
+
+    .about-hero {
+        padding-top: 100px !important;
     }
 }
 
@@ -83,7 +102,7 @@
     line-height: 1.1;
     margin-bottom: 24px;
     font-family: 'Outfit', sans-serif;
-    color: #1e293b;
+    color: var(--text-main);
 }
 
 .contact-left h2 .accent {
@@ -95,7 +114,7 @@
 
 .contact-lead {
     font-size: 1.1rem;
-    color: #64748b;
+    color: var(--text-muted);
     line-height: 1.6;
     margin-bottom: 40px;
 }
@@ -112,7 +131,7 @@
     align-items: center;
     gap: 16px;
     font-size: 1.05rem;
-    color: #334155;
+    color: var(--text-main);
     font-weight: 500;
 }
 
@@ -122,7 +141,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: var(--card-bg);
     border-radius: 50%;
     color: #6366f1;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -139,7 +158,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: var(--card-bg);
     border-radius: 50%;
     color: #64748b;
     font-size: 18px;
@@ -156,11 +175,11 @@
 
 /* Form Styles */
 .glass-form {
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--glass-bg);
     backdrop-filter: blur(20px);
     padding: 40px;
     border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--card-border);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
 
@@ -184,11 +203,11 @@ textarea {
     width: 100%;
     padding: 16px 20px;
     border-radius: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--glass-border);
+    background: var(--search-bg);
     font-family: inherit;
     font-size: 1rem;
-    color: #334155;
+    color: var(--text-main);
     transition: all 0.3s ease;
     outline: none;
 }
@@ -196,7 +215,7 @@ textarea {
 input:focus,
 textarea:focus {
     border-color: #6366f1;
-    background: white;
+    background: var(--card-bg);
     box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
@@ -303,10 +322,40 @@ textarea:focus {
 }
 
 /* Mobile specific confirmation */
+/* Mobile Refinements */
 @media (max-width: 768px) {
+    .section {
+        padding: 60px 0;
+    }
+
+    .about-section-title {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .principle-card {
+        padding: 1.5rem;
+        margin-bottom: 12px;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
     .about-card p {
         font-size: 16px !important;
-        /* Ensure 16px min on mobile */
         -webkit-line-clamp: unset !important;
+    }
+
+    /* Ensure icons/text in principles don't look squashed */
+    .d-flex.gap-4 {
+        gap: 1rem !important;
+    }
+
+    .principle-icon {
+        padding: 10px;
+        font-size: 1.5rem;
+        margin-bottom: 0;
+        height: min-content;
     }
 }

@@ -609,6 +609,37 @@ body.search-active #search-overlay {
 }
 
 
+/* Bootstrap Overrides for Dark Mode Support */
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-secondary {
+  color: var(--text-muted) !important;
+  /* Reuse text-muted color for secondary */
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-main);
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg-main);
