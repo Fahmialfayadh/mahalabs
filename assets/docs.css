@@ -241,6 +241,7 @@
     margin-bottom: 1.5rem;
     background: var(--hero-color);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -325,7 +326,7 @@
         content: 'Navigate Docs ↓';
         display: block;
         text-align: center;
-        padding: 15px 0;
+        padding: 25px 0;
         font-weight: 600;
         color: var(--accent-blue);
         cursor: pointer;
@@ -350,5 +351,54 @@
         border-radius: 0;
         border-left: none;
         border-right: none;
+    }
+
+    /* Mobile Navbar Styling */
+    .navbar {
+        z-index: 1000;
+        /* Ensure navbar stays above sidebar */
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        /* Ensure collapse menu drops down */
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0.8rem 1.5rem !important;
+        gap: 0 !important;
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    .navbar-brand {
+        width: auto !important;
+        margin-right: auto !important;
+        padding: 0 !important;
+    }
+
+    .navbar-collapse {
+        background: var(--bg-main);
+        padding: 1rem;
+        border-radius: 12px;
+        margin-top: 1rem;
+        border: 1px solid var(--glass-border);
+        position: relative;
+        z-index: 1001;
+        /* Above navbar itself */
+    }
+
+    .navbar-collapse .d-flex {
+        width: 100%;
+    }
+
+    .navbar-collapse a,
+    .navbar-collapse button {
+        width: 100%;
+        text-align: center;
+        padding: 0.5rem !important;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+        outline: none;
     }
 }
