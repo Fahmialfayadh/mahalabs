@@ -40,7 +40,7 @@
         "link": "https://sibudget.mahalabs.space",
         "image": "sibudget.png",
         "status": "Active",
-        "is_featured": false,
+        "is_featured": true,
         "tag_color": "#6366f1"
     },
     {
