@@ -1,75 +1,31 @@
 # MahaLabs
 
-MahaLabs is a web-based platform designed for data analysis portfolio showcase and experimental project documentation. It functions as a hybrid system that can operate as a dynamic Flask application or a static single-page application (SPA) with JSON-based data persistence.
+MahaLabs is a personal Research & Development ecosystem dedicated to exploring the intersection of **Data Intelligence**, **Artificial Intelligence**, and **Digital Utilities**.
 
-## Project Overview
+It serves as a central hub for experimental projects that aim to bridge the gap between raw data and actionable insights, leveraging modern AI and transparent methodologies.
 
-The platform serves two primary purposes:
-1.  **Experiment Showcase**: A portfolio interface to display data projects, visualizations, and experimental concepts.
-2.  **MahaInsight (Knowledge Base)**: A documentation hub for technical articles, system architecture notes, and data stories.
+## Ecosystem Overview
 
-## Technical Architecture
+The MahaLabs ecosystem is built on three core pillars:
 
-The system avoids heavy frontend frameworks in favor of performance and simplicity, using a "Zero-Build" approach.
+### 1. Data Intelligence & Visualization
+Projects focused on making complex data accessible, transparent, and interpretable.
 
-### Stack
-*   **Backend**: Python (Flask) - Provides API endpoints for CRUD operations on projects and documentation.
-*   **Frontend**: Native HTML5, CSS3, and Vanilla JavaScript.
-    *   **Styling**: Custom CSS with CSS Variables for theming (Light/Dark mode) and Bootstrap 5 for grid/layout.
-    *   **Interactivity**: ES6+ JavaScript for DOM manipulation, dynamic content rendering, and state management.
-*   **Data Storage**: File-based JSON persistence (`projects.json`, `docs.json`). This ensures the application is portable and requires no external database server for basic operation.
+*   **MahaInsight**: A data visualization platform that presents verified, open datasets through clear and transparent analysis. It focuses on interpretability, source traceability, and reproducible insights rather than opaque conclusions.
+*   **PetaSight**: An intuitive geospatial visualization platform built to analyze multi-dimensional data with a clean, modern user interface.
 
-### Key Features
+### 2. Artificial Intelligence (AI)
+Experimental AI applications designed to solve specific personal or societal problems with a focus on transparency and human-centric design.
 
-*   **Dual-Mode Operation**:
-    *   **Dynamic Mode**: Runs with `app.py`, allowing administration (CRUD) of content via API endpoints.
-    *   **Static Mode**: Implements fallback logic in the frontend (`fetch` API) to load content directly from JSON files if the backend API is unreachable.
-*   **Responsive Design**: Mobile-first architecture with collapsible navigation and grid adaptations for various screen sizes.
-*   **Dark Mode System**: Global theme management using `localStorage` persistence and CSS variables.
-*   **Markdown Rendering**: Integrated `marked.js` to render Markdown content dynamically within the documentation interface.
-*   **Search & Filtering**: Client-side filtering logic for projects based on tags and categories.
+*   **MahaStroke**: An experimental stroke risk estimation tool built with an emphasis on transparency and interpretability. Instead of presenting a single opaque result, the system exposes how different factors contribute to the final risk score.
+*   **SiBoros (MahaBudget)**: A conversational AI tool that links emotions with spending habits to help curb impulsive behavior.
+*   **MahaDiscipline**: An accountability experiment built around consistency, friction, and self-honesty, focusing on tracking reliability over time.
 
-## Project Structure
+### 3. Digital Utilities
+Practical tools designed to streamline daily digital workflows.
 
-```
-mahalabsv2/
-├── app.py                  # Main Flask application and API routes
-├── projects.json           # Data store for portfolio projects
-├── docs.json               # Data store for documentation articles
-├── requirements-dev.txt    # Python dependencies
-├── index.html              # Main landing page (Experiments)
-├── docs.html               # Knowledge Base interface
-├── about.html              # About page
-├── admin.html              # Admin interface for content management
-└── assets/                 # Static resources
-    ├── style.css           # Core styles
-    ├── docs.css            # Documentation-specific styles
-    ├── lab.js              # Project rendering logic
-    └── theme.js            # Theme toggling logic
-```
+*   **MahaConvert**: A versatile file conversion tool that supports a wide range of formats, enabling users to easily convert documents, images, audio, and video files with simplicity and speed.
 
+---
 
-
-## API Endpoints
-
-When running with Flask (`app.py`), the following endpoints are available:
-
-*   `GET /api/projects`: Retrieve all projects.
-*   `POST /api/projects`: Create or update a project.
-*   `DELETE /api/projects/<id>`: Delete a project.
-*   `GET /api/docs`: Retrieve all documentation articles.
-*   `POST /api/docs`: Create or update an article.
-*   `DELETE /api/docs/<id>`: Delete an article.
-
-## Administrative Functions
-
-The `admin.html` page provides a GUI for:
-*   Adding new experiments/projects.
-*   Writing and editing documentation (supports Markdown).
-*   Managing existing content.
-
-Note: In a production environment, access to `admin.html` and write-operations should be secured.
-
-## License
-
-[MIT License](LICENSE)
+*MahaLabs is a continuous experiment in building useful, transparent, and aesthetically pleasing digital tools.*

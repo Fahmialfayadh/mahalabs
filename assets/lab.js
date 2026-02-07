@@ -44,7 +44,7 @@ async function fetchAndRenderProjects() {
                       </div>
                     </div>
                     <div class="featured-visual">
-                      <img src="assets/${p.image}" alt="${p.title}" class="project-mockup">
+                      <img src="assets/${p.image}" alt="${p.title}" class="project-mockup" loading="lazy">
                     </div>
                   </div>
                 </a>

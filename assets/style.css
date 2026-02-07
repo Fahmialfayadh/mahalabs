@@ -1389,15 +1389,9 @@ body {
     /* 16px padding + 20px margin */
   }
 
-  /* Navbar Mobile */
+  /* Navbar Mobile - Let Bootstrap handle collapse */
   .navbar {
-    padding: 16px 24px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    /* Stack them */
-    align-items: center !important;
-    gap: 16px;
-    /* Space between logo and links */
+    padding: 12px 24px !important;
   }
 
   .navbar-brand {
@@ -1530,5 +1524,47 @@ body {
 
   .span-2 {
     grid-column: span 1;
+  }
+}
+
+/* ===================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   Only applies on small screens
+   =================================== */
+@media (max-width: 768px) {
+
+  /* Reduce orb blur - major performance gain */
+  .orb {
+    filter: blur(60px);
+    animation: none;
+    /* Disable float animation on mobile */
+    opacity: 0.25;
+  }
+
+  /* Reduce backdrop-filter intensity */
+  .navbar,
+  .search-input,
+  .lab-card,
+  .glass-form,
+  #projectModal .modal-content {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Simplify box-shadows on mobile */
+  .lab-card,
+  #featured-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .lab-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    /* Lighter hover effect */
+  }
+
+  /* Faster, simpler AOS-style transitions */
+  [data-aos] {
+    transition-duration: 400ms !important;
   }
 }

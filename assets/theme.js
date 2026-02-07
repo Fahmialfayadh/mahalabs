@@ -10,15 +10,14 @@ function initDarkMode() {
     const savedTheme = localStorage.getItem('theme');
 
     // Apply immediate if saved or system pref
-    if (savedTheme === 'dark') {
-        body.classList.add('dark-mode');
-        updateIcon(true);
-    } else if (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        // System preference
-        body.classList.add('dark-mode');
-        updateIcon(true);
-    } else {
+    // Apply dark mode by default unless 'light' is explicitly saved
+    if (savedTheme === 'light') {
+        body.classList.remove('dark-mode');
         updateIcon(false);
+    } else {
+        // Default to dark mode (saved='dark' or null)
+        body.classList.add('dark-mode');
+        updateIcon(true);
     }
 
     if (toggleBtn) {

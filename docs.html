@@ -5,17 +5,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Docs - MahaLabs</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
     <!-- Reusing some about page styles -->
     <link rel="stylesheet" href="assets/about.css">
 
     <link rel="icon" href="assets/logo3.png?v=1.0" type="image/png">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600&family=Outfit:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
+    <!-- Local Google Fonts -->
+    <link href="assets/vendor/fonts/google-fonts.css" rel="stylesheet">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
@@ -23,6 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <link rel="stylesheet" href="assets/docs.css">
+    <link rel="stylesheet" href="assets/docs-mobile.css">
 </head>
 
 <body>
@@ -44,7 +44,8 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="ms-auto d-flex align-items-center flex-column flex-lg-row">
                 <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="./index.html">Experiments</a>
-                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="docs.html">Docs</a>
+                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="docs.html">Article</a>
+                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="overview.html">Stack</a>
                 <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="about.html">About</a>
                 <button id="theme-toggle" class="btn btn-link text-decoration-none ms-lg-2 p-0 border-0 my-2 my-lg-0"
                     aria-label="Toggle Dark Mode" style="color: var(--nav-text); font-size: 1.2rem;">
@@ -54,80 +55,11 @@
         </div>
     </nav>
 
-    <!-- Part 1: Hero & Showcase -->
-    <section class="docs-hero" data-aos="fade-up">
-        <div class="container">
-            <h1 class="fw-bold font-archivo-black">System Architecture</h1>
-            <p class="text-muted mx-auto" style="max-width: 600px; font-size: 1.2rem;">
-                Built on chaos, ordered by code. A look into the stack and structure powering MahaLabs.
-            </p>
-
-            <!-- Tech Stack Grid -->
-            <div class="tech-stack-grid">
-                <div class="stack-card">
-                    <i class="fa-brands fa-python stack-icon colored"></i>
-                    <h5 class="fw-bold">Python & Flask</h5>
-                    <p class="small text-muted">Backend logic & serverless structure.</p>
-                </div>
-                <div class="stack-card">
-                    <i class="fa-brands fa-js stack-icon colored"></i>
-                    <h5 class="fw-bold">Vanilla JS</h5>
-                    <p class="small text-muted">Dynamic interactions, zero build step.</p>
-                </div>
-                <div class="stack-card">
-                    <i class="devicon-scikitlearn-plain" style="font-size: 50px;"></i>
-
-                    <h5 class="fw-bold">Scikit-learn</h5>
-                    <p class="small text-muted">Machine learning library for data analysis.</p>
-                </div>
-                <div class="stack-card">
-                    <i class="devicon-django-plain" style="font-size: 50px;"></i>
-                    <h5 class="fw-bold">Django</h5>
-                    <p class="small text-muted">Web framework for building web applications.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Part 2: Architecture / "Blablabla" -->
-    <!-- Part 2: Architecture / "Blablabla" -->
-    <section class="architecture-section container" data-aos="fade-up">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="philosophy-card">
-                    <i class="fa-solid fa-quote-left quote-icon"></i>
-                    <div class="philosophy-content">
-                        <h2 class="font-outfit fw-bold mb-4">The Philosophy</h2>
-                        <p class="lead-text mb-4">
-                            MahaLabs is designed to be a living organism. It doesn't rely on complex frameworks or heavy
-                            databases. Everything is transparent—files, data, and logic. It allows for rapid
-                            experimentation without the overhead of "enterprise" patterns.
-                        </p>
-                        <p class="highlight-text">
-                            The goal is to move from <strong>Idea</strong> to <strong>Implementation</strong> in the
-                            shortest path
-                            possible.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="text-center mt-5">
-                    <p class="small text-muted">
-                        Below lies the knowledge base. A collection of notes, guides, and documentation on how we
-                        maintain
-                        the chaos.
-                    </p>
-                    <div class="d-inline-block border-bottom pb-2"
-                        style="width: 50px; border-color: var(--accent-blue) !important;"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Part 3: The Docs Interface -->
+    <!-- The Docs Interface -->
     <div id="knowledge-base" class="docs-interface">
-        <aside class="docs-sidebar">
-            <h6 class="text-uppercase text-muted fw-bold mb-4" style="letter-spacing: 2px; font-size: 0.8rem;">Knowledge
+        <aside class="docs-sidebar" id="docs-sidebar">
+            <h6 class="text-uppercase text-muted fw-bold mb-4" style="letter-spacing: 2px; font-size: 0.8rem;">
+                Knowledge
                 Base</h6>
             <div id="docs-nav-content">
                 <!-- Dynamic Content -->
@@ -138,7 +70,17 @@
         </aside>
 
         <main class="docs-content-wrapper">
+            <!-- Mobile Article List (Shows on mobile in list mode) -->
+            <div id="mobile-article-list" class="mobile-article-list">
+                <!-- Will be populated dynamically with article cards -->
+            </div>
+
             <div id="docs-main-content">
+                <!-- Back Button (Mobile Only) -->
+                <button class="mobile-back-btn" id="mobile-back-btn">
+                    <i class="fa-solid fa-arrow-left me-2"></i> Back to Articles
+                </button>
+
                 <div class="text-center text-muted py-5">
                     <i class="fa-regular fa-folder-open fa-3x mb-3"></i>
                     <h4>Select a topic from the sidebar</h4>
@@ -146,6 +88,8 @@
             </div>
         </main>
     </div>
+    </div>
+    <!-- End Article Tab -->
 
     <!-- Background Orbs -->
     <div class="bg-orbs">
@@ -156,141 +100,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="assets/theme.js"></script>
+    <script src="docs.js"></script>
 
-    <script>
-        AOS.init();
-        let allDocs = [];
-
-        async function fetchDocs() {
-            try {
-                // Try to fetch from API first (when app.py is running)
-                let response = await fetch('/api/docs');
-
-                // If API fails (404, etc), fall back to docs.json for static mode
-                if (!response.ok) {
-                    console.log('API not available, loading from docs.json...');
-                    response = await fetch('docs.json');
-                }
-
-                allDocs = await response.json();
-                renderSidebar();
-
-                // If ID in URL hash, load it
-                if (window.location.hash) {
-                    const id = window.location.hash.substring(1);
-                    loadDocContent(id);
-                    // Scroll to knowledge base if loaded from hash
-                    const kbToCheck = document.getElementById('knowledge-base');
-                    if (kbToCheck) {
-                        // slight delay to allow render
-                        setTimeout(() => kbToCheck.scrollIntoView({ behavior: 'smooth' }), 500);
-                    }
-                } else if (allDocs.length > 0) {
-                    // Don't auto-load content into view, just let user select.
-                    // OR load the first one but don't scroll.
-                    loadDocContent(allDocs[0].id);
-                } else {
-                    document.getElementById('docs-nav-content').innerHTML = '<p class="text-muted small">No documents found.</p>';
-                }
-            } catch (error) {
-                console.error('Failed to load docs:', error);
-                // Try fallback to docs.json
-                try {
-                    const fallbackResponse = await fetch('docs.json');
-                    allDocs = await fallbackResponse.json();
-                    renderSidebar();
-                    if (allDocs.length > 0) {
-                        loadDocContent(allDocs[0].id);
-                    }
-                } catch (fallbackError) {
-                    console.error('Fallback also failed:', fallbackError);
-                    document.getElementById('docs-nav-content').innerHTML = '<p class="text-muted small">Failed to load documents.</p>';
-                }
-            }
-        }
-
-        function renderSidebar() {
-            const nav = document.getElementById('docs-nav-content');
-            nav.innerHTML = '';
-
-            // Group by Category
-            const grouped = allDocs.reduce((acc, doc) => {
-                const cat = doc.category || 'General';
-                if (!acc[cat]) acc[cat] = [];
-                acc[cat].push(doc);
-                return acc;
-            }, {});
-
-            Object.keys(grouped).sort().forEach(category => {
-                const catHeader = document.createElement('div');
-                catHeader.className = 'docs-nav-category';
-                catHeader.textContent = category;
-                nav.appendChild(catHeader);
-
-                grouped[category].forEach(doc => {
-                    const link = document.createElement('a');
-                    link.className = 'docs-nav-item';
-                    link.href = `#${doc.id}`;
-                    link.textContent = doc.title;
-                    link.onclick = (e) => {
-                        // Allow hash update
-                        // Scroll to top of content wrapper or just stay
-                        setTimeout(() => loadDocContent(doc.id), 0);
-                    };
-                    link.dataset.id = doc.id;
-                    nav.appendChild(link);
-                });
-            });
-        }
-
-        function loadDocContent(id) {
-            const doc = allDocs.find(d => d.id === id);
-            if (!doc) return;
-
-            // Update Active State
-            document.querySelectorAll('.docs-nav-item').forEach(el => el.classList.remove('active'));
-            const activeLink = document.querySelector(`.docs-nav-item[data-id="${id}"]`);
-            if (activeLink) activeLink.classList.add('active');
-
-            // Render Content
-            const container = document.getElementById('docs-main-content');
-            container.innerHTML = `
-                <div data-aos="fade-in">
-                    <span class="badge bg-secondary mb-3">${doc.category}</span>
-                    <h1>${doc.title}</h1>
-                    <div class="docs-content mt-4">
-                        ${marked.parse(doc.content)}
-                    </div>
-                    <div class="mt-5 pt-3 border-top text-muted small">
-                        Last updated: ${doc.last_updated || 'Just now'}
-                    </div>
-                </div>
-            `;
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchDocs();
-
-            // Mobile Sidebar Toggle Logic
-            const sidebar = document.querySelector('.docs-sidebar');
-            if (sidebar) {
-                sidebar.addEventListener('click', (e) => {
-                    // Only trigger on mobile/tablet widths
-                    if (window.innerWidth <= 992) {
-                        // Don't toggle if clicking a link (let link handle navigation)
-                        if (e.target.tagName !== 'A') {
-                            sidebar.classList.toggle('expanded');
-                        }
-                    }
-                });
-            }
-        });
-
-        window.addEventListener('hashchange', () => {
-            const id = window.location.hash.substring(1);
-            loadDocContent(id);
-        });
-    </script>
 </body>
 
 </html>

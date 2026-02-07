@@ -5,32 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MahaLabs Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" href="assets/logo3.png?v=1.0" type="image/png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: var(--bg-main);
             padding: 20px;
+            padding-top: 100px;
         }
 
         .card {
             margin-bottom: 20px;
             border: none;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: var(--card-bg);
+            color: var(--text-main);
         }
 
         .item-row {
-            background: white;
+            background: var(--card-bg);
             padding: 15px;
             margin-bottom: 10px;
             border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #eee;
+            border: 1px solid var(--card-border);
         }
 
         .form-label {
             font-weight: 500;
+            color: var(--text-main);
         }
 
         .nav-tabs .nav-link {
@@ -41,14 +49,49 @@
             font-family: monospace;
             font-size: 0.9em;
         }
+
+        .form-control,
+        .form-select {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+        }
     </style>
 </head>
 
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg px-3 px-lg-5 fixed-top"
+        style="background: var(--bg-main); backdrop-filter: blur(10px);">
+        <a class="navbar-brand logo-text d-flex align-items-center" href="./index.html">
+            <img src="assets/logo3.png" alt="Logo" width="30" height="30" class="me-2 rounded-circle">
+            MahaLabs
+        </a>
+
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+            style="color: var(--nav-text);">
+            <i class="fa-solid fa-bars" style="font-size: 1.5rem;"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="ms-auto d-flex align-items-center flex-column flex-lg-row">
+                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="./index.html">Experiments</a>
+                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="docs.html">Article</a>
+                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="overview.html">Stack</a>
+                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="about.html">About</a>
+                <button id="theme-toggle" class="btn btn-link text-decoration-none ms-lg-2 p-0 border-0 my-2 my-lg-0"
+                    aria-label="Toggle Dark Mode" style="color: var(--nav-text); font-size: 1.2rem;">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-0">MahaLabs Manager</h2>
-            <a href="/" class="btn btn-outline-secondary btn-sm">View Site</a>
         </div>
 
         <ul class="nav nav-tabs mb-4" id="adminTabs">
@@ -61,278 +104,89 @@
             </li>
         </ul>
 
-        <div class="tab-content">
-            <!-- PROJECTS TAB -->
+        <div class="tab-content" id="adminTabContent">
+            <!-- Projects Panel -->
             <div class="tab-pane fade show active" id="projects-pane">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card p-4">
-                            <h5 class="mb-3">Add / Edit Project</h5>
-                            <form id="projectForm">
-                                <input type="hidden" id="projectId">
-
-                                <div class="mb-3">
-                                    <label class="form-label">Title</label>
-                                    <input type="text" class="form-control" id="title" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Category</label>
-                                    <input type="text" class="form-control" id="category" placeholder="e.g. AI · Health"
-                                        required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Tag Color (Hex)</label>
-                                    <input type="color" class="form-control form-control-color" id="tag_color"
-                                        value="#000000" title="Choose your color">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Description</label>
-                                    <textarea class="form-control" id="description" rows="3" required></textarea>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Link</label>
-                                    <input type="text" class="form-control" id="link" value="#">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Image Filename</label>
-                                    <input type="text" class="form-control" id="image" value="project_preview.png">
-                                    <small class="text-muted">Must be in assets/ folder</small>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Status</label>
-                                    <select class="form-select" id="status">
-                                        <option value="Active">Active</option>
-                                        <option value="beta">Beta</option>
-                                        <option value="coming-soon">Coming Soon</option>
-                                    </select>
-                                </div>
-
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="is_featured">
-                                    <label class="form-check-label" for="is_featured">Is Featured?</label>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary w-100">Save Project</button>
-                                <button type="button" class="btn btn-secondary w-100 mt-2"
-                                    onclick="clearProjectForm()">Clear</button>
-                            </form>
+                <div class="card p-4">
+                    <h4>Add New Project</h4>
+                    <form id="addProjectForm">
+                        <div class="mb-3">
+                            <label class="form-label">ID</label>
+                            <input type="text" class="form-control" id="proj-id" placeholder="mahastroke" required>
                         </div>
-                    </div>
-
-                    <div class="col-md-8">
-                        <div class="card p-4">
-                            <h5 class="mb-3">Existing Projects</h5>
-                            <div id="projectsList">
-                                <!-- Projects loaded here -->
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-control" id="proj-title" placeholder="MahaStroke" required>
                         </div>
-                    </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" id="proj-desc" rows="2"
+                                placeholder="Risk prediction & behavioral insight..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tags (comma separated)</label>
+                            <input type="text" class="form-control" id="proj-tags" placeholder="AI, Health">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Image URL</label>
+                            <input type="text" class="form-control" id="proj-img" placeholder="assets/project1.jpg">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Link</label>
+                            <input type="text" class="form-control" id="proj-link" placeholder="project.html">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Project</button>
+                    </form>
+                </div>
+
+                <div class="card p-4 mt-4">
+                    <h4>Existing Projects</h4>
+                    <div id="projects-list"></div>
                 </div>
             </div>
 
-            <!-- DOCS TAB -->
+            <!-- Docs Panel -->
             <div class="tab-pane fade" id="docs-pane">
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="card p-4">
-                            <h5 class="mb-3">Add / Edit Document</h5>
-                            <form id="docForm">
-                                <input type="hidden" id="docId">
-
-                                <div class="mb-3">
-                                    <label class="form-label">Title</label>
-                                    <input type="text" class="form-control" id="docTitle" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Category</label>
-                                    <input type="text" class="form-control" id="docCategory"
-                                        placeholder="e.g. Getting Started" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Content (Markdown)</label>
-                                    <textarea class="form-control code-font" id="docContent" rows="15"
-                                        placeholder="# Healing..." required></textarea>
-                                    <small class="text-muted">Supports Markdown</small>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary w-100">Save Document</button>
-                                <button type="button" class="btn btn-secondary w-100 mt-2"
-                                    onclick="clearDocForm()">Clear</button>
-                            </form>
+                <div class="card p-4">
+                    <h4>Add New Document</h4>
+                    <form id="addDocForm">
+                        <div class="mb-3">
+                            <label class="form-label">ID</label>
+                            <input type="text" class="form-control" id="doc-id" placeholder="getting-started" required>
                         </div>
-                    </div>
-
-                    <div class="col-md-7">
-                        <div class="card p-4">
-                            <h5 class="mb-3">Existing Documents</h5>
-                            <div id="docsList">
-                                <!-- Docs loaded here -->
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-control" id="doc-title" placeholder="Getting Started"
+                                required>
                         </div>
-                    </div>
+                        <div class="mb-3">
+                            <label class="form-label">Category</label>
+                            <input type="text" class="form-control" id="doc-category" placeholder="Introduction">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Content (Markdown)</label>
+                            <textarea class="form-control code-font" id="doc-content" rows="8"
+                                placeholder="# Welcome..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Audio File (optional)</label>
+                            <input type="text" class="form-control" id="doc-audio" placeholder="getting-started.mp3">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Document</button>
+                    </form>
+                </div>
+
+                <div class="card p-4 mt-4">
+                    <h4>Existing Documents</h4>
+                    <div id="docs-list"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // --- PROJECTS LOGIC ---
-        const projectForm = document.getElementById('projectForm');
-        const projectsList = document.getElementById('projectsList');
-
-        async function loadProjects() {
-            const res = await fetch('/api/projects');
-            const projects = await res.json();
-            renderProjects(projects);
-        }
-
-        function renderProjects(projects) {
-            projectsList.innerHTML = projects.map(p => `
-                <div class="item-row">
-                    <div>
-                        <strong>${p.title}</strong> 
-                        <span class="badge bg-secondary ms-2">${p.status}</span>
-                        ${p.is_featured ? '<span class="badge bg-warning text-dark">Featured</span>' : ''}
-                        <br>
-                        <small class="text-muted">${p.category}</small>
-                    </div>
-                    <div>
-                        <button onclick='editProject(${JSON.stringify(p).replace(/'/g, "&#39;")})' class="btn btn-sm btn-outline-primary me-2">Edit</button>
-                        <button onclick="deleteProject('${p.id}')" class="btn btn-sm btn-outline-danger">Delete</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        projectForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const data = {
-                id: document.getElementById('projectId').value || null,
-                title: document.getElementById('title').value,
-                category: document.getElementById('category').value,
-                description: document.getElementById('description').value,
-                link: document.getElementById('link').value,
-                image: document.getElementById('image').value,
-                status: document.getElementById('status').value,
-                is_featured: document.getElementById('is_featured').checked,
-                tag_color: document.getElementById('tag_color').value
-            };
-
-            await fetch('/api/projects', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-
-            clearProjectForm();
-            loadProjects();
-        });
-
-        window.editProject = (p) => {
-            document.getElementById('projectId').value = p.id;
-            document.getElementById('title').value = p.title;
-            document.getElementById('category').value = p.category;
-            document.getElementById('description').value = p.description;
-            document.getElementById('link').value = p.link;
-            document.getElementById('image').value = p.image;
-            document.getElementById('status').value = p.status;
-            document.getElementById('is_featured').checked = p.is_featured;
-            document.getElementById('tag_color').value = p.tag_color || '#000000';
-
-            // Switch tab if needed (not needed here as list is in same tab)
-        };
-
-        window.deleteProject = async (id) => {
-            if (confirm('Are you sure?')) {
-                await fetch(`/api/projects/${id}`, { method: 'DELETE' });
-                loadProjects();
-            }
-        };
-
-        window.clearProjectForm = () => {
-            projectForm.reset();
-            document.getElementById('projectId').value = '';
-        };
-
-        // --- DOCS LOGIC ---
-        const docForm = document.getElementById('docForm');
-        const docsList = document.getElementById('docsList');
-
-        async function loadDocs() {
-            const res = await fetch('/api/docs');
-            const docs = await res.json();
-            renderDocs(docs);
-        }
-
-        function renderDocs(docs) {
-            docsList.innerHTML = docs.map(d => `
-                <div class="item-row">
-                    <div>
-                        <strong>${d.title}</strong> 
-                        <br>
-                        <small class="text-muted">${d.category}</small>
-                    </div>
-                    <div>
-                        <a href="/docs#${d.id}" target="_blank" class="btn btn-sm btn-outline-secondary me-2">View</a>
-                        <button onclick='editDoc(${JSON.stringify(d).replace(/'/g, "&#39;")})' class="btn btn-sm btn-outline-primary me-2">Edit</button>
-                        <button onclick="deleteDoc('${d.id}')" class="btn btn-sm btn-outline-danger">Delete</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        docForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const data = {
-                id: document.getElementById('docId').value || null,
-                title: document.getElementById('docTitle').value,
-                category: document.getElementById('docCategory').value,
-                content: document.getElementById('docContent').value,
-                last_updated: new Date().toLocaleString()
-            };
-
-            await fetch('/api/docs', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-
-            clearDocForm();
-            loadDocs();
-        });
-
-        window.editDoc = (d) => {
-            document.getElementById('docId').value = d.id;
-            document.getElementById('docTitle').value = d.title;
-            document.getElementById('docCategory').value = d.category;
-            document.getElementById('docContent').value = d.content;
-        };
-
-        window.deleteDoc = async (id) => {
-            if (confirm('Are you sure?')) {
-                await fetch(`/api/docs/${id}`, { method: 'DELETE' });
-                loadDocs();
-            }
-        };
-
-        window.clearDocForm = () => {
-            docForm.reset();
-            document.getElementById('docId').value = '';
-        };
-
-        // Initialize
-        loadProjects();
-        loadDocs();
-    </script>
+    <script src="assets/theme.js"></script>
+    <script src="assets/admin.js"></script>
 </body>
 
 </html>
