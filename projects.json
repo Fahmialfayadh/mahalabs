@@ -1,68 +1,68 @@
 [
-  {
-    "id": "mahastroke",
-    "title": "MahaStroke",
-    "category": "AI",
-    "description": "An experimental stroke risk estimation tool built with an emphasis on transparency and interpretability. Instead of presenting a single opaque result, the system exposes how different factors contribute to the final risk score, including which inputs reduce risk and which increase it.",
-    "link": "https://stroke.mahalabs.space/",
-    "image": "mahastroke.png",
-    "status": "Active",
-    "is_featured": false,
-    "tag_color": "#000000"
-  },
-  {
-    "id": "mahaconvert",
-    "title": "MahaConvert",
-    "category": "Data \u00b7 File Processing",
-    "description": "A versatile file conversion tool that supports a wide range of formats, enabling users to easily convert documents, images, audio, and video files. Designed for simplicity and speed, MahaConvert aims to streamline the file conversion process for both personal and professional use.",
-    "link": "https://convert.mahalabs.space/",
-    "image": "mahaconvert.png",
-    "status": "Active",
-    "is_featured": false,
-    "tag_color": "#000000"
-  },
-  {
-    "id": "mahainsight",
-    "title": "MahaInsight",
-    "category": "Data \u00b7 File Processing",
-    "description": "MahaInsight is a data visualization platform that presents verified, open datasets through clear and transparent analysis. It focuses on interpretability, source traceability, and reproducible insights rather than opaque conclusions.",
-    "link": "https://insight.mahalabs.space",
-    "image": "mahainsightnew.png",
-    "status": "Active",
-    "is_featured": true,
-    "tag_color": "#a855f7"
-  },
-  {
-    "id": "mahabudget",
-    "title": "SiBoros",
-    "category": "AI \u00b7 Data",
-    "description": "Stop manual logging and start chatting. Use conversational AI to link your emotions with your spending and curb impulsive habits.",
-    "link": "#",
-    "image": "project_preview.png",
-    "status": "coming-soon",
-    "is_featured": false,
-    "tag_color": "#6366f1"
-  },
-  {
-    "id": "mahadiscipline",
-    "title": "MahaDiscipline",
-    "category": "AI \u00b7 Data",
-    "description": "An accountability experiment built around consistency, friction, and self-honesty. Instead of motivation, it focuses on tracking reliability over time and exposing patterns users usually avoid confronting.",
-    "link": "#",
-    "image": "project_preview.png",
-    "status": "beta",
-    "is_featured": false,
-    "tag_color": "#f43f5e"
-  },
-  {
-    "id": "cb19be9f-8ddd-4a94-bbd8-f329df525329",
-    "title": "PetaSight",
-    "category": "Data  \u00b7 File Processing",
-    "description": "An intuitive geospatial visualization platform built to analyze multi-dimensional data with a clean, modern user interface.",
-    "link": "https://petasight.mahalabs.space",
-    "image": "petasight.png",
-    "status": "Active",
-    "is_featured": true,
-    "tag_color": "#000000"
-  }
+    {
+        "id": "mahastroke",
+        "title": "MahaStroke",
+        "category": "AI",
+        "description": "An experimental stroke risk estimation tool built with an emphasis on transparency and interpretability. Instead of presenting a single opaque result, the system exposes how different factors contribute to the final risk score, including which inputs reduce risk and which increase it.",
+        "link": "https://stroke.mahalabs.space/",
+        "image": "mahastroke.png",
+        "status": "Active",
+        "is_featured": false,
+        "tag_color": "#000000"
+    },
+    {
+        "id": "mahaconvert",
+        "title": "MahaConvert",
+        "category": "Data \u00b7 File Processing",
+        "description": "A versatile file conversion tool that supports a wide range of formats, enabling users to easily convert documents, images, audio, and video files. Designed for simplicity and speed, MahaConvert aims to streamline the file conversion process for both personal and professional use.",
+        "link": "https://convert.mahalabs.space/",
+        "image": "mahaconvert.png",
+        "status": "Active",
+        "is_featured": false,
+        "tag_color": "#000000"
+    },
+    {
+        "id": "mahainsight",
+        "title": "MahaInsight",
+        "category": "Data \u00b7 File Processing",
+        "description": "MahaInsight is a data visualization platform that presents verified, open datasets through clear and transparent analysis. It focuses on interpretability, source traceability, and reproducible insights rather than opaque conclusions.",
+        "link": "https://insight.mahalabs.space",
+        "image": "mahainsightnew.png",
+        "status": "Active",
+        "is_featured": true,
+        "tag_color": "#a855f7"
+    },
+    {
+        "id": "mahabudget",
+        "title": "SiBudget",
+        "category": "AI \u00b7 Data",
+        "description": "Stop manual logging and start chatting. Use conversational AI to link your emotions with your spending and curb impulsive habits.",
+        "link": "https://sibudget.mahalabs.space",
+        "image": "sibudget.png",
+        "status": "coming-soon",
+        "is_featured": false,
+        "tag_color": "#6366f1"
+    },
+    {
+        "id": "mahadiscipline",
+        "title": "MahaDiscipline",
+        "category": "AI \u00b7 Data",
+        "description": "An accountability experiment built around consistency, friction, and self-honesty. Instead of motivation, it focuses on tracking reliability over time and exposing patterns users usually avoid confronting.",
+        "link": "#",
+        "image": "project_preview.png",
+        "status": "beta",
+        "is_featured": false,
+        "tag_color": "#f43f5e"
+    },
+    {
+        "id": "cb19be9f-8ddd-4a94-bbd8-f329df525329",
+        "title": "PetaSight",
+        "category": "Data  \u00b7 File Processing",
+        "description": "An intuitive geospatial visualization platform built to analyze multi-dimensional data with a clean, modern user interface.",
+        "link": "https://petasight.mahalabs.space",
+        "image": "petasight.png",
+        "status": "Active",
+        "is_featured": true,
+        "tag_color": "#000000"
+    }
 ]
