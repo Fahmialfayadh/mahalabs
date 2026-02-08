@@ -1,12 +1,12 @@
-# MahaLabs
+# Asymptra
 
-MahaLabs is a personal Research & Development ecosystem dedicated to exploring the intersection of **Data Intelligence**, **Artificial Intelligence**, and **Digital Utilities**.
+Asymptra is a personal Research & Development ecosystem dedicated to exploring the intersection of **Data Intelligence**, **Artificial Intelligence**, and **Digital Utilities**.
 
 It serves as a central hub for experimental projects that aim to bridge the gap between raw data and actionable insights, leveraging modern AI and transparent methodologies.
 
 ## Ecosystem Overview
 
-The MahaLabs ecosystem is built on three core pillars:
+The Asymptra ecosystem is built on three core pillars:
 
 ### 1. Data Intelligence & Visualization
 Projects focused on making complex data accessible, transparent, and interpretable.
@@ -28,4 +28,4 @@ Practical tools designed to streamline daily digital workflows.
 
 ---
 
-*MahaLabs is a continuous experiment in building useful, transparent, and aesthetically pleasing digital tools.*
+*Asymptra is a continuous experiment in building useful, transparent, and aesthetically pleasing digital tools.*
