@@ -68,7 +68,7 @@ def add_project():
     
     # Create new
     new_project = {
-        "id": str(uuid.uuid4()),
+        "id": data.get('id') if data.get('id') else str(uuid.uuid4()),
         "title": data.get('title', ''),
         "description": data.get('description', ''),
         "category": data.get('category', ''),
@@ -110,7 +110,7 @@ def add_doc():
     
     # Create new
     new_doc = {
-        "id": str(uuid.uuid4()),
+        "id": data.get('id') if data.get('id') else str(uuid.uuid4()),
         "title": data.get('title', ''),
         "category": data.get('category', 'General'),
         "content": data.get('content', ''),

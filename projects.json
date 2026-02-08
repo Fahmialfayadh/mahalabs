@@ -35,34 +35,31 @@
     {
         "id": "mahabudget",
         "title": "SiBudget",
-        "category": "AI \u00b7 Data",
         "description": "Stop manual logging and start chatting. Use conversational AI to link your emotions with your spending and curb impulsive habits.",
+        "category": "AI \u00b7 Data",
+        "image": "sibudget.webp",
         "link": "https://sibudget.mahalabs.space",
-        "image": "sibudget.png",
         "status": "Active",
-        "is_featured": true,
-        "tag_color": "#6366f1"
+        "is_featured": true
     },
     {
         "id": "mahadiscipline",
         "title": "MahaDiscipline",
-        "category": "AI \u00b7 Data",
         "description": "An accountability experiment built around consistency, friction, and self-honesty. Instead of motivation, it focuses on tracking reliability over time and exposing patterns users usually avoid confronting.",
+        "category": "AI \u00b7 Data",
+        "image": "project_preview.webp",
         "link": "#",
-        "image": "project_preview.png",
-        "status": "beta",
-        "is_featured": false,
-        "tag_color": "#f43f5e"
+        "status": "Active",
+        "is_featured": false
     },
     {
         "id": "cb19be9f-8ddd-4a94-bbd8-f329df525329",
         "title": "PetaSight",
-        "category": "Data  \u00b7 File Processing",
         "description": "An intuitive geospatial visualization platform built to analyze multi-dimensional data with a clean, modern user interface.",
+        "category": "Data  \u00b7 File Processing",
+        "image": "petasight.webp",
         "link": "https://petasight.mahalabs.space",
-        "image": "petasight.png",
         "status": "Active",
-        "is_featured": true,
-        "tag_color": "#000000"
+        "is_featured": true
     }
 ]

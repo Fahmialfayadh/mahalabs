@@ -108,6 +108,28 @@
     0 0 15px rgba(255, 217, 0, 0.4);
 }
 
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0d6efd;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0a58ca;
+}
+
 /* Smooth Transition for Theme Change */
 body,
 .lab-card,
@@ -336,11 +358,13 @@ nav a {
     filter: blur(0);
   }
 }
+
 @media screen and (min-width: 768px) {
-    .tech-circle.c3 {
-        display: block; 
-    }
+  .tech-circle.c3 {
+    display: block;
+  }
 }
+
 /* Abstract Tech Elements */
 .tech-circle {
   --speed: 20s;
@@ -417,7 +441,7 @@ nav a {
 }
 
 .c3 {
-    display:none;
+  display: none;
   width: 195px;
   height: 280px;
   border-color: var(--glow-dark-blue);
