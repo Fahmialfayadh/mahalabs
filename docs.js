@@ -439,16 +439,31 @@ document.addEventListener('fullscreenchange', () => {
         }
     }
 });
+function getDocIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('id'); // Akan mengembalikan null kalau tidak ada ?id=
+}
+
+// Handler utama saat URL berubah (karena tombol Back/Forward)
+window.addEventListener('popstate', () => {
+    const id = getDocIdFromUrl();
+    if (id) {
+        loadDocContent(id);
+    } else {
+        // Balikin ke konten default atau dokumen pertama jika ID hilang
+        loadDocContent(allDocs[0].id); 
+    }
+});
 
 window.addEventListener('hashchange', () => {
+//jangan dari search
     const urlParams = new URLSearchParams(window.location.search);
     const initialId = urlParams.get('id');
-
-    if (initialId) {
-        // Jika ada ID di URL, muat konten tersebut
-        loadDocContent(initialId);
-    } else if (allDocs.length > 0) {
-        // Jika tidak ada ID, muat dokumen pertama sebagai default
+    const id = getDocIdFromUrl();
+    if (id) {
+        loadDocContent(id);
+    } else {
+        // Jika cuma /docs.html, tampilkan yang pertama
         loadDocContent(allDocs[0].id);
     }
 });
