@@ -23,12 +23,18 @@
     color: transparent;
     /* Fallback */
 }
+.stat-number {
+        font-family: 'Archivo Black', sans-serif;
+        font-size: 3rem;
+        color: var(--hero-color) !important; 
+        line-height: 1;
+    }
 
 @media(max-width: 768px) {
     .hero h1 {
         font-size: 3rem !important;
         /* Force smaller size on mobile */
-        letter-spacing: -1px;
+        letter-spacing: -2px;
     }
 
     .lead-text {
@@ -340,6 +346,7 @@ textarea:focus {
 
     .stat-number {
         font-size: 2.5rem;
+
     }
 
     .about-card p {

@@ -108,6 +108,7 @@ function renderMobileArticleList() {
         const card = document.createElement('div');
         card.className = 'mobile-article-card';
         card.dataset.id = doc.id;
+        const lastUpdated = doc.last_updated ? new Date(doc.last_updated).toLocaleDateString() : 'Unknown';
 
         // Create excerpt from content (first 100 chars)
         const excerpt = doc.content.replace(/[#*`]/g, '').substring(0, 100) + '...';
@@ -116,6 +117,7 @@ function renderMobileArticleList() {
             <div class="card-category">${doc.category || 'General'}</div>
             <div class="card-title">${doc.title}</div>
             <div class="card-excerpt">${excerpt}</div>
+            <div class="card-updated">Last updated: ${lastUpdated}</div>
         `;
 
         card.addEventListener('click', () => {
@@ -159,8 +161,11 @@ function showArticleDetail() {
 
 function loadDocContent(id) {
     const doc = allDocs.find(d => d.id === id);
-    if (!doc) return;
 
+    if (!doc) return;
+    // Update URL without reloading
+    const newUrl = window.location.pathname + '?id=' + id;
+    window.history.pushState({ id: id }, '', newUrl);
     // Update Active State
     document.querySelectorAll('.docs-nav-item').forEach(el => el.classList.remove('active'));
     const activeLink = document.querySelector(`.docs-nav-item[data-id="${id}"]`);
@@ -436,6 +441,17 @@ document.addEventListener('fullscreenchange', () => {
 });
 
 window.addEventListener('hashchange', () => {
-    const id = window.location.hash.substring(1);
-    loadDocContent(id);
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialId = urlParams.get('id');
+
+    if (initialId) {
+        // Jika ada ID di URL, muat konten tersebut
+        loadDocContent(initialId);
+    } else if (allDocs.length > 0) {
+        // Jika tidak ada ID, muat dokumen pertama sebagai default
+        loadDocContent(allDocs[0].id);
+    }
+});
+
+window.addEventListener('load', () => { 
 });
