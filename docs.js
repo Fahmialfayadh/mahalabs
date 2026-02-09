@@ -210,7 +210,7 @@ function loadDocContent(id) {
     // Render Content
     const container = document.getElementById('docs-main-content');
     container.innerHTML = `
-    <div data-aos="fade-in" class="docs-article-container">
+    <div data-aos="fade-in" class="docs-article-container fade-in">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <span class="badge bg-secondary">${doc.category}</span>
             <div class="d-flex gap-2 align-items-center">
@@ -451,12 +451,12 @@ window.addEventListener('popstate', () => {
         loadDocContent(id);
     } else {
         // Balikin ke konten default atau dokumen pertama jika ID hilang
-        loadDocContent(allDocs[0].id); 
+        loadDocContent(allDocs[0].id);
     }
 });
 
 window.addEventListener('hashchange', () => {
-//jangan dari search
+    //jangan dari search
     const urlParams = new URLSearchParams(window.location.search);
     const initialId = urlParams.get('id');
     const id = getDocIdFromUrl();
@@ -468,5 +468,5 @@ window.addEventListener('hashchange', () => {
     }
 });
 
-window.addEventListener('load', () => { 
+window.addEventListener('load', () => {
 });

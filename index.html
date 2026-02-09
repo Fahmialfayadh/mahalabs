@@ -54,6 +54,23 @@
   <link rel="stylesheet" href="assets/style.css">
   <link rel="icon" href="https://asymptra.com/assets/favicon.png?v=3.0" type="image/png">
 
+  <!-- Critical Theme Script to prevent FOUC -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme !== 'light') {
+        document.documentElement.classList.add('dark-mode');
+        document.body ? document.body.classList.add('dark-mode') : null;
+      }
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('preload');
+        setTimeout(() => {
+          document.body.classList.remove('preload');
+        }, 500);
+      });
+    })();
+  </script>
+
   <!-- Local Google Fonts -->
   <link href="assets/vendor/fonts/google-fonts.css" rel="stylesheet">
 

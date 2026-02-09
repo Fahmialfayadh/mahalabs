@@ -3,11 +3,29 @@
     --sidebar-width: 280px;
     --code-bg: #f3f4f6;
     --code-text: #1f2937;
+    --sidebar-color: var(--code-bg)
 }
 
 .dark-mode {
     --code-bg: #1e293b;
     --code-text: #e2e8f0;
+    --sidebar-color: var(--code-bg)
+}
+
+/* Navbar Specifics for Docs */
+.docs-navbar {
+    background: #fcfcfc;
+    /* Light Mode: Off-white */
+    backdrop-filter: blur(10px);
+    transition: background 0.5s ease, border-color 0.5s ease;
+    /* Smooth Transition */
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.dark-mode .docs-navbar {
+    background: rgba(15, 23, 42, 0.95);
+    /* Dark Mode: Dark Blue/Slate */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Hero Override */
@@ -168,13 +186,14 @@
     /* Fill remaining height */
     margin-top: 60px;
     border-top: 1px solid var(--glass-border);
-    background: rgba(255, 255, 255, 0.3);
+    background: #fffdf5;
+    /* Subtler Cream */
     overflow: hidden;
     /* Disable global scroll */
 }
 
 .dark-mode .docs-interface {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(20, 20, 20, 0.98);
 }
 
 .docs-sidebar {
@@ -185,9 +204,10 @@
     /* Independent scroll */
     padding: 2rem;
     border-right: 1px solid var(--glass-border);
-    background: rgba(255, 255, 255, 0.5);
+    background: #fcfcfc;
+    /* Off-white, not pure FFFFFF */
     /* backdrop-filter handled by parent or inherited? */
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     z-index: 10;
 
     /* Scrollbar Styling */
@@ -215,11 +235,12 @@
 }
 
 .dark-mode .docs-sidebar {
-    background: rgba(15, 23, 42, 0.5);
+    background: rgba(15, 23, 42, 0.95);
 }
 
 .docs-content-wrapper {
-    backdrop-filter: blur(10px);
+    background-color: var(--bg-main);
+
     flex: 1;
     border-right: 4px solid var(--glass-border);
     padding: 2rem 3rem 4rem;
@@ -231,7 +252,7 @@
 
     /* Scrollbar Styling */
     scrollbar-width: thin;
-    scrollbar-color: var(--accent-blue) transparent;
+    scrollbar-color: var(--text-main) transparent;
 }
 
 /* Custom Scrollbar for Content */

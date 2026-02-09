@@ -1,7 +1,8 @@
 :root {
   /* Light Mode (Default) */
-  --bg-main: radial-gradient(circle at 50% 0%, #f8faff, #ffffff 60%, #f1f5f9);
-  --text-main: #1f2937;
+  --bg-main: radial-gradient(circle at 50% 0%, #f8faff, #fffdf5 60%, #f1f5f9);
+  --bg-solid: #fffdf5;
+  --text-main: #191A15;
   --text-muted: #64748b;
   --nav-text: #444;
 
@@ -59,7 +60,8 @@
 
 .dark-mode {
   /* Dark Mode Overrides */
-  --bg-main: radial-gradient(circle at 50% 0%, #000000, #111419 60%, #020617);
+  --bg-main: radial-gradient(circle at 50% 0%, #141414, #111419 60%, #020617);
+  --bg-solid: #141414;
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
   --nav-text: #e2e8f0;
@@ -138,6 +140,29 @@ nav a,
 #featured-card,
 .filter-btn {
   transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, transform 0.3s ease;
+}
+
+.preload * {
+  transition: none !important;
+}
+
+/* Page & Content Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+body {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
 }
 
 .search-input::placeholder {
@@ -834,8 +859,6 @@ body {
 
 .lab-card {
   background: var(--card-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--card-border);
   border-radius: 24px;
   padding: 28px;
@@ -1345,9 +1368,10 @@ body {
   height: 100%;
   min-height: 300px;
   padding: 32px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.1) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
   transition: transform 0.1s ease;
@@ -1355,8 +1379,8 @@ body {
 
 .lab-card:hover {
   transform: scale(1.05);
-  background: white;
-  box-shadow: 0 20px 40px rgba(100, 116, 139, 0.1);
+  background: var(--glass-bg);
+  box-shadow: 0 20px 40px rgba(100, 116, 139, 0.15);
   z-index: 5;
 }
 

@@ -5,25 +5,46 @@ document.addEventListener('DOMContentLoaded', () => {
 function initDarkMode() {
     const toggleBtn = document.getElementById('theme-toggle');
     const body = document.body;
+    const html = document.documentElement;
 
     // Check saved
     const savedTheme = localStorage.getItem('theme');
 
     // Apply immediate if saved or system pref
     // Apply dark mode by default unless 'light' is explicitly saved
+    // Note: Inline script might have already added the class to html (and maybe body).
+
+    // Ensure icon is correct based on current class state (which might be set by inline script)
+    // We check both to be safe, but html usually gets it first.
+    const isDark = html.classList.contains('dark-mode') || body.classList.contains('dark-mode') || (savedTheme !== 'light');
+
     if (savedTheme === 'light') {
+        html.classList.remove('dark-mode');
         body.classList.remove('dark-mode');
         updateIcon(false);
     } else {
-        // Default to dark mode (saved='dark' or null)
+        // Default to dark mode if not light
+        html.classList.add('dark-mode');
         body.classList.add('dark-mode');
         updateIcon(true);
     }
 
     if (toggleBtn) {
         toggleBtn.addEventListener('click', () => {
-            const isDark = body.classList.toggle('dark-mode');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            // Toggle on BOTH elements
+            const isDarkBody = body.classList.toggle('dark-mode');
+            const isDarkHtml = html.classList.toggle('dark-mode');
+
+            // Sync just in case they were out of sync (though above logic prevents it mostly)
+            const isnowDark = isDarkBody || isDarkHtml;
+
+            if (isDarkBody !== isDarkHtml) {
+                // Force sync based on body toggle result
+                if (isDarkBody) html.classList.add('dark-mode');
+                else html.classList.remove('dark-mode');
+            }
+
+            localStorage.setItem('theme', isnowDark ? 'dark' : 'light');
 
             // Add slight animation to button
             toggleBtn.style.transform = 'rotate(360deg)';
@@ -31,7 +52,7 @@ function initDarkMode() {
                 toggleBtn.style.transform = '';
             }, 300);
 
-            updateIcon(isDark);
+            updateIcon(isnowDark);
         });
     }
 

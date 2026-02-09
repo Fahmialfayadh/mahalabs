@@ -7,6 +7,24 @@
     <title>Asymptra Labs Admin - Fahmi Alfayadh</title>
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
+
+    <!-- Critical Theme Script to prevent FOUC -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme !== 'light') {
+                document.documentElement.classList.add('dark-mode');
+                document.body ? document.body.classList.add('dark-mode') : null;
+            }
+            document.addEventListener('DOMContentLoaded', () => {
+                document.body.classList.add('preload');
+                setTimeout(() => {
+                    document.body.classList.remove('preload');
+                }, 500);
+            });
+        })();
+    </script>
+
     <link rel="icon" href="assets/favicon.png?v=3.0" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 

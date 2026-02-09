@@ -29,6 +29,23 @@
     <link rel="stylesheet" href="assets/style.css" />
     <link rel="stylesheet" href="assets/about.css" />
 
+    <!-- Critical Theme Script to prevent FOUC -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme !== 'light') {
+                document.documentElement.classList.add('dark-mode');
+                document.body ? document.body.classList.add('dark-mode') : null;
+            }
+            document.addEventListener('DOMContentLoaded', () => {
+                document.body.classList.add('preload');
+                setTimeout(() => {
+                    document.body.classList.remove('preload');
+                }, 500);
+            });
+        })();
+    </script>
+
     <link rel="icon" href="https://asymptra.com/assets/favicon.png?v=3.0" type="image/png" />
     <link rel="apple-touch-icon" href="https://asymptra.com/assets/favicon.png?v=3.0">
 
@@ -47,7 +64,7 @@
         style="background: var(--bg-main); backdrop-filter: blur(10px)">
         <a class="navbar-brand logo-text d-flex align-items-center" href="./index.html">
             <img src="assets/logo3.png" alt="Logo" width="30" height="30" class="me-2 rounded-circle" />
-            Asymptra
+            Asymptra Labs
         </a>
 
         <!-- Mobile Toggle Button -->
@@ -75,7 +92,7 @@
     <!-- Hero & Showcase -->
     <section class="docs-hero" data-aos="fade-up">
         <div class="container">
-            <h1 class="fw-bold font-archivo-black">Technical Stack</h1>
+            <h1 class="display-3 fw-bold font-archivo-black mb-4 hero-gradient-text">Technical Stack</h1>
             <p class="text-muted mx-auto" style="max-width: 600px; font-size: 1.2rem">
                 Making data move into your brain easily through smart,
                 AI-powered applications.
