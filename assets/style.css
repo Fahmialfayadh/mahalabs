@@ -1441,7 +1441,6 @@ body {
 
   .search-icon {
     right: 36px;
-    /* 16px padding + 20px margin */
   }
 
   /* Navbar Mobile - Let Bootstrap handle collapse */
