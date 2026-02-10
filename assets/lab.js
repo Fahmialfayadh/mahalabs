@@ -1,8 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetchAndRenderProjects();
+    initScrollProgress();
+    initBackToTop();
 });
 
+function initScrollProgress() {
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = total > 0 ? (scrolled / total * 100) + '%' : '0%';
+    }, { passive: true });
+}
+
+function initBackToTop() {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
 async function fetchAndRenderProjects() {
+    const featuredContainer = document.getElementById('featured-container');
+    const experimentsGrid = document.querySelector('.experiments-grid');
+
+    // Show skeletons while loading
+    if (featuredContainer) {
+        featuredContainer.innerHTML = `<div class="skeleton-featured"></div>`;
+    }
+    if (experimentsGrid) {
+        experimentsGrid.innerHTML = Array(4).fill(`
+            <div class="skeleton-card">
+                <div class="skeleton-line skeleton-badge"></div>
+                <div class="skeleton-line skeleton-title"></div>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line skeleton-short"></div>
+            </div>
+        `).join('');
+    }
+
     try {
         // Fetch from static JSON file for serverless compatibility
         // Add timestamp to prevent caching of the data file
@@ -14,12 +55,8 @@ async function fetchAndRenderProjects() {
         }
 
         const projects = await response.json();
-        console.log(`Loaded ${projects.length} projects from projects.json`);
 
-        const featuredContainer = document.getElementById('featured-container');
-        const experimentsGrid = document.querySelector('.experiments-grid');
-
-        // Clear existing content (if any)
+        // Clear skeletons
         featuredContainer.innerHTML = '';
         experimentsGrid.innerHTML = '';
 
@@ -65,21 +102,35 @@ async function fetchAndRenderProjects() {
             // Handle badge color
             const badgeStyle = p.tag_color ? `style="background-color: ${p.tag_color};"` : '';
 
+            const statusLabel = p.status === 'Active' ? 'Active' : p.status === 'coming-soon' ? 'Coming Soon' : p.status;
+            const isActive = p.status === 'Active';
+
             const cardHtml = `
-              <div class="lab-card ${spanClass}" 
-                   data-aos="fade-up" 
-                   data-aos-delay="${delay}" 
+              <div class="lab-card ${spanClass}"
+                   data-aos="fade-up"
+                   data-aos-delay="${delay}"
                    data-title="${p.title}"
                    data-desc="${p.description}"
-                   data-image="assets/${p.image}" 
-                   data-link="${p.link}" 
+                   data-image="assets/${p.image}"
+                   data-link="${p.link}"
                    data-status="${p.status}">
-                <div class="d-flex justify-content-between align-items-start mb-4">
-                  <span class="badge badge-lab" ${badgeStyle}>${p.category}</span>
-                  <small class="data-desc-small">${p.status === 'Active' ? 'Beta (Active)' : p.status}</small>
+                <div class="card-top-row">
+                  <span class="card-category-chip">${p.category}</span>
                 </div>
-                <h5 class="title-project">${p.title}</h5>
+                <div class="card-status-row">
+                  <span class="card-status-dot ${isActive ? 'active' : ''}"></span>
+                  <small class="card-status-text">${statusLabel}</small>
+                </div>
+                <h5 class="title-project mb-2">${p.title}</h5>
                 <p class="data-desc">${p.description}</p>
+                <div class="card-action-row">
+                  <a href="${p.link}" class="card-arrow-link" target="_blank" onclick="event.stopPropagation()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                  <button class="card-plus-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </button>
+                </div>
               </div>
             `;
             experimentsGrid.innerHTML += cardHtml;
