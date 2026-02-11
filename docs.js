@@ -223,6 +223,9 @@ function loadDocContent(id) {
             </div>
         </div>
         ${audioPlayerHTML}
+        <div class="mt-5 pt-3 border-top text-muted small">
+            Last updated: ${doc.last_updated || 'Just now'}
+        </div>
         <div class="docs-content mt-4" id="docs-content-container">
             ${marked.parse(doc.content)}
         </div>
