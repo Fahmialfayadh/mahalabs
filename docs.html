@@ -53,7 +53,7 @@
     <script>
         (function () {
             const savedTheme = localStorage.getItem('theme');
-            if (savedTheme !== 'light') {
+            if (savedTheme === 'dark') {
                 document.documentElement.classList.add('dark-mode');
                 document.body ? document.body.classList.add('dark-mode') : null;
             }
@@ -71,25 +71,34 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg px-3 px-lg-5 fixed-top docs-navbar">
+    <nav class="navbar navbar-expand-lg px-3 px-lg-5 fixed-top navbar-glass">
         <a class="navbar-brand logo-text d-flex align-items-center" href="./index.html">
             <img src="assets/logo3.png" alt="Logo" width="30" height="30" class="me-2 rounded-circle">
             Asymptra Labs
         </a>
 
         <!-- Mobile Toggle Button -->
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-            style="color: var(--nav-text);">
-            <i class="fa-solid fa-bars" style="font-size: 1.5rem;"></i>
+        <button class="navbar-toggler border-0 p-0 ms-auto" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                class="custom-burger-icon">
+                <path d="M4 12H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M4 6H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M4 18H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="ms-auto d-flex align-items-center flex-column flex-lg-row">
+        <div class="collapse navbar-collapse order-lg-1" id="navbarNav">
+            <div class="d-flex align-items-center ms-auto flex-column flex-lg-row">
                 <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="./index.html">Experiments</a>
+
                 <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="docs.html">Article</a>
-                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="overview.html">Stack</a>
                 <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="about.html">About</a>
+                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="overview.html">Stack</a>
+                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="developer.html">Contact Me</a>
                 <button id="theme-toggle" class="btn btn-link text-decoration-none ms-lg-2 p-0 border-0 my-2 my-lg-0"
                     aria-label="Toggle Dark Mode" style="color: var(--nav-text); font-size: 1.2rem;">
                     <i class="fa-solid fa-moon"></i>

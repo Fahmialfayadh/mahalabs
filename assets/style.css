@@ -236,6 +236,51 @@ nav a {
   transition: color 0.3s ease;
 }
 
+/* Navbar Glass Effect */
+.navbar-glass {
+  background: var(--bg-main);
+  /* Light mode default */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.dark-mode .navbar-glass {
+  background: rgba(15, 23, 42, 0.7) !important;
+  /* Dark mode default */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Custom Toggler (Burger Icon) */
+.navbar-toggler:focus {
+  text-decoration: none;
+  outline: 0;
+  box-shadow: none;
+}
+
+.custom-burger-icon {
+  stroke: var(--nav-text);
+  transition: stroke 0.3s ease;
+}
+
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background: var(--bg-solid);
+    /* Solid background for dropdown on mobile */
+    padding: 1rem;
+    border-radius: 0 0 1rem 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    border: 1px solid var(--glass-border);
+  }
+
+  .dark-mode .navbar-collapse {
+    background: #1e1b4b;
+    /* Deep blue/black for dark mode mobile menu */
+  }
+}
+
 @keyframes heroPopup {
   0% {
     transform: scale(0.5);
@@ -1471,11 +1516,6 @@ body {
     align-items: center;
     gap: 8px;
     margin-right: 0;
-    width: 100%;
-    justify-content: flex-start;
-    /* Left align logo */
-    padding-left: 4px;
-    /* Slight padding to match links below */
   }
 
   .navbar-brand img {
@@ -1485,14 +1525,10 @@ body {
   /* Links container */
   .navbar .ms-auto {
     display: flex;
-    width: 100%;
-    justify-content: space-between;
-    /* Limit Left - Center - Right */
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 0;
-    /* Remove gap, use space-between */
     padding: 0 4px;
-    /* Slight padding from edges */
   }
 
   .navbar a {
@@ -1746,9 +1782,11 @@ body {
 .experiments-grid .lab-card:nth-child(4n+1) .card-action-row {
   border-top-color: transparent;
 }
+
 .experiments-grid .lab-card:nth-child(4n+1):hover .card-action-row {
   border-top-color: rgba(99, 102, 241, 0.2);
 }
+
 .experiments-grid .lab-card:nth-child(4n+1):hover .card-arrow-link:hover,
 .experiments-grid .lab-card:nth-child(4n+1):hover .card-plus-btn:hover {
   background: #6366f1;
@@ -1758,9 +1796,11 @@ body {
 .experiments-grid .lab-card:nth-child(4n+2) .card-action-row {
   border-top-color: transparent;
 }
+
 .experiments-grid .lab-card:nth-child(4n+2):hover .card-action-row {
   border-top-color: rgba(168, 85, 247, 0.2);
 }
+
 .experiments-grid .lab-card:nth-child(4n+2):hover .card-arrow-link:hover,
 .experiments-grid .lab-card:nth-child(4n+2):hover .card-plus-btn:hover {
   background: #a855f7;
@@ -1770,9 +1810,11 @@ body {
 .experiments-grid .lab-card:nth-child(4n+3) .card-action-row {
   border-top-color: transparent;
 }
+
 .experiments-grid .lab-card:nth-child(4n+3):hover .card-action-row {
   border-top-color: rgba(6, 182, 212, 0.2);
 }
+
 .experiments-grid .lab-card:nth-child(4n+3):hover .card-arrow-link:hover,
 .experiments-grid .lab-card:nth-child(4n+3):hover .card-plus-btn:hover {
   background: #06b6d4;
@@ -1782,9 +1824,11 @@ body {
 .experiments-grid .lab-card:nth-child(4n+4) .card-action-row {
   border-top-color: transparent;
 }
+
 .experiments-grid .lab-card:nth-child(4n+4):hover .card-action-row {
   border-top-color: rgba(244, 63, 94, 0.2);
 }
+
 .experiments-grid .lab-card:nth-child(4n+4):hover .card-arrow-link:hover,
 .experiments-grid .lab-card:nth-child(4n+4):hover .card-plus-btn:hover {
   background: #f43f5e;
@@ -1900,17 +1944,21 @@ body {
 .footer-nav-list a:hover {
   color: var(--accent-blue);
 }
+
 .footer-founder {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
+
 a {
   text-decoration: none;
 }
-.footer-founder-link{
+
+.footer-founder-link {
   text-decoration: none;
 }
+
 .footer-founder-name {
   text-decoration: none;
   font-size: 15px;
@@ -1919,9 +1967,11 @@ a {
   margin-bottom: 4px;
   letter-spacing: 0.8px;
 }
+
 .footer-founder-name:hover {
   color: var(--accent-blue);
 }
+
 .footer-founder-role {
   font-size: 11px;
   color: var(--accent-blue);
@@ -2075,8 +2125,13 @@ a {
    Skeleton Loading
    =================================== */
 @keyframes shimmer {
-  0% { background-position: -600px 0; }
-  100% { background-position: 600px 0; }
+  0% {
+    background-position: -600px 0;
+  }
+
+  100% {
+    background-position: 600px 0;
+  }
 }
 
 .skeleton-card,
@@ -2086,23 +2141,19 @@ a {
   border-radius: 24px;
   padding: 28px;
   animation: shimmer 1.4s infinite linear;
-  background-image: linear-gradient(
-    90deg,
-    var(--card-bg) 0px,
-    rgba(255, 255, 255, 0.15) 40px,
-    var(--card-bg) 80px
-  );
+  background-image: linear-gradient(90deg,
+      var(--card-bg) 0px,
+      rgba(255, 255, 255, 0.15) 40px,
+      var(--card-bg) 80px);
   background-size: 600px 100%;
 }
 
 .dark-mode .skeleton-card,
 .dark-mode .skeleton-featured {
-  background-image: linear-gradient(
-    90deg,
-    var(--card-bg) 0px,
-    rgba(255, 255, 255, 0.05) 40px,
-    var(--card-bg) 80px
-  );
+  background-image: linear-gradient(90deg,
+      var(--card-bg) 0px,
+      rgba(255, 255, 255, 0.05) 40px,
+      var(--card-bg) 80px);
   background-size: 600px 100%;
 }
 

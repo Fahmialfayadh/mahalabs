@@ -23,13 +23,14 @@
     color: transparent;
     /* Fallback */
 }
+
 .stat-number {
-        font-family: 'Archivo Black', sans-serif;
-        font-size: 3rem;
-        color: var(--hero-color) !important; 
-        
-        line-height: 1;
-    }
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 3rem;
+    color: var(--hero-color) !important;
+
+    line-height: 1;
+}
 
 @media(max-width: 768px) {
     .hero h1 {
@@ -206,7 +207,8 @@
 }
 
 input,
-textarea {
+textarea,
+.custom-select {
     width: 100%;
     padding: 16px 20px;
     border-radius: 12px;
@@ -220,10 +222,38 @@ textarea {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+.custom-select:focus {
     border-color: #6366f1;
     background: var(--card-bg);
     box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 16px;
+    cursor: pointer;
+    background-color: var(--search-bg) !important;
+    /* Override Bootstrap */
+    color: var(--text-main) !important;
+    /* Override Bootstrap */
+}
+
+/* Specific Dark Mode overrides if variables aren't enough or need tweaking */
+.dark-mode .custom-select {
+    background-color: rgba(15, 23, 42, 0.8) !important;
+    color: #f8fafc !important;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.custom-select option {
+    background-color: var(--bg-solid);
+    color: var(--text-main);
 }
 
 .btn.primary {

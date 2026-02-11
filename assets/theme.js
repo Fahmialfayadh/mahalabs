@@ -11,22 +11,17 @@ function initDarkMode() {
     const savedTheme = localStorage.getItem('theme');
 
     // Apply immediate if saved or system pref
-    // Apply dark mode by default unless 'light' is explicitly saved
-    // Note: Inline script might have already added the class to html (and maybe body).
+    // Default to 'light' unless 'dark' is explicitly saved
+    const isDark = (savedTheme === 'dark');
 
-    // Ensure icon is correct based on current class state (which might be set by inline script)
-    // We check both to be safe, but html usually gets it first.
-    const isDark = html.classList.contains('dark-mode') || body.classList.contains('dark-mode') || (savedTheme !== 'light');
-
-    if (savedTheme === 'light') {
-        html.classList.remove('dark-mode');
-        body.classList.remove('dark-mode');
-        updateIcon(false);
-    } else {
-        // Default to dark mode if not light
+    if (isDark) {
         html.classList.add('dark-mode');
         body.classList.add('dark-mode');
         updateIcon(true);
+    } else {
+        html.classList.remove('dark-mode');
+        body.classList.remove('dark-mode');
+        updateIcon(false);
     }
 
     if (toggleBtn) {

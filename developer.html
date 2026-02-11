@@ -4,49 +4,29 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About - Asymptra Labs by Fahmi Alfayadh</title>
+    <title>Developer - Asymptra Labs by Fahmi Alfayadh</title>
     <meta name="description"
-        content="Learn about Asymptra Labs and Fahmi Alfayadh - bridging abstract thought and concrete software through Data Intelligence and AI.">
+        content="Collaborate with Fahmi Alfayadh, hire for projects, or propose new ideas at Asymptra Labs.">
     <meta name="keywords"
-        content="Fahmi Alfayadh, About Fahmi Alfayadh, Asymptra Labs, Data Science, AI, Experimental Lab, Portfolio">
+        content="Fahmi Alfayadh, Hire Developer, Collaboration, AI Projects, Data Science Services, Asymptra Labs">
     <meta name="author" content="Fahmi Alfayadh">
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfilePage",
-      "mainEntity": {
-        "@type": "Person",
-        "name": "Fahmi Alfayadh",
-        "alternateName": "fahmialfayadh",
-        "identifier": "fahmialfayadh",
-        "jobTitle": "Data Scientist & Developer",
-        "url": "https://asymptra.com/about.html",
-        "sameAs": [
-          "https://github.com/fahmialfayadh",
-          "https://linkedin.com/in/fahmialfayadh",
-          "https://instagram.com/fahmialfayadh",
-          "https://kaggle.com/fahmialfayadh"
-        ]
-      }
-    }
-    </script>
-
-    <meta property="og:title" content="Asymptra Labs" />
-    <meta property="og:description" content="Data-driven experimental lab Ecosystem Platform." />
+    <meta property="og:title" content="Work with Asymptra Labs" />
+    <meta property="og:description" content="Collaborate, Hire, or Build with Fahmi Alfayadh." />
     <meta property="og:image" content="assets/og-image.png" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://asymptra.com/" />
+    <meta property="og:url" content="https://asymptra.com/developer.html" />
     <meta name="theme-color" content="#0d6efd" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Asymptra Labs" />
-    <meta name="twitter:description" content="Data-driven experimental lab Ecosystem Platform." />
+    <meta name="twitter:title" content="Work with Asymptra Labs" />
+    <meta name="twitter:description" content="Collaborate, Hire, or Build with Fahmi Alfayadh." />
     <meta name="twitter:image" content="assets/og-image.png" />
     <meta name="twitter:site" content="@fahmialfayadh" />
     <meta name="twitter:creator" content="@fahmialfayadh" />
     <meta name="twitter:domain" content="asymptra.com" />
-    <meta name="twitter:url" content="https://asymptra.com/" />
+    <meta name="twitter:url" content="https://asymptra.com/developer.html" />
+
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/about.css">
@@ -77,45 +57,103 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/docs.css">
-    <link rel="stylesheet" href="assets/docs-mobile.css">
-
     <style>
-        /* Specific Refinements for New About Page */
-        .about-section-title {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .principle-card {
+        .developer-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            padding: 2rem;
-            border-radius: 16px;
+            padding: 2.5rem;
+            border-radius: 24px;
+            /* More modern rounded corners */
             height: 100%;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Bouncy transition */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
         }
 
-        .principle-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            background: var(--glass-bg);
+        /* Decorative gradient blob */
+        .developer-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            filter: blur(40px);
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .principle-icon {
-            font-size: 1.8rem;
-            color: var(--accent-blue);
+        .developer-card:hover::before {
+            opacity: 0.15;
+        }
+
+        .developer-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .developer-card .card-icon {
+            font-size: 3rem;
             margin-bottom: 1.5rem;
-            display: inline-block;
-            padding: 12px;
-            background: rgba(99, 102, 241, 0.1);
-            border-radius: 12px;
+            color: var(--bg-main);
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
         }
 
+        .developer-card:hover .card-icon {
+            transform: scale(1) rotate(2deg);
+        }
 
-        .bg-orbs-about {
+        .developer-card h3 {
+            font-weight: 800;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .developer-card p {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Custom Button Styling */
+        .developer-card .cta-button {
+            margin-top: auto;
+            border-radius: 50px;
+            padding: 12px 28px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            border: 2px solid var(--accent-blue);
+            color: var(--accent-blue);
+            background: transparent;
+        }
+
+        .developer-card .cta-button:hover {
+            background: var(--accent-blue);
+            color: white;
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .bg-orbs-dev {
             position: absolute;
             top: 0;
             left: 0;
@@ -123,6 +161,11 @@
             height: 100%;
             overflow: hidden;
             z-index: -1;
+        }
+
+        .cta-button {
+            margin-top: auto;
+            align-self: flex-start;
         }
     </style>
 </head>
@@ -156,7 +199,8 @@
                 <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="docs.html">Article</a>
                 <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="about.html">About</a>
                 <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="overview.html">Stack</a>
-                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="developer.html">Contact Me</a>
+                <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none active" href="developer.html">Contact
+                    Me</a>
                 <button id="theme-toggle" class="btn btn-link text-decoration-none ms-lg-2 p-0 border-0 my-2 my-lg-0"
                     aria-label="Toggle Dark Mode" style="color: var(--nav-text); font-size: 1.2rem;">
                     <i class="fa-solid fa-moon"></i>
@@ -172,119 +216,136 @@
             <div class="row align-items-center">
                 <div class="col-lg-8" data-aos="fade-right">
                     <h1 class="display-3 fw-bold font-archivo-black mb-4 hero-gradient-text">
-                        About This Ecosystem
+                        Let's Connect
                     </h1>
                     <p class="lead-text mb-5 font-awesome text-muted">
-                        Asymptra is an experimental platform where data meets Artificial Intelligence.
-                        Most of the application uses Large Language Models (LLMs) as the mediator from user to backend
-                        to process
-                        information and generate
-                        insights.
+                        Whether you want to build something new, improve an existing system, or just explore crazy
+                        ideas,
+                        Asymptra Labs is open for collaboration.
                     </p>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Mission / Stats Section -->
+    <!-- Services Options Section -->
     <section class="section py-5">
         <div class="container">
-            <div class="row g-4 mb-5">
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
-                    <div class="principle-card">
-                        <div class="stat-number mb-2">5</div>
-                        <h5 class="fw-bold">Active Experiments</h5>
-                        <p class="text-muted small">Ongoing Apps projects running in real-time.</p>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="principle-card">
-                        <div class="stat-number mb-2">Why</div>
-                        <h5 class="fw-bold">The Purpose</h5>
-                        <p class="text-muted small">To bridge the gap between abstract thought and concrete software.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="principle-card">
-                        <div class="stat-number mb-2">How</div>
-                        <h5 class="fw-bold">The Method</h5>
-                        <p class="text-muted small">Rapid prototyping, data-driven validation, and iterative design.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Core Values Section -->
-    <section class="section py-5 mb-5">
-        <div class="container">
-            <h2 class="about-section-title text-center mb-5" data-aos="fade-up">Core Principles</h2>
-
             <div class="row g-4">
-                <div class="col-md-6" data-aos="fade-up">
-                    <div class="d-flex gap-4">
-                        <div class="principle-icon">
-                            <i class="fa-solid fa-shapes"></i>
+                <!-- Collaboration -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="developer-card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-handshake"></i>
                         </div>
-                        <div>
-                            <h4 class="fw-bold">Systems over Motivation</h4>
-                            <p class="text-muted">
-                                Motivation is fleeting. Systems are reliable. We build structures that ensure progress
-                                regardless of how we feel.
-                            </p>
-                        </div>
+                        <h3>Open Collaboration</h3>
+                        <p class="text-muted mb-4">
+                            Got an interesting idea but need a technical partner? Let's build something open-source or
+                            experimental together.
+                        </p>
+                        <a href="#contact" class="btn btn-outline-primary rounded-pill px-4 cta-button">Let's Talk</a>
                     </div>
                 </div>
 
-                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="d-flex gap-4">
-                        <div class="principle-icon">
-                            <i class="fa-solid fa-chart-line"></i>
+                <!-- Hire Me -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="developer-card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-briefcase"></i>
                         </div>
-                        <div>
-                            <h4 class="fw-bold">Data before Intuition</h4>
-                            <p class="text-muted font-awesome">
-                                Gut feelings are good starting points, but terrible conclusions. We verify every
-                                assumption with data.
-                            </p>
-                        </div>
+                        <h3>Professional Services</h3>
+                        <p class="text-muted mb-4">
+                            Need a <b>Web/App Developer</b>, <b>Data Scientist</b> or <b>AI Engineer</b>? I offer
+                            professional services for
+                            custom
+                            AI solutions, web apps, and data analysis.
+                        </p>
+                        <a href="#contact" class="btn btn-outline-primary rounded-pill px-4 cta-button">Get a Quote</a>
                     </div>
                 </div>
 
-                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="d-flex gap-4">
-                        <div class="principle-icon">
-                            <i class="fa-solid fa-microchip"></i>
+                <!-- Project Inquiry -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="developer-card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-lightbulb"></i>
                         </div>
-                        <div>
-                            <h4 class="fw-bold">AI as a Mediator</h4>
-                            <p class="text-muted">
-                                We don't fear AI; we collaborate with it. It serves as a reasoning layer between raw
-                                data and human insight.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="d-flex gap-4">
-                        <div class="principle-icon">
-                            <i class="fa-regular fa-eye"></i>
-                        </div>
-                        <div>
-                            <h4 class="fw-bold">Clarity Matters</h4>
-                            <p class="text-muted">
-                                Complexity is easy. Simplicity is hard. We strive to make complex ideas accessible and
-                                simple to use.
-                            </p>
-                        </div>
+                        <h3>Project Proposal</h3>
+                        <p class="text-muted mb-4">
+                            Have a specific project in mind? Submit your proposal and let's see if our constellations
+                            align.
+                        </p>
+                        <a href="#contact" class="btn btn-outline-primary rounded-pill px-4 cta-button">Submit Idea</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="section contact mb-5" data-aos="fade-up">
+        <div class="contact-grid">
+            <!-- Left Column: Hook & Info -->
+            <div class="contact-left">
+                <h2 class="org">Lets allign our <span class="accent">Constellation</span></h2>
+                <p class="contact-lead">
+                    Fill out the form below to get in touch. Whether it's a simple question or a complex proposal, I'm
+                    all ears.
+                </p>
+
+                <div class="contact-details">
+                    <div class="detail-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>fahmialfayadh@outlook.com</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Surabaya, Indonesia</span>
+                    </div>
+                </div>
+
+                <div class="social-links left-align">
+                    <a href="https://github.com/fahmialfayadh" target="_blank" aria-label="Github"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://instagram.com/fahmialfayadh" target="_blank" aria-label="Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com/in/fahmialfayadh" target="_blank" aria-label="LinkedIn"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://kaggle.com/fahmialfayadh" target="_blank" aria-label="Kaggle"><i
+                            class="fab fa-kaggle"></i></a>
+                </div>
+            </div>
+
+            <!-- Right Column: Form -->
+            <div class="contact-right">
+                <form action="https://formspree.io/f/mblzywpj" method="POST" class="glass-form">
+                    <div class="row">
+                        <div class="input-group">
+                            <input type="text" name="name" placeholder="Name" required />
+                        </div>
+                        <div class="input-group">
+                            <input type="email" name="email" placeholder="Email (Optional)" />
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <select name="type" class="form-select custom-select">
+                            <option value="Collaboration">Collaboration</option>
+                            <option value="Hiring">Hiring / Services</option>
+                            <option value="Project Proposal">Project Proposal</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <textarea name="message" placeholder="Tell me about your project or idea..." rows="5"
+                            required></textarea>
+                    </div>
+                    <button class="btn primary full-width" type="submit">
+                        Send Message <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <!-- BACKGROUND ORBS -->
     <div class="bg-orbs">
@@ -383,6 +444,5 @@
     </footer>
 
 </body>
-
 
 </html>

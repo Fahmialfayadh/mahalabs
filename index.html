@@ -58,7 +58,7 @@
   <script>
     (function () {
       const savedTheme = localStorage.getItem('theme');
-      if (savedTheme !== 'light') {
+      if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark-mode');
         document.body ? document.body.classList.add('dark-mode') : null;
       }
@@ -89,22 +89,36 @@
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
-  <nav class="navbar navbar-expand-lg px-5">
+  <nav class="navbar navbar-expand-lg px-3 px-lg-5 fixed-top navbar-glass">
     <a class="navbar-brand logo-text d-flex align-items-center" href="./index.html">
       <img src="assets/logo3.png" alt="Logo" width="30" height="30" class="me-2 rounded-circle">
       Asymptra Labs
     </a>
-    <div class="ms-auto">
-      <a class="me-3 text-decoration-none text-nav-text" href="#featured-section">Experiments</a>
-      <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="docs.html">Article</a>
-      <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="overview.html">Stack</a>
-      <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="about.html">About</a>
+    <!-- Mobile Toggle Button with Custom SVG -->
+    <button class="navbar-toggler border-0 p-0 ms-auto" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+        class="custom-burger-icon">
+        <path d="M4 12H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M4 6H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M4 18H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
 
-      <button id="theme-toggle" class="btn btn-link text-decoration-none ms-3 p-0 border-0"
-        aria-label="Toggle Dark Mode" style="color: var(--nav-text); font-size: 1.2rem;">
-        <i class="fa-solid fa-moon"></i>
-      </button>
+    <div class="collapse navbar-collapse order-lg-1" id="navbarNav">
+      <div class="d-flex align-items-center ms-auto flex-column flex-lg-row">
+        <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="#featured-section">Experiments</a>
+        <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="docs.html">Article</a>
+        <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="about.html">About</a>
+        <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="overview.html">Stack</a>
+        <a class="me-lg-3 my-2 my-lg-0 text-navbar text-decoration-none" href="developer.html">Contact Me</a>
 
+        <button id="theme-toggle" class="btn btn-link text-decoration-none ms-lg-2 p-0 border-0 my-2 my-lg-0"
+          aria-label="Toggle Dark Mode" style="color: var(--nav-text); font-size: 1.2rem;">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+
+      </div>
     </div>
   </nav>
 
@@ -208,7 +222,8 @@
           <span class="footer-logo-text">Asymptra Labs</span>
         </a>
         <p class="footer-bio">
-          A data-driven experimental lab ecosystem, exploring the intersection of data intelligence, AI, and digital utilities.
+          A data-driven experimental lab ecosystem, exploring the intersection of data intelligence, AI, and digital
+          utilities.
         </p>
       </div>
 
@@ -219,8 +234,9 @@
           <ul class="footer-nav-list">
             <li><a href="./index.html#featured-section">Experiments</a></li>
             <li><a href="./docs.html">Article</a></li>
-            <li><a href="./overview.html">Stack</a></li>
             <li><a href="./about.html">About</a></li>
+            <li><a href="./overview.html">Stack</a></li>
+            <li><a href="./developer.html">Contact Me</a></li>
           </ul>
         </div>
         <div class="footer-nav">
@@ -239,23 +255,27 @@
       <div class="footer-founder">
         <h6 class="footer-nav-title">Founder & Developer</h6>
         <a href="https://fahmialfayadh.site" target="_blank" rel="noopener">
-        <p class="footer-founder-name">Fahmi Alfayadh</p>
+          <p class="footer-founder-name">Fahmi Alfayadh</p>
         </a>
         <p class="footer-founder-role">AI Engineering Student</p>
         <p class="footer-founder-desc">
           Building tools shaped by intrusive and unresolved thoughts. Bridging abstract ideas and concrete software.
         </p>
         <div class="footer-socials">
-          <a href="https://github.com/fahmialfayadh" class="footer-social-btn" target="_blank" rel="noopener" aria-label="GitHub">
+          <a href="https://github.com/fahmialfayadh" class="footer-social-btn" target="_blank" rel="noopener"
+            aria-label="GitHub">
             <i class="fab fa-github"></i>
           </a>
-          <a href="https://linkedin.com/in/fahmialfayadh" class="footer-social-btn" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <a href="https://linkedin.com/in/fahmialfayadh" class="footer-social-btn" target="_blank" rel="noopener"
+            aria-label="LinkedIn">
             <i class="fab fa-linkedin-in"></i>
           </a>
-          <a href="https://instagram.com/fahmialfayadh" class="footer-social-btn" target="_blank" rel="noopener" aria-label="Instagram">
+          <a href="https://instagram.com/fahmialfayadh" class="footer-social-btn" target="_blank" rel="noopener"
+            aria-label="Instagram">
             <i class="fab fa-instagram"></i>
           </a>
-          <a href="https://kaggle.com/fahmialfayadh" class="footer-social-btn" target="_blank" rel="noopener" aria-label="Kaggle">
+          <a href="https://kaggle.com/fahmialfayadh" class="footer-social-btn" target="_blank" rel="noopener"
+            aria-label="Kaggle">
             <i class="fab fa-kaggle"></i>
           </a>
         </div>
