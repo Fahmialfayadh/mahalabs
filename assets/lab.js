@@ -25,6 +25,77 @@ function initBackToTop() {
     });
 }
 
+function initScrollExpandAnimation() {
+    // Select all cards we want to animate individually
+    const cards = document.querySelectorAll('#featured-card, .lab-card');
+    if (cards.length === 0) return;
+
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const windowHeight = window.innerHeight;
+                const windowCenter = windowHeight / 2;
+
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+
+                    // Find the center of the card relative to viewport
+                    const cardCenter = rect.top + (rect.height / 2);
+
+                    // Calculate distance from screen center
+                    const distance = Math.abs(windowCenter - cardCenter);
+
+                    // Maximum distance at which the effect starts (half screen)
+                    const maxDistance = windowHeight / 1.5;
+
+                    // Normalized distance (0 at center, 1 at edge or beyond)
+                    let normalized = distance / maxDistance;
+                    normalized = Math.max(0, Math.min(1, normalized));
+
+                    // Invert progress: 1 is center, 0 is edge
+                    const progress = 1 - normalized;
+
+                    // Map progress to scale (0.93 edge to 1.0 center)
+                    const minScale = 0.93;
+                    let targetScale = minScale + ((1 - minScale) * progress);
+
+                    // Optional: Smoothly snap completely to 1.0 when very close to center
+                    if (progress > 0.85) {
+                        targetScale = 1.0;
+                    }
+
+                    card.style.setProperty('--scroll-scale', targetScale);
+
+                    // Calculate Width and Radius for featured cards
+                    // Map progress to width (80% edge to 100% center)
+                    let targetWidth = 80 + (20 * progress);
+
+                    // Map progress to border-radius (48px edge to 16px center)
+                    let targetRadius = 48 - (32 * progress);
+
+                    // Optional: Smoothly snap completely to 100% when very close to center
+                    if (progress > 0.85) {
+                        targetWidth = 100;
+                        targetRadius = 16;
+                    }
+
+                    // Apply to CSS variables
+                    card.style.setProperty('--card-width', `${targetWidth}%`);
+                    card.style.setProperty('--card-radius', `${targetRadius}px`);
+                });
+
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Trigger once on load to establish initial states
+    window.dispatchEvent(new CustomEvent('scroll'));
+}
+
 async function fetchAndRenderProjects() {
     const featuredContainer = document.getElementById('featured-container');
     const experimentsGrid = document.querySelector('.experiments-grid');
@@ -140,9 +211,10 @@ async function fetchAndRenderProjects() {
         // Note: AOS was locally imported via script tag in index.html, so it should be available globally.
         if (window.AOS) {
             window.AOS.init({
-                duration: 800,
+                duration: 1000,
+                easing: 'ease-out-cubic',
                 once: true,
-                offset: 50
+                offset: 80
             });
         }
 
@@ -154,6 +226,9 @@ async function fetchAndRenderProjects() {
 
         // Initialize Filter Logic
         initFilters(projects);
+
+        // Initialize Scroll Expand Logic after DOM injection
+        initScrollExpandAnimation();
 
         // Initialize Dark Mode (Moved to theme.js)
         // initDarkMode();

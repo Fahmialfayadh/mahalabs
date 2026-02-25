@@ -17,14 +17,19 @@ async function fetchDocs() {
         renderSidebar();
 
         // Mobile: show article list, Desktop: load first article
+        const idFromUrl = getDocIdFromUrl() || (window.location.hash ? window.location.hash.substring(1) : null);
+
         if (window.innerWidth <= 768) {
             renderMobileArticleList();
-            showArticleList();
-        } else if (window.location.hash) {
-            const id = window.location.hash.substring(1);
-            loadDocContent(id);
+            if (idFromUrl) {
+                loadDocContent(idFromUrl);
+            } else {
+                showArticleList();
+            }
+        } else if (idFromUrl) {
+            loadDocContent(idFromUrl);
         } else if (allDocs.length > 0) {
-            loadDocContent(allDocs[0].id);
+            showLanding();
         } else {
             document.getElementById('docs-nav-content').innerHTML = '<p class="text-muted small">No documents found.</p>';
         }
@@ -35,8 +40,11 @@ async function fetchDocs() {
             const fallbackResponse = await fetch('docs.json');
             allDocs = await fallbackResponse.json();
             renderSidebar();
-            if (allDocs.length > 0) {
-                loadDocContent(allDocs[0].id);
+            const idFromUrl = getDocIdFromUrl() || (window.location.hash ? window.location.hash.substring(1) : null);
+            if (idFromUrl) {
+                loadDocContent(idFromUrl);
+            } else if (allDocs.length > 0) {
+                showLanding();
             }
         } catch (fallbackError) {
             console.error('Fallback also failed:', fallbackError);
@@ -68,10 +76,24 @@ function renderSidebar() {
 
     sortedCategories.forEach(categoryObj => {
         const category = categoryObj.name;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'docs-nav-category-wrapper';
+        wrapper.dataset.category = category;
+
+        // Expand the first category by default, or you can expand 'App'
+        if (category === 'App') wrapper.classList.add('expanded');
+
         const catHeader = document.createElement('div');
-        catHeader.className = 'docs-nav-category';
-        catHeader.textContent = category;
-        nav.appendChild(catHeader);
+        catHeader.className = 'docs-nav-category-header';
+        catHeader.innerHTML = `<span>${category}</span> <i class="fa-solid fa-chevron-down"></i>`;
+        catHeader.onclick = () => {
+            wrapper.classList.toggle('expanded');
+        };
+        wrapper.appendChild(catHeader);
+
+        const contentWrapper = document.createElement('div');
+        contentWrapper.className = 'docs-nav-category-content';
 
         // Sort docs by 'order' then 'title'
         const sortedDocs = categoryObj.docs.sort((a, b) => {
@@ -84,17 +106,96 @@ function renderSidebar() {
         sortedDocs.forEach(doc => {
             const link = document.createElement('a');
             link.className = 'docs-nav-item';
-            link.href = `#${doc.id}`;
+
+            // Allow clicking to trigger via url parameter updating or hash
+            link.href = `?id=${doc.id}`;
+
             link.textContent = doc.title;
             link.onclick = (e) => {
-                // Allow hash update
-                // Scroll to top of content wrapper or just stay
-                setTimeout(() => loadDocContent(doc.id), 0);
+                e.preventDefault();
+                loadDocContent(doc.id);
             };
             link.dataset.id = doc.id;
-            nav.appendChild(link);
+            contentWrapper.appendChild(link);
         });
+
+        wrapper.appendChild(contentWrapper);
+        nav.appendChild(wrapper);
     });
+}
+
+function showLanding() {
+    // Update URL without reloading
+    const newUrl = window.location.pathname;
+    window.history.pushState({}, '', newUrl);
+
+    // Update Active State
+    document.querySelectorAll('.docs-nav-item').forEach(el => el.classList.remove('active'));
+
+    const landing = document.getElementById('docs-landing');
+    const container = document.getElementById('docs-article-view');
+    const mobileBackBtn = document.getElementById('mobile-back-btn');
+
+    if (landing) landing.style.display = 'block';
+    if (container) {
+        container.style.display = 'none';
+        container.innerHTML = '';
+    }
+
+    // Hide mobile back button if present
+    if (mobileBackBtn) mobileBackBtn.classList.add('hidden');
+
+    renderCategoriesGrid();
+}
+
+function renderCategoriesGrid() {
+    const grid = document.getElementById('categories-grid');
+    if (!grid) return;
+
+    const categoryInfo = [
+        { name: 'App', icon: 'fa-cube', desc: 'Core applications and functional tools, structured around solving real problems.' },
+        { name: 'Research', icon: 'fa-microscope', desc: 'Deep-dives, data analysis, whitepapers, and comprehensive studies.' },
+        { name: 'Experiments', icon: 'fa-vial', desc: 'Prototypes, cutting-edge proofs of concept, and labs.' },
+        { name: 'Concepts', icon: 'fa-lightbulb', desc: 'Roadmaps, drafts, guides, and unimplemented ideas.' }
+    ];
+
+    grid.innerHTML = categoryInfo.map((cat, index) => {
+        const count = allDocs.filter(d => (d.category || 'General') === cat.name).length;
+        return `
+        <div class="col-12 col-md-6 col-lg-6" data-aos="fade-up" data-aos-delay="${index * 100}">
+            <div class="category-card" onclick="openCategory('${cat.name}')">
+                <div class="category-icon-wrapper">
+                    <i class="fa-solid ${cat.icon}"></i>
+                </div>
+                <div>
+                    <h5 class="category-title">${cat.name}</h5>
+                    <p class="category-desc">${cat.desc}</p>
+                    <span class="category-count">
+                        ${count} Article${count !== 1 ? 's' : ''}
+                        <i class="fa-solid fa-arrow-right ms-2 category-arrow"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        `;
+    }).join('');
+}
+
+function openCategory(categoryName) {
+    // Find the category wrapper in sidebar and expand it
+    const wrappers = document.querySelectorAll('.docs-nav-category-wrapper');
+    wrappers.forEach(wrapper => {
+        if (wrapper.dataset.category === categoryName) {
+            wrapper.classList.add('expanded');
+        } else {
+            wrapper.classList.remove('expanded');
+        }
+    });
+
+    const categoryDocs = allDocs.filter(d => (d.category || 'General') === categoryName);
+    if (categoryDocs.length > 0) {
+        loadDocContent(categoryDocs[0].id);
+    }
 }
 
 // Render Mobile Article List
@@ -131,12 +232,14 @@ function renderMobileArticleList() {
 
 function showArticleList() {
     const articleList = document.getElementById('mobile-article-list');
-    const mainContent = document.getElementById('docs-main-content');
+    const mainContent = document.getElementById('docs-article-view'); // Replaced
+    const landing = document.getElementById('docs-landing');
     const backBtn = document.getElementById('mobile-back-btn');
 
-    if (window.innerWidth <= 768 && articleList && mainContent) {
+    if (window.innerWidth <= 768 && articleList && (mainContent || landing)) {
         articleList.classList.remove('hidden');
-        mainContent.classList.add('list-mode');
+        if (mainContent) mainContent.classList.add('list-mode');
+        if (landing) landing.style.display = 'none';
         if (backBtn) backBtn.classList.add('hidden');
 
         // Scroll to top
@@ -146,12 +249,14 @@ function showArticleList() {
 
 function showArticleDetail() {
     const articleList = document.getElementById('mobile-article-list');
-    const mainContent = document.getElementById('docs-main-content');
+    const mainContent = document.getElementById('docs-article-view'); // Replaced
+    const landing = document.getElementById('docs-landing');
     const backBtn = document.getElementById('mobile-back-btn');
 
-    if (window.innerWidth <= 768 && articleList && mainContent) {
+    if (window.innerWidth <= 768 && articleList && (mainContent || landing)) {
         articleList.classList.add('hidden');
-        mainContent.classList.remove('list-mode');
+        if (mainContent) mainContent.classList.remove('list-mode');
+        if (landing) landing.style.display = 'none';
         if (backBtn) backBtn.classList.remove('hidden');
 
         // Scroll to top
@@ -162,14 +267,32 @@ function showArticleDetail() {
 function loadDocContent(id) {
     const doc = allDocs.find(d => d.id === id);
 
-    if (!doc) return;
+    if (!doc) {
+        showLanding();
+        return;
+    }
     // Update URL without reloading
     const newUrl = window.location.pathname + '?id=' + id;
     window.history.pushState({ id: id }, '', newUrl);
+
+    // Switch views
+    const landing = document.getElementById('docs-landing');
+    const container = document.getElementById('docs-article-view');
+    if (landing) landing.style.display = 'none';
+    if (container) container.style.display = 'block';
+
     // Update Active State
     document.querySelectorAll('.docs-nav-item').forEach(el => el.classList.remove('active'));
+
+    // Also expand parent wrapper if collapsed
     const activeLink = document.querySelector(`.docs-nav-item[data-id="${id}"]`);
-    if (activeLink) activeLink.classList.add('active');
+    if (activeLink) {
+        activeLink.classList.add('active');
+        const wrapper = activeLink.closest('.docs-nav-category-wrapper');
+        if (wrapper && !wrapper.classList.contains('expanded')) {
+            wrapper.classList.add('expanded');
+        }
+    }
 
     // Build Audio Player HTML if audio_file exists
     let audioPlayerHTML = '';
@@ -208,7 +331,6 @@ function loadDocContent(id) {
     }
 
     // Render Content
-    const container = document.getElementById('docs-main-content');
     container.innerHTML = `
     <div data-aos="fade-in" class="docs-article-container fade-in">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -447,14 +569,12 @@ function getDocIdFromUrl() {
     return urlParams.get('id'); // Akan mengembalikan null kalau tidak ada ?id=
 }
 
-// Handler utama saat URL berubah (karena tombol Back/Forward)
 window.addEventListener('popstate', () => {
     const id = getDocIdFromUrl();
     if (id) {
         loadDocContent(id);
     } else {
-        // Balikin ke konten default atau dokumen pertama jika ID hilang
-        loadDocContent(allDocs[0].id);
+        showLanding();
     }
 });
 
@@ -462,12 +582,11 @@ window.addEventListener('hashchange', () => {
     //jangan dari search
     const urlParams = new URLSearchParams(window.location.search);
     const initialId = urlParams.get('id');
-    const id = getDocIdFromUrl();
+    const id = getDocIdFromUrl() || (window.location.hash ? window.location.hash.substring(1) : null);
     if (id) {
         loadDocContent(id);
     } else {
-        // Jika cuma /docs.html, tampilkan yang pertama
-        loadDocContent(allDocs[0].id);
+        showLanding();
     }
 });
 

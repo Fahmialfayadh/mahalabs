@@ -133,13 +133,26 @@
                     <i class="fa-solid fa-arrow-left me-2"></i> Back to Articles
                 </button>
 
-                <div class="text-center text-muted py-5">
-                    <i class="fa-regular fa-folder-open fa-3x mb-3"></i>
-                    <h4>Select a topic from the sidebar</h4>
+                <!-- Landing View Container -->
+                <div id="docs-landing" class="docs-landing">
+                    <div class="text-center mb-5 fade-in">
+                        <h1 class="display-5 fw-bold mb-3"
+                            style="font-family: 'Outfit', sans-serif; color: var(--text-main);">
+                            Knowledge <span
+                                style="background: var(--hero-color); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Base</span>
+                        </h1>
+                        <p class="lead text-muted" style="font-size: 1.15rem;">Explore our research, experimental
+                            applications, and documentation.</p>
+                    </div>
+                    <div class="row g-4 justify-content-center" id="categories-grid">
+                        <!-- Dynamic categories will be injected here -->
+                    </div>
                 </div>
+
+                <!-- Article Content Container -->
+                <div id="docs-article-view" style="display: none;"></div>
             </div>
         </main>
-    </div>
     </div>
     <!-- End Article Tab -->
 
