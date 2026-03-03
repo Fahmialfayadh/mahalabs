@@ -28,7 +28,7 @@
   --font-body: 'Inter', sans-serif;
   --search-placeholder: #9CA3AF;
   --desc-color: #000000;
-  --hero-color: linear-gradient(135deg, #1e1b4b 0%, #4338ca 50%, #7e22ce 100%);
+  --hero-color: linear-gradient(135deg, #1e1b4b 0%, #4338ca 40%, #7e22ce 70%, #be123c 100%);
   --labcard-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.1) 100%);
 
   --data-desc: #64748b;
@@ -81,7 +81,7 @@
   --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
   --search-placeholder: #aaaaaa;
   --desc-color: #ffffff;
-  --hero-color: linear-gradient(135deg, #979797 0%, #4338ca 50%, #7e22ce 100%);
+  --hero-color: linear-gradient(135deg, #94a3b8 0%, #818cf8 40%, #c084fc 70%, #fb7185 100%);
   --labcard-bg: linear-gradient(135deg, rgba(51, 51, 51, 0.6) 0%, rgba(255, 255, 255, 0.1) 100%);
   --data-desc: #ffffff;
 
@@ -388,9 +388,8 @@ nav a {
 .hero {
   padding: 140px 0 80px;
   position: relative;
-  z-index: 1;
+  /* No z-index: do not create a stacking context so .search-wrapper can escape above the overlay */
   text-align: center;
-  /* Enforce center */
 }
 
 /* User's manual center fix corrected */
@@ -626,35 +625,36 @@ nav a {
   display: inline-block;
   width: 40%;
   max-width: 500px;
-  transition: width 0.5s ease;
-  z-index: 0;
-  /* High base index */
+  transition: width 0.5s ease, z-index 0s ease;
+  z-index: 1;
 }
 
 /* Search Overlay */
 #search-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  z-index: 0;
-  /* Between hero content and search wrapper */
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: -1;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  /* When hiding: fade out first (0.3s), THEN drop z-index (delay 0.3s) */
+  transition: opacity 0.3s ease, z-index 0s ease 0.3s;
 }
 
 body.search-active #search-overlay {
+  z-index: 1999; /* above navbar (1030) and all page content */
   opacity: 1;
   pointer-events: auto;
+  /* When showing: raise z-index immediately, then fade in opacity */
+  transition: opacity 0.3s ease, z-index 0s ease 0s;
 }
 
 .search-wrapper:focus-within {
   width: 100%;
-  transform: scale(1.35);
-  z-index: 2002;
-  /* Ensure it stays on top */
+  transform: scale(1.1);
+  z-index: 2002; /* above overlay (1999), stays on top */
 }
 
 /* Mobile search adjustment */
@@ -1015,13 +1015,32 @@ body {
 .experiments-grid .lab-card {
   background: #fefaf2;
   border: 1px solid #e3dbd0;
+  border-left: 2.5px solid rgba(99, 102, 241, 0.3);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
 
+/* Colored left border per slot */
+.experiments-grid .lab-card:nth-child(4n+1) {
+  border-left: 2.5px solid rgba(99, 102, 241, 0.35);
+}
+
+.experiments-grid .lab-card:nth-child(4n+2) {
+  border-left: 2.5px solid rgba(168, 85, 247, 0.35);
+}
+
+.experiments-grid .lab-card:nth-child(4n+3) {
+  border-left: 2.5px solid rgba(6, 182, 212, 0.35);
+}
+
+.experiments-grid .lab-card:nth-child(4n+4) {
+  border-left: 2.5px solid rgba(244, 63, 94, 0.35);
+}
+
 .experiments-grid .lab-card:nth-child(4n+1):hover {
   border-color: #6366f1;
+  border-left-color: #6366f1;
   box-shadow: 0 20px 48px rgba(99, 102, 241, 0.14);
   background: #fefaf2;
   transform: translateY(-6px);
@@ -1029,6 +1048,7 @@ body {
 
 .experiments-grid .lab-card:nth-child(4n+2):hover {
   border-color: #a855f7;
+  border-left-color: #a855f7;
   box-shadow: 0 20px 48px rgba(168, 85, 247, 0.14);
   background: #fefaf2;
   transform: translateY(-6px);
@@ -1036,6 +1056,7 @@ body {
 
 .experiments-grid .lab-card:nth-child(4n+3):hover {
   border-color: #06b6d4;
+  border-left-color: #06b6d4;
   box-shadow: 0 20px 48px rgba(6, 182, 212, 0.14);
   background: #fefaf2;
   transform: translateY(-6px);
@@ -1043,6 +1064,7 @@ body {
 
 .experiments-grid .lab-card:nth-child(4n+4):hover {
   border-color: #f43f5e;
+  border-left-color: #f43f5e;
   box-shadow: 0 20px 48px rgba(244, 63, 94, 0.14);
   background: #fefaf2;
   transform: translateY(-6px);
@@ -1054,6 +1076,23 @@ body {
   border-color: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+}
+
+/* Dark mode colored left borders */
+.dark-mode .experiments-grid .lab-card:nth-child(4n+1) {
+  border-left: 2.5px solid rgba(99, 102, 241, 0.45);
+}
+
+.dark-mode .experiments-grid .lab-card:nth-child(4n+2) {
+  border-left: 2.5px solid rgba(168, 85, 247, 0.45);
+}
+
+.dark-mode .experiments-grid .lab-card:nth-child(4n+3) {
+  border-left: 2.5px solid rgba(6, 182, 212, 0.45);
+}
+
+.dark-mode .experiments-grid .lab-card:nth-child(4n+4) {
+  border-left: 2.5px solid rgba(244, 63, 94, 0.45);
 }
 
 /* Dark Mode Hover Overrides */
@@ -1086,11 +1125,27 @@ body {
   height: 6px;
   /* Slightly thicker */
   border-radius: 99px;
-  background: linear-gradient(90deg, #e2e8f0, #cbd5e1);
-  /* Neutral default */
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.35), rgba(99, 102, 241, 0.1));
   margin-bottom: 20px;
   opacity: 1;
   transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+}
+
+/* Accent bars — colored by default per slot (subtle) */
+.experiments-grid .lab-card:nth-child(4n+1) .accent {
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.55), rgba(99, 102, 241, 0.15));
+}
+
+.experiments-grid .lab-card:nth-child(4n+2) .accent {
+  background: linear-gradient(90deg, rgba(168, 85, 247, 0.55), rgba(168, 85, 247, 0.15));
+}
+
+.experiments-grid .lab-card:nth-child(4n+3) .accent {
+  background: linear-gradient(90deg, rgba(6, 182, 212, 0.55), rgba(6, 182, 212, 0.15));
+}
+
+.experiments-grid .lab-card:nth-child(4n+4) .accent {
+  background: linear-gradient(90deg, rgba(244, 63, 94, 0.55), rgba(244, 63, 94, 0.15));
 }
 
 /* Dynamic Accents on Hover */
@@ -1194,7 +1249,7 @@ body {
   height: 420px;
   border-radius: 50%;
   filter: blur(120px);
-  opacity: .35;
+  opacity: .45;
   animation: float 18s infinite alternate ease-in-out;
 }
 
@@ -1349,10 +1404,15 @@ body {
 }
 
 .filter-btn.active {
-  background: #1e293b;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
   color: white;
-  border-color: #1e293b;
-  box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2);
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+}
+
+.dark-mode .filter-btn.active {
+  background: linear-gradient(135deg, #6366f1, #9333ea);
+  box-shadow: 0 4px 14px rgba(147, 51, 234, 0.4);
 }
 
 /* Filter Animation */
@@ -1774,6 +1834,48 @@ body {
   color: var(--text-muted);
 }
 
+/* Colorful category chips per card slot */
+.experiments-grid .lab-card:nth-child(4n+1) .card-category-chip {
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+}
+
+.experiments-grid .lab-card:nth-child(4n+2) .card-category-chip {
+  background: rgba(168, 85, 247, 0.1);
+  color: #a855f7;
+}
+
+.experiments-grid .lab-card:nth-child(4n+3) .card-category-chip {
+  background: rgba(6, 182, 212, 0.1);
+  color: #06b6d4;
+}
+
+.experiments-grid .lab-card:nth-child(4n+4) .card-category-chip {
+  background: rgba(244, 63, 94, 0.1);
+  color: #f43f5e;
+}
+
+/* Dark mode colored chips */
+.dark-mode .experiments-grid .lab-card:nth-child(4n+1) .card-category-chip {
+  background: rgba(99, 102, 241, 0.18);
+  color: #818cf8;
+}
+
+.dark-mode .experiments-grid .lab-card:nth-child(4n+2) .card-category-chip {
+  background: rgba(168, 85, 247, 0.18);
+  color: #c084fc;
+}
+
+.dark-mode .experiments-grid .lab-card:nth-child(4n+3) .card-category-chip {
+  background: rgba(6, 182, 212, 0.18);
+  color: #22d3ee;
+}
+
+.dark-mode .experiments-grid .lab-card:nth-child(4n+4) .card-category-chip {
+  background: rgba(244, 63, 94, 0.18);
+  color: #fb7185;
+}
+
 .card-status-row {
   display: flex;
   align-items: center;
@@ -1791,6 +1893,7 @@ body {
 
 .card-status-dot.active {
   background: #22c55e;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
 }
 
 .card-status-text {
@@ -1913,11 +2016,21 @@ body {
 .site-footer {
   margin-top: 80px;
   padding: 64px 48px 32px;
-  border-top: 3px solid var(--card-border);
+  border-top: none;
   position: relative;
   z-index: 1;
   background: var(--bg-solid);
+}
 
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #6366f1 0%, #a855f7 33%, #06b6d4 66%, #f43f5e 100%);
+  border-radius: 0 0 2px 2px;
 }
 
 .footer-inner {
@@ -1984,6 +2097,30 @@ body {
   color: var(--bg-solid);
   border-color: var(--text-main);
   transform: translateY(-2px);
+}
+
+.footer-social-btn[aria-label="GitHub"]:hover {
+  background: #24292e;
+  border-color: #24292e;
+  color: #fff;
+}
+
+.footer-social-btn[aria-label="LinkedIn"]:hover {
+  background: #0077b5;
+  border-color: #0077b5;
+  color: #fff;
+}
+
+.footer-social-btn[aria-label="Instagram"]:hover {
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  border-color: #dc2743;
+  color: #fff;
+}
+
+.footer-social-btn[aria-label="Kaggle"]:hover {
+  background: #20beff;
+  border-color: #20beff;
+  color: #fff;
 }
 
 .footer-nav-title {
@@ -2137,7 +2274,8 @@ a {
   left: 0;
   width: 0%;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  background: linear-gradient(90deg, #6366f1, #a855f7, #06b6d4, #f43f5e);
+  background-size: 200% 100%;
   z-index: 9999;
   transition: width 0.1s linear;
   border-radius: 0 2px 2px 0;
